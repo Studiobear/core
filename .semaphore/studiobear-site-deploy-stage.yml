@@ -1,7 +1,7 @@
 version: v1.0
-name: Deploy Stage My Site
+name: Deploy Stage Studiobear
 blocks:
-  - name: Deploy My Site Stage to Netlify
+  - name: Deploy Studiobear Stage to Netlify
     task:
       secrets:
         - name: netlify-auth-svelte-monorepo
