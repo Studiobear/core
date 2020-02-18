@@ -1,9 +1,9 @@
 {
-  "name": "my-site",
-  "description": "my sample svelte sapper site",
+  "name": "studiobear-site",
+  "description": "Studiobear website",
   "version": "0.0.1",
   "main": "index.js",
-  "author": "Your name <your@email.address>",
+  "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "scripts": {
     "develop": "run-p --race dev cy:open",
@@ -73,6 +73,7 @@
     "sapper": "^0.27.9",
     "svelte": "^3.18.2",
     "svelte-jester": "^1.0.3",
+    "svelte-styled-system": "^0.0.5",
     "to-vfile": "^6.0.0",
     "unified": "^8.4.2",
     "unist-util-filter": "^2.0.1",
