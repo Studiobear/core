@@ -1,4 +1,5 @@
 <script>
+  import Box from './Box.svelte'
   export let segment
 </script>
 
@@ -48,7 +49,7 @@
   }
 </style>
 
-<nav>
+<Box as='nav'>
   <ul>
     <li>
       <a class:selected={segment === undefined} href=".">home</a>
@@ -63,4 +64,4 @@
       <a class:selected={segment === 'blog'} href="blog">blog</a>
     </li>
   </ul>
-</nav>
+</Box>

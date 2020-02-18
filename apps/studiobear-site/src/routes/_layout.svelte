@@ -1,7 +1,11 @@
 <script>
-  import Nav from '../components/Nav.svelte'
+  import { styled } from 'svelte-styled-system'
+  import { theme } from '../theme'
+
+  import { Nav, Button, Box } from '../components'
 
   export let segment
+  export let mode = 'basic'
 </script>
 
 <style>
@@ -17,6 +21,16 @@
 
 <Nav {segment} />
 
-<main>
+<main use:styled={[$$props, $theme]}>
+  <Button
+    bg={'colors.primary'}
+    p="space.xs"
+    color={'colors.secondary'}
+    on:click={() => {
+      mode === 'basic' ? theme.dark() : theme.reset()
+      return (mode = mode === 'basic' ? 'dark' : 'basic')
+    }}>
+    click to invert me!
+  </Button>
   <slot />
 </main>
