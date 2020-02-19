@@ -1,16 +1,16 @@
 <script>
-  import { styled } from "svelte-styled-system";
-  import theme from "../theme";
+  import { styled } from 'svelte-styled-system'
+  import theme from '../theme'
 
-  export let as = 'div';
+  export let as = 'div'
 </script>
 
-{#if !as || as === 'div'} 
+{#if !as || as === 'div'}
   <div use:styled={[$$props, $theme]}>
-    <slot></slot>
+    <slot />
   </div>
-{:else if as === 'nav'} 
-<nav use:styled={[$$props, $theme]}>
-  <slot></slot>
-</nav>
+{:else if as === 'nav'}
+  <nav use:styled={[$$props, $theme]}>
+    <slot />
+  </nav>
 {/if}

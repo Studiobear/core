@@ -49,7 +49,7 @@
   }
 </style>
 
-<Box as='nav'>
+<Box as="nav">
   <ul>
     <li>
       <a class:selected={segment === undefined} href=".">home</a>
