@@ -1,8 +1,8 @@
 {
-  "name": "my-svelte-component-library",
+  "name": "svelte-styled-system-components",
   "version": "0.0.1",
-  "description": "Your Svelte componentlibrary",
-  "author": "Your name <your@email.address>",
+  "description": "Styled system components for Svelte",
+  "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
@@ -49,6 +49,7 @@
     "svelte": "^3.18.2",
     "svelte-jester": "^1.0.3",
     "svelte-loader": "^2.13.6",
+    "svelte-styled-system": "^0.0.5",
     "webpack": "^4.41.6"
   },
   "peerDependencies": {
