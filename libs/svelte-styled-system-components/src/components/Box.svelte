@@ -1,7 +1,7 @@
 <script>
   import { styled } from 'svelte-styled-system'
   import theme from '../theme'
-
+  console.log(theme)
   export let as = 'div'
 </script>
 
