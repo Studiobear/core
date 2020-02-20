@@ -30,8 +30,10 @@
     "@storybook/svelte": "^6.0.0-alpha.14",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/svelte": "^1.11.0",
+    "@theme-ui/typography": "^0.3.0",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
+    "deepmerge": "^4.2.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
@@ -51,6 +53,8 @@
     "svelte-jester": "^1.0.3",
     "svelte-loader": "^2.13.6",
     "svelte-styled-system": "^0.0.5",
+    "typography": "^0.16.19",
+    "typography-theme-st-annes": "^0.16.19",
     "webpack": "^4.41.6"
   },
   "peerDependencies": {
