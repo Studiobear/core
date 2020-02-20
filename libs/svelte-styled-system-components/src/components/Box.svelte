@@ -7,10 +7,14 @@
 
 {#if !as || as === 'div'}
   <div use:styled={[$$props, $theme]}>
-    <slot />
+    <slot>
+      <em>no content was provided</em>
+    </slot>
   </div>
 {:else if as === 'nav'}
   <nav use:styled={[$$props, $theme]}>
-    <slot />
+    <slot>
+      <em>no content was provided</em>
+    </slot>
   </nav>
 {/if}

@@ -1,5 +1,12 @@
+const heading = {
+  color: 'text',
+  fontFamily: 'heading',
+  lineHeight: 'heading',
+  fontWeight: 'heading',
+}
+
 export const basic = {
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  scale: [0.25, 0.5, 0.75, 1, 1.5, 2, 4, 8],
   fonts: {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
@@ -90,6 +97,18 @@ export const basic = {
       maxWidth: '100%',
     },
   },
+}
+
+basic.space = {
+  none: '0',
+  xxs: `${basic.scale[0]}rem`,
+  xs: `${basic.scale[1]}rem`,
+  s: `${basic.scale[2]}rem`,
+  m: `${basic.scale[3]}rem`,
+  l: `${basic.scale[4]}rem`,
+  xl: `${basic.scale[5]}rem`,
+  xxl: `${basic.scale[6]}rem`,
+  xxxl: `${basic.scale[7]}rem`,
 }
 
 export default basic

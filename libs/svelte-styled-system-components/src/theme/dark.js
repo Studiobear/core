@@ -1,3 +1,10 @@
+const heading = {
+  color: 'text',
+  fontFamily: 'heading',
+  lineHeight: 'heading',
+  fontWeight: 'heading',
+}
+
 export const dark = {
   colors: {
     text: '#fff',
