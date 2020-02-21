@@ -1,15 +1,12 @@
 <script>
-  import { styled } from 'svelte-styled-system'
+  import { styled } from '../../../utils'
   import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
-  import getStyles from '../../../utils/mainStyle'
-
-  $: styles = getStyles($theme)
 
   export let style
 </script>
 
-<Box {...$$props} {styles} {style} theme={$theme}>
+<Box {...$$props} {style} theme={$theme}>
   <Box id="top" role="document">
     <header role="banner">
       <Heading as="h1" style={{ color: 'colors.primary' }}>

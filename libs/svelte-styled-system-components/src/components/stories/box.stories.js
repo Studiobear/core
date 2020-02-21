@@ -26,11 +26,13 @@ export const withBackground = () => ({
   Component: BoxView,
   props: {
     style: {
-      bg: 'colors.muted',
-      p: 'space.l',
-      m: 'space.l',
-      color: 'colors.primary',
-      brd: `3px solid ${basic.colors.primary}`,
+      bg: 'muted',
+      p: 'l',
+      m: 'l',
+      color: 'primary',
+      brd: `3px solid`,
+      brdcol: `secondary`,
+      _hover: { bg: 'secondary' },
     },
     boxText: 'Box with theme primary color background',
     role: 'header',

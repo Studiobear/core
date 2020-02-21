@@ -32,7 +32,7 @@ const bsl = 'baseline'
 const row = 'row'
 const rev = 'reverse'
 const col = 'col'
-const color = `${col}or`
+const color = `Color`
 const column = `${col}umn`
 const flex = 'flex'
 const bas = 'basis'
@@ -77,7 +77,7 @@ export const shortHandAttributes = new Map([
   ['pl', [`${p}-${l}`]],
   ['px', [`${p}-${l}`, `${p}-${r}`]],
   ['py', [`${p}-${t}`, `${p}-${b}`]],
-  [bg, [`${background}-${color}`]],
+  [bg, [`${background}${color}`]],
   [`${bg}${image}`, [`${background}-${image}`]],
   [`${bg}-${image}`, [`${background}-${image}`]],
   [`${bg}${size}`, [`${background}-${size}`]],
@@ -101,6 +101,7 @@ export const shortHandAttributes = new Map([
   [`${max}h`, [`${max}-${h}`]],
   [`${max}-h`, [`${max}-${h}`]],
   ['brd', [brd]],
+  ['brdcol', [`${brd}${color}`]],
   ['bt', [`${brd}-${t}`]],
   ['br', [`${brd}-${r}`]],
   ['bb', [`${brd}-${b}`]],
