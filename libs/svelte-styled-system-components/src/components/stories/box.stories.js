@@ -27,8 +27,8 @@ export const withBackground = () => ({
   props: {
     style: {
       bg: 'muted',
-      p: 'l',
-      m: 'l',
+      p: ['xl', 'xs', 'm'],
+      m: ['xl', 'xs', 'm'],
       color: 'primary',
       brd: `3px solid`,
       brdcol: `secondary`,
