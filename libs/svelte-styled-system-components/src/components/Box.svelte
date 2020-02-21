@@ -1,18 +1,21 @@
 <script>
-  import { styled } from 'svelte-styled-system'
+  //import { styled } from 'svelte-styled-system'
+  import { styled } from '../utils'
   import theme from '../theme'
-  console.log(theme)
   export let as = 'div'
+  export let style = {}
+  let role
+  console.log(theme, style, $$props)
 </script>
 
 {#if !as || as === 'div'}
-  <div use:styled={[$$props, $theme]}>
+  <div role={$$props.role} use:styled={[style, $theme]}>
     <slot>
       <em>no content was provided</em>
     </slot>
   </div>
 {:else if as === 'nav'}
-  <nav use:styled={[$$props, $theme]}>
+  <nav {...$$props} use:styled={[style, $theme]}>
     <slot>
       <em>no content was provided</em>
     </slot>

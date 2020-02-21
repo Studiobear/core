@@ -5,4 +5,4 @@
   export let boxText = 'I am a box!'
 </script>
 
-<Box {...style}>{boxText}</Box>
+<Box {...$$props} {style}>{boxText}</Box>

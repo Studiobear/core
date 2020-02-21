@@ -1,21 +1,29 @@
 <script>
   import { styled } from 'svelte-styled-system'
-  import theme from '../../index'
+  import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
+  import getStyles from '../../../utils/mainStyle'
+
+  $: styles = getStyles($theme)
 
   export let style
 </script>
 
-<Box {...style}>
-  <div id="top" class="page" role="document" use:styled={[$$props, $theme]}>
+<Box {...$$props} {styles} {style} theme={$theme}>
+  <Box id="top" role="document">
     <header role="banner">
-      <Heading as="h1" color="color.primary">HTML5 Test Page</Heading>
+      <Heading as="h1" style={{ color: 'colors.primary' }}>
+        HTML5 Test Page
+      </Heading>
       <p>
         This is a test page filled with common HTML elements to be used to
         provide visual feedback whilst building CSS systems and frameworks.
       </p>
     </header>
-    <Box as="nav" role="navigation" bg="colors.primary">
+    <Box
+      as="nav"
+      role="navigation"
+      style={{ p: 'space.l', bg: 'colors.primary' }}>
       <ul>
         <li>
           <a href="#text">Text</a>
@@ -799,5 +807,5 @@
         .
       </p>
     </footer>
-  </div>
+  </Box>
 </Box>

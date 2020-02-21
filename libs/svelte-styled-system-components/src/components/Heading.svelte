@@ -1,12 +1,12 @@
 <script>
   import { styled } from 'svelte-styled-system'
   import theme from '../theme'
-
+  export let style = {}
   export let as = 'h1'
 </script>
 
 {#if !as || as === 'h1'}
-  <h1 use:styled={[$$props, $theme]}>
+  <h1 use:styled={[style, $theme]}>
     <slot />
   </h1>
 {:else if as === 'h2'}

@@ -10,8 +10,8 @@
   export let boxText3 = '3'
 </script>
 
-<Box {...style}>
-  <Box {...style1}>{boxText1}</Box>
-  <Box {...style2}>{boxText2}</Box>
-  <Box {...style3}>{boxText3}</Box>
+<Box {style}>
+  <Box style={style1}>{boxText1}</Box>
+  <Box style={style2}>{boxText2}</Box>
+  <Box style={style3}>{boxText3}</Box>
 </Box>
