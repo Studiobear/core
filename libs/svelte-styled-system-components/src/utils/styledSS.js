@@ -10,23 +10,53 @@ import {
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
 
-const createCssText = (attributes, theme, pseudoElementSelector) => {
-  let cssText = {}
+const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   let cssMisc = {}
-  const mediaQueries = []
 
-  let system = compose(color, space, layout, typography, border)
-  console.log('createCssText: ', attributes, theme, pseudoElementSelector)
   for (let [name, value] of Object.entries(attributes)) {
-    name = shortHandAttributes.get(name.toLowerCase()) || [name]
-    console.log('cCT for1: ', name, value)
+    name = shortHandAttributes.get(name) || [name]
     for (let cssProp of name) {
       let cssPropValue
-      console.log('cCT for2: ', cssProp)
+      let cssPropTmp
+
       if (cssProp.startsWith('_')) {
         cssProp = cssProp.replace('_', '&:')
-        cssPropValue = createCssText(value, theme, cssProp)
-        console.log('cssPropValue: ', cssPropValue)
+        cssPropValue = createCssMisc(value, theme, cssProp)
+        cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
+        return cssMisc
+      }
+      if (cssProp.endsWith('olor')) {
+        cssPropTmp = { [cssProp]: value }
+        cssPropTmp.theme = theme
+        cssPropValue = color(cssPropTmp)
+        cssMisc = Object.assign(cssMisc, cssPropValue)
+        return cssMisc
+      }
+      if (cssProp.startsWith('margin' || 'padding')) {
+        cssPropTmp = { [cssProp]: value }
+        cssPropValue = color(cssPropTmp)
+        cssPropTmp.theme = theme
+        cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
+        return cssMisc
+      }
+      cssMisc = Object.assign(cssMisc, { [cssProp]: value })
+    }
+  }
+  return cssMisc
+}
+
+const processCss = (attributes, theme, pseudoElementSelector) => {
+  let cssText = {}
+  let cssMisc = {}
+  let system = compose(color, space, layout, typography, border)
+
+  for (let [name, value] of Object.entries(attributes)) {
+    name = shortHandAttributes.get(name) || [name]
+    for (let cssProp of name) {
+      let cssPropValue
+      if (cssProp.startsWith('_')) {
+        cssProp = cssProp.replace('_', '&:')
+        cssPropValue = createCssMisc(value, theme, cssProp)
         cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
         continue
       }
@@ -34,20 +64,24 @@ const createCssText = (attributes, theme, pseudoElementSelector) => {
     }
   }
   cssText.theme = theme
-  console.log('newCssText: ', cssText, cssMisc)
+
   let newCss = system(cssText)
-  newCss = Object.assign(newCss, cssMisc)
-  console.log('newCss: ', newCss)
-  return newCss
+
+  return Object.assign(newCss, cssMisc)
 }
 
-const styled = (node, props) => {
+const defaultOpts = {
+  renderThemeStyles: true,
+  system: [color, space, layout, typography, border],
+}
+
+const styled = (node, props, opts = defaultOpts) => {
   let previousCssText = ''
   let prevClassName
-  console.log('styled: ', previousCssText, node, props)
+
   const update = ([attributes, theme]) => {
-    const cssText = createCssText(attributes, theme)
-    console.log('cssText: ', cssText)
+    const cssText = processCss(attributes, theme)
+
     // skip unnecessary updates
     if (cssText === previousCssText) return
     previousCssText = cssText
@@ -56,7 +90,6 @@ const styled = (node, props) => {
     // see goober documentation for details
     const cn = css(cssText)
     node.classList.add(cn)
-    console.log('cn: ', prevClassName, cn, node)
 
     if (prevClassName) node.classList.remove(prevClassName)
     prevClassName = cn
@@ -67,4 +100,4 @@ const styled = (node, props) => {
   return { update }
 }
 
-export { css, createCssText, styled }
+export { css, processCss, createCssMisc, styled }

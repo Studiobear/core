@@ -5,7 +5,7 @@
   export let as = 'div'
   export let style = {}
   let role
-  console.log(theme, style, $$props)
+  console.log('Box', theme, style, $$props)
 </script>
 
 {#if !as || as === 'div'}

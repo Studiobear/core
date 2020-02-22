@@ -46,7 +46,9 @@ const dir = 'dir'
 const direction = `${dir}ection`
 const ord = 'order'
 const template = 'template'
-const align = 'align'
+const lign = 'lign'
+const a = `a${lign}`
+const A = `A${lign}`
 const justify = 'justify'
 const content = 'content'
 const items = 'items'
@@ -61,6 +63,11 @@ const pos = 'pos'
 const position = `${pos}ition`
 const repeat = 'repeat'
 const attachment = 'attachment'
+const fnt = 'font'
+const sz = 'Size'
+const fam = 'Family'
+const ln = 'line'
+const txt = 'text'
 
 export const shortHandAttributes = new Map([
   ['m', [m]],
@@ -77,6 +84,13 @@ export const shortHandAttributes = new Map([
   ['pl', [`${p}-${l}`]],
   ['px', [`${p}-${l}`, `${p}-${r}`]],
   ['py', [`${p}-${t}`, `${p}-${b}`]],
+  [fnt, [`${fnt}${fam}`]],
+  [`fntsz`, [`${fnt}${sz}`]],
+  [ln, [`${ln}Height`]],
+  [`${txt}A`, [`{txt}Align`]],
+  [`${txt}D`, [`{txt}-decoration`]],
+  [`${txt}T`, [`{txt}-transform`]],
+  [`${txt}U`, [`{txt}-underline`]],
   [bg, [`${background}${color}`]],
   [`${bg}${image}`, [`${background}-${image}`]],
   [`${bg}-${image}`, [`${background}-${image}`]],
@@ -109,10 +123,10 @@ export const shortHandAttributes = new Map([
   ['bx', [`${brd}-${l}`, `${brd}-${r}`]],
   ['by', [`${brd}-${t}`, `${brd}-${b}`]],
   ['shd', [`${bx}-${shd}`]],
-  [align, [`${align}-${items}`]],
-  [content, [`${align}-${content}`]],
+  [a, [`${a}-${items}`]],
+  [`${a}${content}`, [`${a}-${content}`]],
   [justify, [`${justify}-${content}`]],
-  ['slf', [`${align}-${slf}`]],
+  ['slf', [`${a}-${slf}`]],
   [wrap, [wrap]],
   ['strt', [strt]],
   [`${slf}${strt}`, [`${slf}-${strt}`]],

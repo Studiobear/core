@@ -1,12 +1,53 @@
 <script>
+  import { onMount } from 'svelte'
   import { styled } from '../../../utils'
   import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
+  import './styles.css'
 
+  import { basic } from '../../index'
+  const ssr = { data: '' }
+
+  let sheet = null
+  let styles
+
+  const getSheet = styles => {
+    try {
+      if (!sheet) {
+        sheet = new CSSStyleSheet()
+        // sheet.replaceSync('body { background: red; }')
+        // sheet.insertRule('body { background: red; }')
+        document.adoptedStyleSheets = [sheet]
+        console.log('sheet: ', sheet)
+      }
+      return sheet
+    } catch (e) {}
+    return ssr
+  }
+
+  function css(val) {
+    const ctx = this || {}
+    const _val = val
+    console.log('css: ', this, val)
+
+    return getSheet(styles)
+  }
   export let style
+
+  onMount(async () => {
+    styles = css`
+      body {
+        background: red;
+      }
+      h1 {
+        color: #f00;
+        margin-bottom: 4rem;
+      }
+    `
+  })
 </script>
 
-<Box {...$$props} {style} theme={$theme}>
+<Box {...$$props} {styles} {style} theme={$theme}>
   <Box id="top" role="document">
     <header role="banner">
       <Heading as="h1" style={{ color: 'colors.primary' }}>

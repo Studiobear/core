@@ -33,6 +33,8 @@ export const withBackground = () => ({
       brd: `3px solid`,
       brdcol: `secondary`,
       _hover: { bg: 'secondary' },
+      _after: { content: '"→"', position: 'absolute', top: '50px' },
+      fontFamily: 'heading',
     },
     boxText: 'Box with theme primary color background',
     role: 'header',
