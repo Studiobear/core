@@ -1,4 +1,4 @@
-import { css, glob } from 'goober'
+import { css } from 'goober'
 import dlv from 'dlv'
 import {
   compose,
@@ -9,6 +9,7 @@ import {
   border,
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
+import glob from './glob'
 
 const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   let cssMisc = {}
@@ -144,4 +145,4 @@ const addGlobal = theme => {
   return globTheme
 }
 
-export { css, processCss, createCssMisc, styled, addGlobal }
+export { css, processCss, createCssMisc, styled, addGlobal, glob }

@@ -1,54 +1,28 @@
 <script>
-  import { glob } from 'goober'
-  import { addGlobal } from '../../../utils/styledSS'
+  import { onMount } from 'svelte'
+  import { addGlobal, glob } from '../../../utils/styledSS'
   import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
 
   import { basic } from '../../index'
-
+  let canvas
   export let style
-  const GOOBER_ID = '_svstyle'
-  const ssr = {
-    data: '',
-  }
-
-  const getSheet = target => {
-    try {
-      let sheet = target
-        ? target.querySelector('#' + GOOBER_ID)
-        : self[GOOBER_ID]
-      if (!sheet) {
-        // Note to self: head.innerHTML +=, triggers a layout/reflow. Avoid it.
-        sheet = (target || document.head).appendChild(
-          document.createElement('style'),
-        )
-        sheet.innerHTML = ' '
-        sheet.id = GOOBER_ID
-      }
-      return sheet.firstChild
-    } catch (e) {}
-    return ssr
-  }
-
-  const update = (css, sheet, append) => {
-    sheet.data.indexOf(css) < 0 &&
-      (sheet.data = append ? css + sheet.data : sheet.data + css)
-  }
-
-  const css = val => {
-    const ctx = this || {}
-
-    return update(val, getSheet(ctx.target))
-  }
 
   const global = addGlobal(basic)
-  const regex = /^[A-Za-z0-9{};\-#%:. ]+$/
+  glob(global)
 
-  //Validate TextBox value against the Regex.
-  const isValid = regex.test(global)
-
-  console.log('global', global, isValid)
-  css(global)
+  onMount(() => {
+    const ctx = canvas.getContext('2d')
+    ctx.beginPath()
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true) // Outer circle
+    ctx.moveTo(110, 75)
+    ctx.arc(75, 75, 35, 0, Math.PI, false) // Mouth (clockwise)
+    ctx.moveTo(65, 65)
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true) // Left eye
+    ctx.moveTo(95, 65)
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true) // Right eye
+    ctx.stroke()
+  })
 </script>
 
 <Box {...$$props} {style} theme={$theme}>
@@ -554,7 +528,7 @@
             <Heading as="h2">Canvas</Heading>
           </header>
           <div>
-            <canvas>canvas</canvas>
+            <canvas bind:this={canvas} width={128} height={128} />
           </div>
           <footer>
             <p>
@@ -840,14 +814,5 @@
         </form>
       </section>
     </main>
-    <footer role="contentinfo">
-      <p>
-        Made by
-        <a href="http://twitter.com/cbracco">@cbracco</a>
-        . Code on
-        <a href="http://github.com/cbracco/html5-test-page">GitHub</a>
-        .
-      </p>
-    </footer>
   </Box>
 </Box>
