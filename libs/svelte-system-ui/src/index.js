@@ -144,4 +144,4 @@ const addGlobal = theme => {
   return glob(globTheme)
 }
 
-export { css, processCss, createCssMisc, styled, addGlobal, glob }
+export { css, styled, addGlobal }

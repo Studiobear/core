@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { addGlobal, glob } from '../../../utils/styledSS'
+  import { addGlobal } from '../../../utils/styledSS'
   import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
 
@@ -8,8 +8,7 @@
   let canvas
   export let style
 
-  const global = addGlobal(basic)
-  glob(global)
+  addGlobal(basic)
 
   onMount(() => {
     const ctx = canvas.getContext('2d')
