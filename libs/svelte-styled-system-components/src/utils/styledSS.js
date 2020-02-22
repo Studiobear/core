@@ -1,4 +1,4 @@
-import { css } from 'goober'
+import { css, glob } from 'goober'
 import dlv from 'dlv'
 import {
   compose,
@@ -44,11 +44,10 @@ const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   }
   return cssMisc
 }
-
+const system = compose(color, space, layout, typography, border)
 const processCss = (attributes, theme, pseudoElementSelector) => {
   let cssText = {}
   let cssMisc = {}
-  let system = compose(color, space, layout, typography, border)
 
   for (let [name, value] of Object.entries(attributes)) {
     name = shortHandAttributes.get(name) || [name]
@@ -70,12 +69,7 @@ const processCss = (attributes, theme, pseudoElementSelector) => {
   return Object.assign(newCss, cssMisc)
 }
 
-const defaultOpts = {
-  renderThemeStyles: true,
-  system: [color, space, layout, typography, border],
-}
-
-const styled = (node, props, opts = defaultOpts) => {
+const styled = (node, props) => {
   let previousCssText = ''
   let prevClassName
 
@@ -100,4 +94,54 @@ const styled = (node, props, opts = defaultOpts) => {
   return { update }
 }
 
-export { css, processCss, createCssMisc, styled }
+const parseGlobal = globStyles => {
+  let globCss = ''
+  let parseTheme = globStyles.styles
+
+  for (let [name, value] of Object.entries(parseTheme)) {
+    if (name !== 'p') {
+      name = shortHandAttributes.get(name) || name
+    }
+    globCss += `${name}{`
+    console.log('globCss 1: ', name, value)
+    let parsedV = value
+    parsedV.theme = globStyles
+    console.log('parsedV: ', parsedV)
+    parsedV = system(parsedV)
+    for (let [nameV, valueV] of Object.entries(parsedV)) {
+      console.log(
+        'globCss 2: ',
+        nameV,
+        valueV,
+        /%/g.test(valueV),
+        !(typeof valueV === 'string' && valueV.endsWith('px')),
+      )
+      nameV = nameV.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
+      valueV = valueV === 'text' ? '"text"' : valueV
+      valueV =
+        nameV === 'font-size' && !/%/g.test(valueV) ? `${valueV}px` : valueV
+      valueV = nameV === 'line-height' ? `${valueV}rem` : valueV
+
+      valueV =
+        (nameV.startsWith('margin') &&
+          !(typeof valueV === 'string' && valueV.endsWith('px'))) ||
+        nameV.startsWith('padding')
+          ? `${valueV}px`
+          : valueV
+      globCss += ` ${nameV}: ${valueV}; `
+    }
+    globCss += '} '
+  }
+
+  return globCss
+}
+
+const addGlobal = theme => {
+  console.log('addGlobal: ', theme)
+
+  const globTheme = parseGlobal(theme)
+  console.log('globTheme: ', globTheme)
+  return globTheme
+}
+
+export { css, processCss, createCssMisc, styled, addGlobal }

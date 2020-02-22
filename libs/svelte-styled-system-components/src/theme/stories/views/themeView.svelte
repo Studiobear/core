@@ -1,53 +1,57 @@
 <script>
-  import { onMount } from 'svelte'
-  import { styled } from '../../../utils'
+  import { glob } from 'goober'
+  import { addGlobal } from '../../../utils/styledSS'
   import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
-  import './styles.css'
 
   import { basic } from '../../index'
-  const ssr = { data: '' }
 
-  let sheet = null
-  let styles
+  export let style
+  const GOOBER_ID = '_svstyle'
+  const ssr = {
+    data: '',
+  }
 
-  const getSheet = styles => {
+  const getSheet = target => {
     try {
+      let sheet = target
+        ? target.querySelector('#' + GOOBER_ID)
+        : self[GOOBER_ID]
       if (!sheet) {
-        sheet = new CSSStyleSheet()
-        // sheet.replaceSync('body { background: red; }')
-        // sheet.insertRule('body { background: red; }')
-        document.adoptedStyleSheets = [sheet]
-        console.log('sheet: ', sheet)
+        // Note to self: head.innerHTML +=, triggers a layout/reflow. Avoid it.
+        sheet = (target || document.head).appendChild(
+          document.createElement('style'),
+        )
+        sheet.innerHTML = ' '
+        sheet.id = GOOBER_ID
       }
-      return sheet
+      return sheet.firstChild
     } catch (e) {}
     return ssr
   }
 
-  function css(val) {
-    const ctx = this || {}
-    const _val = val
-    console.log('css: ', this, val)
-
-    return getSheet(styles)
+  const update = (css, sheet, append) => {
+    sheet.data.indexOf(css) < 0 &&
+      (sheet.data = append ? css + sheet.data : sheet.data + css)
   }
-  export let style
 
-  onMount(async () => {
-    styles = css`
-      body {
-        background: red;
-      }
-      h1 {
-        color: #f00;
-        margin-bottom: 4rem;
-      }
-    `
-  })
+  const css = val => {
+    const ctx = this || {}
+
+    return update(val, getSheet(ctx.target))
+  }
+
+  const global = addGlobal(basic)
+  const regex = /^[A-Za-z0-9{};\-#%:. ]+$/
+
+  //Validate TextBox value against the Regex.
+  const isValid = regex.test(global)
+
+  console.log('global', global, isValid)
+  css(global)
 </script>
 
-<Box {...$$props} {styles} {style} theme={$theme}>
+<Box {...$$props} {style} theme={$theme}>
   <Box id="top" role="document">
     <header role="banner">
       <Heading as="h1" style={{ color: 'colors.primary' }}>

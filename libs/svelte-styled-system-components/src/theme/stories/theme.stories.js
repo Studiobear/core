@@ -11,7 +11,7 @@ export const themeTest = () => ({
   Component: ThemeView,
   props: {
     style: {
-      fontFamily: 'fonts.body',
+      fontFamily: 'body',
     },
   },
 })

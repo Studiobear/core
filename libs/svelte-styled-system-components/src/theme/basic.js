@@ -1,5 +1,4 @@
 const heading = {
-  color: 'text',
   fontFamily: 'heading',
   lineHeight: 'heading',
   fontWeight: 'heading',
@@ -8,7 +7,7 @@ const heading = {
 export const basic = {
   scale: [0.25, 0.5, 0.75, 1, 1.5, 2, 4, 8],
   colors: {
-    text: '#000',
+    text: '#666',
     background: '#fff',
     primary: '#07c',
     secondary: '#30c',
@@ -23,22 +22,27 @@ export const basic = {
     h1: {
       ...heading,
       fontSize: 5,
+      color: 'primary',
     },
     h2: {
       ...heading,
       fontSize: 4,
+      color: 'secondary',
     },
     h3: {
       ...heading,
       fontSize: 3,
+      color: 'text',
     },
     h4: {
       ...heading,
       fontSize: 2,
+      color: '#ddd',
     },
     h5: {
       ...heading,
       fontSize: 1,
+      color: 'text',
     },
     h6: {
       ...heading,
@@ -83,16 +87,6 @@ export const basic = {
   },
 }
 
-basic.space = {
-  none: '0',
-  xxs: `${basic.scale[0]}rem`,
-  xs: `${basic.scale[1]}rem`,
-  s: `${basic.scale[2]}rem`,
-  m: `${basic.scale[3]}rem`,
-  l: `${basic.scale[4]}rem`,
-  xl: `${basic.scale[5]}rem`,
-  xxl: `${basic.scale[6]}rem`,
-  xxxl: `${basic.scale[7]}rem`,
-}
+basic.space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
 
 export default basic
