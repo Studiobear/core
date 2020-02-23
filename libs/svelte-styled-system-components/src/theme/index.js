@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store'
-import { toTheme } from '../utils'
+import { toTheme } from 'svelte-system-ui'
 
 import stAnnesTheme from 'typography-theme-st-annes'
 

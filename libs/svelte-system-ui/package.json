@@ -17,6 +17,8 @@
     "bundle": "microbundle",
     "clean-dist": "rm -rf dist",
     "bundlesize": "bundlesize",
+    "lint": "prettier --check 'src/**/*.{html,js,svelte}'",
+    "lint:fix": "prettier --write 'src/**/*.{html,js,svelte}'",
     "build": "yarn test && yarn clean-dist && yarn microbundle && yarn bundlesize",
     "test": "ava tests/test.js",
     "test:watch": "yarn test --watch"
@@ -24,7 +26,7 @@
   "bundlesize": [
     {
       "path": "./dist/index.js",
-      "maxSize": "4 Kb",
+      "maxSize": "7 Kb",
       "compression": "brotli"
     }
   ],
@@ -44,22 +46,20 @@
       "esm"
     ]
   },
-  "dependencies": {
-    "goober": "^1.6.3",
-    "styled-system": "^5.1.5"
-  },
   "devDependencies": {
     "ava": "^3.0.0",
     "bundlesize": "^0.18.0",
     "compass-vertical-rhythm": "^1.4.5",
     "cypress": "^4.0.1",
     "esm": "^3.2.25",
+    "goober": "^1.6.3",
     "husky": "^4.2.1",
     "lint-staged": "^9.5.0",
     "microbundle": "^0.11.0",
     "modularscale": "^2.0.1",
     "object-assign": "^4.1.1",
     "prettier": "^1.19.1",
-    "prettier-plugin-svelte": "^0.7.0"
+    "prettier-plugin-svelte": "^0.7.0",
+    "styled-system": "^5.1.5"
   }
 }
