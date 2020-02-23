@@ -1,13 +1,15 @@
 const test = require('ava')
-import { processCss, styled, system } from '../src/index'
-import { shortHandAttributes } from '../src/constants'
+import stAnnesTheme from 'typography-theme-st-annes'
+import merge from 'deepmerge'
 
-const theme = {
-  color: {
-    primary: 'dodgerblue',
-  },
-  scale: ['0', '0.5rem', '1rem'],
-}
+import { processCss, styled, system, toTheme } from '../src/index'
+import { shortHandAttributes } from '../src/constants'
+import { basic as basicTheme } from './basic'
+
+const typographyStyles = toTheme(stAnnesTheme)
+const basic = merge(basicTheme, typographyStyles)
+
+const theme = basic
 
 class HTMLNode {
   constructor() {
@@ -22,9 +24,6 @@ class HTMLNode {
     }
   }
 }
-
-// named aliases for array values
-theme.scale.s = theme.scale[0]
 
 test('processCss: should resolve pseudo selectors via _', t => {
   t.deepEqual(processCss({ _hover: { color: 'red' } }, theme), {
@@ -49,6 +48,31 @@ test('processCss: should resolve shorthand properties to regular css properties'
     console.log(processCss({ [key]: 'value' }, {}), expectedOutput)
     t.deepEqual(processCss({ [key]: 'value' }, {}), expectedOutput)
   }
+})
+
+
+test('processCss: should resolve theme aliases to hex color', t => {
+  let expectedOutput = { color: '#07c', background: '#f6f6f6' }
+  t.deepEqual(
+    processCss({ color: 'primary', bg: 'muted' }, theme),
+    expectedOutput,
+  )
+})
+
+test('processCss: should resolve shorthand to class attributes', t => {
+  let expectedOutput = { color: '#07c' }
+  t.deepEqual(
+    processCss(
+      {
+        color: 'primary',
+        bg: 'muted',
+        p: ['xl', 'xs', 'm'],
+        fontFamily: 'heading',
+      },
+      theme,
+    ),
+    expectedOutput,
+  )
 })
 */
 

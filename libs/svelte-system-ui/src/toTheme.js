@@ -1,7 +1,6 @@
 // custom implementation of typography.js for use with Svelte
 import verticalRhythm from 'compass-vertical-rhythm'
 import ms from 'modularscale'
-import assign from 'object-assign'
 
 let body = {
   fontFamily: 'body',
@@ -15,7 +14,7 @@ let heading = {
 }
 
 export const styles = ({ body, heading, fontSizes }) => ({
-  root: assign(
+  root: Object.assign(
     {
       fontSize: fontSizes[2],
     },
@@ -24,37 +23,37 @@ export const styles = ({ body, heading, fontSizes }) => ({
   img: {
     maxWidth: '100%',
   },
-  h1: assign(
+  h1: Object.assign(
     {
       fontSize: fontSizes[5],
     },
     heading,
   ),
-  h2: assign(
+  h2: Object.assign(
     {
       fontSize: fontSizes[4],
     },
     heading,
   ),
-  h3: assign(
+  h3: Object.assign(
     {
       fontSize: fontSizes[3],
     },
     heading,
   ),
-  h4: assign(
+  h4: Object.assign(
     {
       fontSize: fontSizes[2],
     },
     heading,
   ),
-  h5: assign(
+  h5: Object.assign(
     {
       fontSize: fontSizes[1],
     },
     heading,
   ),
-  h6: assign(
+  h6: Object.assign(
     {
       fontSize: fontSizes[0],
     },
@@ -85,7 +84,7 @@ export const styles = ({ body, heading, fontSizes }) => ({
       mb: 2,
     },
   },
-  p: assign(
+  p: Object.assign(
     {
       fontSize: fontSizes[0],
     },
@@ -158,8 +157,8 @@ const blockElements = [
 ]
 
 blockElements.forEach(tag => {
-  assign(styles, {
-    [tag]: assign(
+  Object.assign(styles, {
+    [tag]: Object.assign(
       {
         padding: 0,
         margin: 0,
@@ -288,7 +287,7 @@ export const toTheme = (_opts = {}) => {
   }
 
   const newStyles = styles({ body, heading, fontSizes: theme.fontSizes })
-  console.log('toTheme: ', styles, typo, opts)
+  // console.log('toTheme: ', styles, typo, opts)
   return {
     ...theme,
     styles: newStyles,

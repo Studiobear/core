@@ -3,9 +3,12 @@ const heading = {
   lineHeight: 'heading',
   fontWeight: 'heading',
 }
-
+// space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+// space: ['0', '4px', '8px', '16px', '32px', '64px', '128px', '256px', '512px'],
 export const basic = {
   scale: [0.25, 0.5, 0.75, 1, 1.5, 2, 4, 8],
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  spaces: ['none', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
   colors: {
     text: '#666',
     background: '#fff',
@@ -86,29 +89,5 @@ export const basic = {
     },
   },
 }
-/*
-basic.space = [
-  '0px',
-  '4px',
-  '8px',
-  '16px',
-  '32px',
-  '64px',
-  '128px',
-  '256px',
-  '512px',
-]
-*/
-basic.space = [0, 4, 8, 16, 32, 64, 128, 256, 512]
-
-basic.space.none = basic.space[0]
-basic.space.xxs = basic.space[1]
-basic.space.xs = basic.space[2]
-basic.space.s = basic.space[3]
-basic.space.m = basic.space[4]
-basic.space.l = basic.space[5]
-basic.space.xl = basic.space[6]
-basic.space.xxl = basic.space[7]
-basic.space.xxl = basic.space[8]
 
 export default basic

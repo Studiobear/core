@@ -26,10 +26,10 @@ export const withBackground = () => ({
   Component: BoxView,
   props: {
     style: {
-      bg: 'muted',
-      p: ['xl', 'xs', 'm'],
-      m: ['xl', 'xs', 'm'],
-      color: 'primary',
+      bg: 'primary',
+      p: [5, 3, 1],
+      m: [5, 0, 1],
+      color: 'muted',
       brd: `3px solid`,
       brdcol: `secondary`,
       _hover: { bg: 'secondary' },

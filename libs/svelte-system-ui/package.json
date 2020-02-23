@@ -4,7 +4,7 @@
   "description": "Svelte System UI",
   "source": "src/index.js",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "module": "dist/index.modern.js",
   "umd:main": "dist/index.umd.js",
   "files": [
     "dist",
@@ -19,14 +19,15 @@
     "bundlesize": "bundlesize",
     "lint": "prettier --check 'src/**/*.{html,js,svelte}'",
     "lint:fix": "prettier --write 'src/**/*.{html,js,svelte}'",
-    "build": "yarn test && yarn clean-dist && yarn microbundle && yarn bundlesize",
+    "build": "yarn test && yarn clean-dist && yarn microbundle&& yarn bundlesize",
+    "watch": "yarn microbundle watch",
     "test": "ava tests/test.js",
     "test:watch": "yarn test --watch"
   },
   "bundlesize": [
     {
       "path": "./dist/index.js",
-      "maxSize": "7 Kb",
+      "maxSize": "10 Kb",
       "compression": "brotli"
     }
   ],
@@ -55,11 +56,12 @@
     "goober": "^1.6.3",
     "husky": "^4.2.1",
     "lint-staged": "^9.5.0",
-    "microbundle": "^0.11.0",
+    "merge": "^1.2.1",
+    "microbundle": "0.12.0-next.8",
     "modularscale": "^2.0.1",
-    "object-assign": "^4.1.1",
     "prettier": "^1.19.1",
     "prettier-plugin-svelte": "^0.7.0",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "typography-theme-st-annes": "^0.16.19"
   }
 }

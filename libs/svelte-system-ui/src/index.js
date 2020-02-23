@@ -1,17 +1,48 @@
 import { css } from 'goober'
-import {
-  compose,
-  color,
-  space,
-  layout,
-  typography,
-  border,
-} from 'styled-system'
+import { compose, color, space, layout, border } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
 import toTheme from './toTheme'
 
-const system = compose(color, space, layout, typography, border)
+const system = compose(color, space, layout, border)
+
+const defaultUnits = {
+  space: 'px',
+  layout: '%',
+}
+const addUnits = (styles, units = defaultUnits) => {
+  console.log('addUnits:', styles, units)
+  let withUnits = {}
+  for (let [name, value] of Object.entries(styles)) {
+    console.log('addUnits entries:', name, value)
+    if (typeof value === 'object' && value !== null) {
+      let withUnitsO = {}
+      for (let [nameO, valueO] of Object.entries(value)) {
+        console.log('addUnits object:', nameO, valueO)
+        if (
+          (nameO.startsWith('margin') || nameO.startsWith('padding')) &&
+          typeof valueO === 'number'
+        ) {
+          Object.assign(withUnitsO, { [nameO]: `${valueO}${units.space}` })
+          continue
+        }
+        Object.assign(withUnitsO, { [nameO]: valueO })
+      }
+      Object.assign(withUnits, { [name]: withUnitsO })
+      continue
+    }
+    if (
+      (name.startsWith('margin') || name.startsWith('padding')) &&
+      typeof value === 'number'
+    ) {
+      Object.assign(withUnits, { [name]: `${value}${units.space}` })
+      continue
+    }
+    Object.assign(withUnits, { [name]: value })
+  }
+  console.log('addUnits return:', withUnits)
+  return withUnits
+}
 
 const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   let cssMisc = {}
@@ -35,9 +66,9 @@ const createCssMisc = (attributes, theme, pseudoElementSelector) => {
         cssMisc = Object.assign(cssMisc, cssPropValue)
         return cssMisc
       }
-      if (cssProp.startsWith('margin' || 'padding')) {
+      if (cssProp.startsWith('margin') || cssProp.startsWith('padding')) {
         cssPropTmp = { [cssProp]: value }
-        cssPropValue = color(cssPropTmp)
+        cssPropValue = space(cssPropTmp)
         cssPropTmp.theme = theme
         cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
         return cssMisc
@@ -54,10 +85,12 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
 
   for (let [name, value] of Object.entries(attributes)) {
     name = shortHandAttributes.get(name) || [name]
+    console.log('processCss 1', name, value)
     for (let cssProp of name) {
       let cssPropValue
       if (cssProp.startsWith('_')) {
         cssProp = cssProp.replace('_', '&:')
+        console.log('processCss 2', cssProp, value)
         cssPropValue = createCssMisc(value, theme, cssProp)
         cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
         continue
@@ -68,8 +101,9 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
   cssText.theme = theme
 
   let newCss = system(cssText)
+  console.log('newCss', newCss, cssMisc)
 
-  return Object.assign(newCss, cssMisc)
+  return addUnits(Object.assign(newCss, cssMisc))
 }
 
 const styled = (node, props) => {
@@ -77,6 +111,7 @@ const styled = (node, props) => {
   let prevClassName
 
   const update = ([attributes, theme]) => {
+    console.log('styled.update: ', theme)
     const cssText = processCss(attributes, theme)
 
     if (cssText === previousCssText) return

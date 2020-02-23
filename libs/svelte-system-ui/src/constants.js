@@ -3,9 +3,13 @@
 const m = 'margin'
 const p = 'padding'
 const t = 'top'
+const T = 'Top'
 const r = 'right'
+const R = 'Right'
 const b = 'bottom'
+const B = 'Bottom'
 const l = 'left'
+const L = 'Left'
 const w = 'width'
 const h = 'height'
 const d = 'display'
@@ -33,6 +37,7 @@ const row = 'row'
 const rev = 'reverse'
 const col = 'col'
 const color = `${col}or`
+const Color = `Color`
 const column = `${col}umn`
 const flex = 'flex'
 const bas = 'basis'
@@ -55,21 +60,21 @@ const auto = 'auto'
 const flow = 'flow'
 const bg = 'bg'
 const background = 'background'
-const image = 'image'
-const size = 'size'
+const image = 'Image'
+const size = 'Size'
 const pos = 'pos'
 const position = `${pos}ition`
 const repeat = 'repeat'
-const attachment = 'attachment'
+const attachment = 'Attachment'
 
 export const shortHandAttributes = new Map([
   ['m', [m]],
-  ['mt', [`${m}-${t}`]],
-  ['mr', [`${m}-${r}`]],
-  ['mb', [`${m}-${b}`]],
-  ['ml', [`${m}-${l}`]],
-  ['mx', [`${m}-${l}`, `${m}-${r}`]],
-  ['my', [`${m}-${t}`, `${m}-${b}`]],
+  ['mt', [`${m}${T}`]],
+  ['mr', [`${m}${R}`]],
+  ['mb', [`${m}${B}`]],
+  ['ml', [`${m}${L}`]],
+  ['mx', [`${m}${L}`, `${m}${R}`]],
+  ['my', [`${m}${T}`, `${m}${B}`]],
   ['p', [p]],
   ['pt', [`${p}-${t}`]],
   ['pr', [`${p}-${r}`]],
@@ -77,17 +82,12 @@ export const shortHandAttributes = new Map([
   ['pl', [`${p}-${l}`]],
   ['px', [`${p}-${l}`, `${p}-${r}`]],
   ['py', [`${p}-${t}`, `${p}-${b}`]],
-  [bg, [`${background}-${color}`]],
-  [`${bg}${image}`, [`${background}-${image}`]],
-  [`${bg}-${image}`, [`${background}-${image}`]],
-  [`${bg}${size}`, [`${background}-${size}`]],
-  [`${bg}-${size}`, [`${background}-${size}`]],
-  [`${bg}${pos}`, [`${background}-${position}`]],
-  [`${bg}-${pos}`, [`${background}-${position}`]],
-  [`${bg}${repeat}`, [`${background}-${repeat}`]],
-  [`${bg}-${repeat}`, [`${background}-${repeat}`]],
-  [`${bg}-${attachment}`, [`${background}-${attachment}`]],
-  [`${bg}${attachment}`, [`${background}-${attachment}`]],
+  [bg, [`${background}${Color}`]],
+  [`${bg}${image}`, [`${background}${image}`]],
+  [`${bg}${size}`, [`${background}${size}`]],
+  [`${bg}${pos}`, [`${background}${position}`]],
+  [`${bg}${repeat}`, [`${background}${repeat}`]],
+  [`${bg}${attachment}`, [`${background}${attachment}`]],
   ['w', [w]],
   ['h', [h]],
   [size, [w, h]],

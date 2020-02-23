@@ -24,10 +24,10 @@ const update = (css, sheet, append) =>
   sheet.data.indexOf(css) < 0 &&
   (sheet.data = append ? css + sheet.data : sheet.data + css)
 
-export const glob = val => {
+function glob(val) {
   const ctx = this || {}
 
   return update(val, getSheet(ctx.target))
 }
-
+export { glob }
 export default glob
