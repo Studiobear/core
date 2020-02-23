@@ -1,4 +1,4 @@
-// custom implementation of typography.js for use svelte
+// custom implementation of typography.js for use with Svelte
 import verticalRhythm from 'compass-vertical-rhythm'
 import ms from 'modularscale'
 import assign from 'object-assign'

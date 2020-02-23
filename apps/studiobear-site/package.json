@@ -73,7 +73,7 @@
     "svelte": "^3.18.2",
     "svelte-jester": "^1.0.3",
     "svelte-styled-system": "*",
-    "svelte-styled-system-components": "^0.0.1",
+    "svelte-styled-system-components": "*",
     "to-vfile": "^6.0.0",
     "unified": "^8.4.2",
     "unist-util-filter": "^2.0.1",

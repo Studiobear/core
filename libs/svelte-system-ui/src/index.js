@@ -10,6 +10,8 @@ import {
 import { shortHandAttributes } from './constants'
 import glob from './glob'
 
+export const system = compose(color, space, layout, typography, border)
+
 const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   let cssMisc = {}
 
@@ -44,8 +46,8 @@ const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   }
   return cssMisc
 }
-const system = compose(color, space, layout, typography, border)
-const processCss = (attributes, theme, pseudoElementSelector) => {
+
+export const processCss = (attributes, theme, pseudoElementSelector) => {
   let cssText = {}
   let cssMisc = {}
 
@@ -76,12 +78,9 @@ const styled = (node, props) => {
   const update = ([attributes, theme]) => {
     const cssText = processCss(attributes, theme)
 
-    // skip unnecessary updates
     if (cssText === previousCssText) return
     previousCssText = cssText
 
-    // appends the current styles to the document head
-    // see goober documentation for details
     const cn = css(cssText)
     node.classList.add(cn)
 
@@ -102,20 +101,14 @@ const parseGlobal = globStyles => {
     if (name !== 'p') {
       name = shortHandAttributes.get(name) || name
     }
+
     globCss += `${name}{`
-    console.log('globCss 1: ', name, value)
+
     let parsedV = value
     parsedV.theme = globStyles
-    console.log('parsedV: ', parsedV)
+
     parsedV = system(parsedV)
     for (let [nameV, valueV] of Object.entries(parsedV)) {
-      console.log(
-        'globCss 2: ',
-        nameV,
-        valueV,
-        /%/g.test(valueV),
-        !(typeof valueV === 'string' && valueV.endsWith('px')),
-      )
       nameV = nameV.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
       valueV = valueV === 'text' ? '"text"' : valueV
       valueV =
@@ -136,12 +129,6 @@ const parseGlobal = globStyles => {
   return globCss
 }
 
-const addGlobal = theme => {
-  console.log('addGlobal: ', theme)
-
-  const globTheme = parseGlobal(theme)
-  console.log('globTheme: ', globTheme)
-  return glob(globTheme)
-}
+const addGlobal = theme => glob(parseGlobal(theme))
 
 export { css, styled, addGlobal }

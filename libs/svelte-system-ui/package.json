@@ -18,7 +18,8 @@
     "clean-dist": "rm -rf dist",
     "bundlesize": "bundlesize",
     "build": "yarn test && yarn clean-dist && yarn microbundle && yarn bundlesize",
-    "test": "ava src/test.js"
+    "test": "ava tests/test.js",
+    "test:watch": "yarn test --watch"
   },
   "bundlesize": [
     {

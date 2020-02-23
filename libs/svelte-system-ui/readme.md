@@ -1,62 +1,65 @@
-# using styled-system with svelte in ~1kb
+<p align="left"><img src="./docs/assets/ssui-horiz-fat.svg" width="480" height="160" /></p>
 
-Originally created by [manuschillerdev](https://github.com/manuschillerdev/svelte-styled-system) 
+# Svelte + System UI
 
-Cloned for testing and exploration.
+#### Built with Svelte + Styled System + Goober + TypographyJS + SvDX(Svelte-flavored MDX — coming soon!)
 
 ---
 
-**Attention!** POC only!
+**_Notice: Not stable and under heavy development_**
 
-POC for bringing the principles of [https://styled-system.com/](https://styled-system.com/) to svelte.
+[Svelte](https://svelte.dev/) is a UI development framework for creating boilerplate-free components that compile down to fast, virtual-DOM-free vanilla js and is truly reactive.
 
-This is for demo purposes only and not meant to be used yet!
-May change / be abandoned any time.
+[System UI](https://system-ui.com/) is an evolving standard for creating consistent, interoperable UIs. It is the underlying foundation to many UI-themeing libraries such as Styled System, Rebass, ThemeUI, and more. The main implementation of System UI is through [Styled System](https://styled-system.com/).
 
-Demo: [https://svelte.dev/repl/fd2a1151c14c4c2685ee55f661665204?version=3.17.1](https://svelte.dev/repl/fd2a1151c14c4c2685ee55f661665204?version=3.17.1)
+The motivation of this library is to bring the culture developing the standard of consistent, interoperable UIs — a.k.a. themeing — to Svelte. Svelte is still a young framework with many standards for managing complexity yet to be defined. However, there is no reason that Svelte cannot become a contributing member to this conversation.
 
-### Examples (with REPLs):
+**Elements**
 
-- [Hello World](docs/examples/01_hello_world.md)
-- [Responsive values](docs/examples/02_responsive.md)
-- [Change styles based on current scope variables](docs/examples/03_reactivity.md)
-- [Change styles based on theme changes](docs/examples/04_theme_changes.md)
-- [Working with pseudo elements / pesudo classes](docs/examples/05_css_in_js.md)
-- [Separate styles to their own files](docs/examples/06_separate_styles.md)
+- **[Styled System](https://styled-system.com/)**: Styled System is a collection of utility functions for forming style props based on a global theme object defining typographic and layout properties. An evolved alternative being explored is [xstyled](https://xstyled.dev/). While these libraries were built with React in mind, they are really CSS utilies that require binding to components via CSS-in-JS solutions. Bringing us to...
+- **[Goober](https://github.com/cristianbote/goober)**: a less than 1kb CSS-in-JS implementation (toting in comparison ~16/11kb respectively of [styled-components](https://github.com/styled-components/styled-components)/[emotion](https://github.com/emotion-js/emotion). In this library, Goober's `css` function is used to parse and apply the style props formed by Styled System.
+- **[Typography.js](http://kyleamathews.github.io/typography.js/)**: Typography is difficult and the nuances of applying good typography exasperate the already-brittle system of themes and CSS. TypographyJS works as a seperate themeing layer that can be integrated with Styled System to apply such typographic nuances to the greater theme.
+- **SvDX _(coming soon)_**: Svelte-flavored MDX. MDX? MDX allows writing JSX (known for its use in React, but is a general syntax extension to JS) in Markdown documents. Long story short, as Markdown is [easy](https://www.markdownguide.org/getting-started/#why-use-markdown), it can be made even more powerful by allowing Svelte-components to be as easily embedded as JSX.
 
-## Using styled-system with svelte
+# Using Svelte System UI
 
-### Defining your theme:
+## Getting started
 
-The theme definition is nothing more than a plain JS-Object wrapped in a writable store, that should contain an attribute `breakpoints: string[]` at the top level as a minimum config (if you want to use responsive attributes).
+### The Theme
 
-Besides that you can define all of your design variables just as you like.
+Themes are just JS objects and ideally, if you already have an existing theme from React using Theme-UI, then you can bring over your theme as is or [get a preset](https://theme-ui.com/demo).
 
-**Example:**
+**Example Theme Object:**
 
 ```jsx
-// theme.js
-import { writable } from "svelte/store";
-
-export const theme = writable({
-  // demo: 560px, 768px, 1024px at base 16
-  breakpoints: ["35rem", "48rem", "64rem"],
-  color: {
-    primary: "dodgerblue",
-    secondary: "papayawhip",
-    grey: "#eee"
+export default {
+  colors: {
+    text: '#333',
+    background: '#fff',
+    primary: '#639',
+    secondary: '#ff6347',
   },
-  space: {
-    s: "0.5rem",
-    m: "1rem",
-    l: "2rem"
-  }
-});
+  fonts: {
+    body: 'system-ui, sans-serif',
+    heading: 'system-ui, sans-serif',
+    monospace: 'Menlo, monospace',
+  },
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700,
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125,
+  },
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+}
 ```
 
 ### Using your theme
 
-Using your theme is pretty straight forward, too. `styled` from `svelte-styled-system` is a regular [svelte action](https://svelte.dev/docs#use_action) so you can use it with `use:styled`. It expects an array in the form `[$$props, $theme]` note the `$` sign in front of your imported theme to ([automatically subscribe / unsubscribe to changes automatically!](https://svelte.dev/docs#4_Prefix_stores_with_$_to_access_their_values))
+Use `styled` from `svelte-system-ui` in a [svelte action](https://svelte.dev/docs#use_action) like so: `use:styled`. It expects an array in the form `[$$props, $theme]` note the `$` sign in front of your imported theme to ([automatically subscribe / unsubscribe to changes automatically!](https://svelte.dev/docs#4_Prefix_stores_with_$_to_access_their_values))
 
 ```jsx
 // Box.svelte
@@ -133,3 +136,7 @@ A complete list of shorthand props is available in the (chakra-ui docs)[https://
 // svelte-styled-system:
 <MyComponent bg="color.primary" />
 ```
+
+# Acknowledgements
+
+This library was heavily inspired by [svelte-styled-system(@manuschillerdev)](https://github.com/manuschillerdev/svelte-styled-system). At time of discovery, svelte-styled-system was annotated as a proof-of-concept for bringing in the concepts of [styled-system](https://styled-system.com/) and doing it in as small of a package as possible. SSUI vears away from this by choosing to directly integrate with the styled-system ecosystem, at the cost of size optimization, yet increase compatibality with themes builts for mainly React-based projects.
