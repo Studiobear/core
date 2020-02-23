@@ -24,7 +24,7 @@
   "bundlesize": [
     {
       "path": "./dist/index.js",
-      "maxSize": "1.5 Kb",
+      "maxSize": "4 Kb",
       "compression": "brotli"
     }
   ],
@@ -51,11 +51,14 @@
   "devDependencies": {
     "ava": "^3.0.0",
     "bundlesize": "^0.18.0",
+    "compass-vertical-rhythm": "^1.4.5",
     "cypress": "^4.0.1",
     "esm": "^3.2.25",
     "husky": "^4.2.1",
     "lint-staged": "^9.5.0",
     "microbundle": "^0.11.0",
+    "modularscale": "^2.0.1",
+    "object-assign": "^4.1.1",
     "prettier": "^1.19.1",
     "prettier-plugin-svelte": "^0.7.0"
   }

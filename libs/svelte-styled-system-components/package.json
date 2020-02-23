@@ -54,7 +54,7 @@
     "svelte": "^3.18.2",
     "svelte-jester": "^1.0.3",
     "svelte-loader": "^2.13.6",
-    "svelte-system-ui": "^0.0.1",
+    "svelte-system-ui": "*",
     "typography": "^0.16.19",
     "typography-theme-st-annes": "^0.16.19",
     "webpack": "^4.41.6"

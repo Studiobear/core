@@ -11650,6 +11650,13 @@ modularscale@^1.0.2:
   dependencies:
     lodash.isnumber "^3.0.0"
 
+modularscale@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/modularscale/-/modularscale-2.0.1.tgz#565806fe7e3a9d31821ec4e944fbe9c8401cafd0"
+  integrity sha1-VlgG/n46nTGCHsTpRPvpyEAcr9A=
+  dependencies:
+    lodash.isnumber "^3.0.0"
+
 module-details-from-path@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/module-details-from-path/-/module-details-from-path-1.0.3.tgz#114c949673e2a8a35e9d35788527aa37b679da2b"

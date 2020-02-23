@@ -9,8 +9,9 @@ import {
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
+import toTheme from './toTheme'
 
-export const system = compose(color, space, layout, typography, border)
+const system = compose(color, space, layout, typography, border)
 
 const createCssMisc = (attributes, theme, pseudoElementSelector) => {
   let cssMisc = {}
@@ -131,4 +132,4 @@ const parseGlobal = globStyles => {
 
 const addGlobal = theme => glob(parseGlobal(theme))
 
-export { css, styled, addGlobal }
+export { css, styled, addGlobal, toTheme, system }
