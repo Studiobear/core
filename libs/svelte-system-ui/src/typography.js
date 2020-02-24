@@ -260,14 +260,13 @@ export const getFontWeights = (result, opts) => {
   }
 }
 
-export const toTheme = (_opts = {}) => {
+export const typography = (theme = {}, _opts = {}) => {
   const opts = { ...defaults, ..._opts }
   // enforce unitless values
   opts.baseFontSize = toUnitless(opts.baseFontSize)
   opts.rhythmUnit = 'px'
 
   const typo = verticalRhythm(opts)
-  const theme = {}
   typo.options = opts
 
   // theme.space = getSpace(typo, opts)
@@ -295,4 +294,4 @@ export const toTheme = (_opts = {}) => {
   }
 }
 
-export default toTheme
+export default typography

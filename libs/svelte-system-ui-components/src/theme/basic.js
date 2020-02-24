@@ -1,3 +1,5 @@
+import { element } from 'svelte/internal'
+
 const heading = {
   fontFamily: 'heading',
   lineHeight: 'heading',
@@ -12,6 +14,15 @@ export const basic = {
     primary: '#07c',
     secondary: '#30c',
     muted: '#f6f6f6',
+    modes: {
+      dark: {
+        text: '#eee',
+        background: '#212121',
+        primary: '#73B4E3',
+        secondary: '#8F73E3',
+        muted: '#363636',
+      },
+    },
   },
   styles: {
     root: {

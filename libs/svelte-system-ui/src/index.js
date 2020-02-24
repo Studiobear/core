@@ -6,13 +6,13 @@ import {
   layout,
   border,
   flexbox,
-  typography,
+  typography as typographySS,
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
-import toTheme from './toTheme'
+import typography from './typography'
 
-const system = compose(color, space, layout, border, flexbox, typography)
+const system = compose(color, space, layout, border, flexbox, typographySS)
 
 const defaultUnits = {
   space: 'px',
@@ -174,4 +174,4 @@ const parseGlobal = globStyles => {
 
 const addGlobal = theme => glob(parseGlobal(theme))
 
-export { css, styled, addGlobal, toTheme, system }
+export { css, styled, addGlobal, typography, system }

@@ -1,31 +1,23 @@
 import { writable, derived } from 'svelte/store'
-import { toTheme } from 'svelte-system-ui'
-
+import { typography } from 'svelte-system-ui'
 import stAnnesTheme from 'typography-theme-st-annes'
 
-// import { merge } from '../utils'
-import merge from 'deepmerge'
-
 import basicTheme from './basic'
-import darkTheme from './dark'
 
-const typographyStyles = toTheme(stAnnesTheme)
-const basic = merge(basicTheme, typographyStyles)
-const dark = merge(darkTheme, typographyStyles)
-
-console.log('themeStyles: ', typographyStyles, basic)
+const basic = typography(basicTheme, stAnnesTheme)
 
 function createTheme() {
   const { subscribe, set, update } = writable(basic)
-
+  const dark = basic
+  basic.colors = basic.colors.modes.dark
   return {
     subscribe,
-    dark: () => update(t => dark),
-    reset: () => set(basic),
+    setMode: () => update(t => dark),
+    unsetMode: () => set(basic),
   }
 }
 
 const theme = createTheme()
 
-export { theme, basic, dark }
+export { theme, basic }
 export default theme

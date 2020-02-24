@@ -1,15 +1,11 @@
 const test = require('ava')
 import stAnnesTheme from 'typography-theme-st-annes'
-import merge from 'deepmerge'
 
-import { processCss, styled, system, toTheme } from '../src/index'
+import { processCss, styled, system, typography } from '../src/index'
 import { shortHandAttributes } from '../src/constants'
-import { basic as basicTheme } from './basic'
+import { basic } from './basic'
 
-const typographyStyles = toTheme(stAnnesTheme)
-const basic = merge(basicTheme, typographyStyles)
-
-const theme = basic
+const theme = typography(basic, stAnnesTheme)
 
 class HTMLNode {
   constructor() {
