@@ -370,3 +370,31 @@ export const withJustifySpaceBetween = () => ({
     boxText3: '3: from me',
   },
 })
+
+export const withResponsive = () => ({
+  Component: BoxViewFlex,
+  props: {
+    style: {
+      bg: '#ccc',
+      color: 'background',
+      d: 'flex',
+      flexWrap: 'wrap',
+      flexdir: 'row',
+      fontSize: ['20px', '15px', '40px'],
+    },
+    style1: {
+      bg: 'red',
+      w: [1, 1 / 2, 1 / 3],
+      h: '20rem',
+    },
+    style2: {
+      bg: 'blue',
+      w: [1, 1 / 2, 1 / 3],
+      h: '20rem',
+    },
+    style3: { bg: 'green', w: [1, 1, 1 / 3], h: '20rem' },
+    boxText1: 'Font size',
+    boxText2: 'is reponsive',
+    boxText3: 'too!',
+  },
+})
