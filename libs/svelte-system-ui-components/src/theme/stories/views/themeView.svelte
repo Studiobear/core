@@ -1,14 +1,26 @@
 <script>
   import { onMount } from 'svelte'
   import { addGlobal } from 'svelte-system-ui'
-  import { theme } from '../../index'
+  import { theme, dark, basic } from '../../index'
   import { Box, Heading, Text } from '../../../components'
 
-  import { basic } from '../../index'
   let canvas
+  let mode = 'light'
+
+  function changeMode() {
+    if (mode === 'light') {
+      mode = 'dark'
+      theme.setDark()
+    } else {
+      mode = 'light'
+      theme.setLight()
+    }
+    console.log('changeMode: ', mode, basic, dark, $theme)
+  }
+
   export let style
 
-  addGlobal(basic)
+  addGlobal($theme)
 
   onMount(() => {
     const ctx = canvas.getContext('2d')
@@ -25,20 +37,16 @@
 </script>
 
 <Box {...$$props} {style} theme={$theme}>
+  <button on:click={changeMode}>{mode}</button>
   <Box id="top" role="document">
     <header role="banner">
-      <Heading as="h1" style={{ color: 'colors.primary' }}>
-        HTML5 Test Page
-      </Heading>
+      <Heading as="h1" style={{ color: 'primary' }}>HTML5 Test Page</Heading>
       <p>
         This is a test page filled with common HTML elements to be used to
         provide visual feedback whilst building CSS systems and frameworks.
       </p>
     </header>
-    <Box
-      as="nav"
-      role="navigation"
-      style={{ p: 'space.l', bg: 'colors.primary' }}>
+    <Box as="nav" role="navigation" style={{ p: 4, bg: 'background' }}>
       <ul>
         <li>
           <a href="#text">Text</a>
