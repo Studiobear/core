@@ -1,10 +1,10 @@
 import { css } from 'goober'
-import { compose, color, space, layout, border } from 'styled-system'
+import { compose, color, space, layout, border, flexbox } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
 import toTheme from './toTheme'
 
-const system = compose(color, space, layout, border)
+const system = compose(color, space, layout, border, flexbox)
 
 const defaultUnits = {
   space: 'px',

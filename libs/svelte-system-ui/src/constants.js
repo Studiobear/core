@@ -28,7 +28,7 @@ const grid = 'grid'
 const ap = 'ap'
 const gap = `g${ap}`
 const sp = 'space'
-const end = 'end'
+const end = 'End'
 const fst = 'first'
 const lst = 'last'
 const strt = 'Start'
@@ -47,13 +47,13 @@ const column = `${col}umn`
 const cont = 'cont'
 const content = `${cont}ent`
 const flex = 'flex'
-const bas = 'basis'
+const bas = 'Basis'
 const no = 'no'
 const sf = 'safe'
 const unsf = `un${sf}`
-const wrap = 'wrap'
-const shr = 'shrink'
-const grow = 'grow'
+const wrap = 'Wrap'
+const shr = 'Shrink'
+const grow = 'Grow'
 const dir = 'dir'
 const Dir = 'Direction'
 const direction = `${dir}ection`
@@ -61,7 +61,7 @@ const ord = 'order'
 const template = 'template'
 const align = 'align'
 const just = 'justify'
-const items = 'items'
+const items = 'Items'
 const area = 'area'
 const auto = 'auto'
 const flow = 'flow'
@@ -110,6 +110,7 @@ export const shortHandAttributes = new Map([
   [`${max}h`, [`${max}${H}`]],
   [`${max}-h`, [`${max}${H}`]],
   ['brd', [brd]],
+  ['brdCol', [`${brd}${C}${olor}`]],
   ['bt', [`${brd}${T}`]],
   ['br', [`${brd}${R}`]],
   ['bb', [`${brd}${B}`]],
@@ -118,15 +119,15 @@ export const shortHandAttributes = new Map([
   ['by', [`${brd}${T}`, `${brd}${B}`]],
   ['shd', [`${bx}-${shd}`]],
   [content, [content]],
-  [(align, [`${align}-${items}`])],
+  [align, [`${align}${items}`]],
   [`${align}${C}`, [`${align}Content`]],
-  [`${just}${C}`, [`${just}Content`]],
-  ['slf', [`${align}-${slf}`]],
-  [wrap, [wrap]],
+  [`just${C}`, [`${just}Content`]],
+  ['slf', [`${align}Self`]],
+  ['wrap', ['wrap']],
   ['strt', 'Start'],
   [`${slf}${strt}`, [`${slf}${strt}`]],
-  [end, [end]],
-  [`${slf}${end}`, [`${slf}-${end}`]],
+  ['end', ['end']],
+  [`${slf}${end}`, [`${slf}${end}`]],
   ['bsl', [bsl]],
   [`${fst}${bsl}`, [`${fst} ${bsl}`]],
   [`${lst}${bsl}`, [`${lst} ${bsl}`]],
@@ -137,18 +138,18 @@ export const shortHandAttributes = new Map([
   [`${sp}${btwn}`, [`${sp}${btwn}`]],
   [`${sp}${arnd}`, [`${sp}${arnd}`]],
   [`${sp}${ev}`, [`${sp}${ev}`]],
-  [`${grow}`, [`${flex}-${grow}`]],
+  [`${flex}${grow}`, [`${flex}${grow}`]],
   [direction, [`${flex}${Dir}`]],
   [`${flex}`, [`${flex}`]],
-  [`${flex}${wrap}`, [`${flex}-${wrap}`]],
-  [`${flex}${shr}`, [`${flex}-${shr}`]],
+  [`${flex}${wrap}`, [`${flex}${wrap}`]],
+  [`${flex}${shr}`, [`${flex}${shr}`]],
   [`${no}${wrap}`, [`${no}${wrap}`]],
-  [`${wrap}${rev}`, [`${wrap}-${rev}`]],
+  [`${wrap}rev`, [`${wrap}${rev}`]],
   [`${flex}${dir}`, [`${flex}${Dir}`]],
-  [`${flex}${flow}`, [`${flex}-${flow}`]],
-  [`${flex}${bas}`, [`${flex}-${bas}`]],
+  [`${flex}${flow}`, [`${flex}${flow}`]],
+  [`${flex}bas`, [`${flex}${bas}`]],
   [`${flex}${strt}`, [`${flex}${strt}`]],
-  [`${flex}${end}`, [`${flex}-${end}`]],
+  [`${flex}${end}`, [`${flex}${end}`]],
   ['ord', [ord]],
   [gap, [`${grid}-${gap}`]],
   [`${row}`, [`${grid}-${row}`]],
