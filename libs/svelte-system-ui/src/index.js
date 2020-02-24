@@ -111,9 +111,8 @@ const styled = (node, props) => {
   let prevClassName
 
   const update = ([attributes, theme]) => {
-    console.log('styled.update: ', theme)
     const cssText = processCss(attributes, theme)
-
+    console.log('styled.update: ', cssText, theme)
     if (cssText === previousCssText) return
     previousCssText = cssText
 
