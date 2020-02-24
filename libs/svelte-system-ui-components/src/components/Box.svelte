@@ -5,17 +5,17 @@
   export let as = 'div'
   export let style = {}
   let role
-  console.log('Box', theme, style, $$props)
+  // console.log('Box', theme, style, $$props)
 </script>
 
 {#if !as || as === 'div'}
-  <div role={$$props.role} use:styled={[style, $theme]}>
+  <div use:styled={[style, $theme]}>
     <slot>
       <em>no content was provided</em>
     </slot>
   </div>
 {:else if as === 'nav'}
-  <nav {...$$props} use:styled={[style, $theme]}>
+  <nav role={$$props.role} use:styled={[style, $theme]}>
     <slot>
       <em>no content was provided</em>
     </slot>

@@ -26,14 +26,14 @@ const defaultUnits = {
   layout: '%',
 }
 const addUnits = (styles, units = defaultUnits) => {
-  console.log('addUnits:', styles, units)
+  // console.log('addUnits:', styles, units)
   let withUnits = {}
   for (let [name, value] of Object.entries(styles)) {
-    console.log('addUnits entries:', name, value)
+    // console.log('addUnits entries:', name, value)
     if (typeof value === 'object' && value !== null) {
       let withUnitsO = {}
       for (let [nameO, valueO] of Object.entries(value)) {
-        console.log('addUnits object:', nameO, valueO)
+        // console.log('addUnits object:', nameO, valueO)
         if (
           (nameO.startsWith('margin') || nameO.startsWith('padding')) &&
           typeof valueO === 'number'
@@ -55,7 +55,7 @@ const addUnits = (styles, units = defaultUnits) => {
     }
     Object.assign(withUnits, { [name]: value })
   }
-  console.log('addUnits return:', withUnits)
+  // console.log('addUnits return:', withUnits)
   return withUnits
 }
 
@@ -100,12 +100,12 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
 
   for (let [name, value] of Object.entries(attributes)) {
     name = shortHandAttributes.get(name) || [name]
-    console.log('processCss 1', name, value)
+    // console.log('processCss 1', name, value)
     for (let cssProp of name) {
       let cssPropValue
       if (cssProp.startsWith('_')) {
         cssProp = cssProp.replace('_', '&:')
-        console.log('processCss 2', cssProp, value)
+        // console.log('processCss 2', cssProp, value)
         cssPropValue = createCssMisc(value, theme, cssProp)
         cssMisc = Object.assign(cssMisc, { [cssProp]: cssPropValue })
         continue
@@ -116,7 +116,7 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
   cssText.theme = theme
 
   let newCss = system(cssText)
-  console.log('newCss', newCss, cssMisc)
+  // console.log('newCss', newCss, cssMisc)
 
   return addUnits(Object.assign(newCss, cssMisc))
 }
@@ -127,7 +127,7 @@ const styled = (node, props) => {
 
   const update = ([attributes, theme]) => {
     const cssText = processCss(attributes, theme)
-    console.log('styled.update: ', cssText, theme)
+    // console.log('styled.update: ', cssText, theme)
     if (cssText === previousCssText) return
     previousCssText = cssText
 
