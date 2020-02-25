@@ -5,7 +5,7 @@ import { axe, toHaveNoViolations } from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 
-describe('Counter', () => {
+describe('Box', () => {
   test('should render component correctly ', () => {
     const { getByText } = render(BoxView)
 

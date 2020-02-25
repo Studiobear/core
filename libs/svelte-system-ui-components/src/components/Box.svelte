@@ -1,5 +1,4 @@
 <script>
-  //import { styled } from 'svelte-styled-system'
   import { styled } from 'svelte-system-ui'
   import theme from '../theme'
   export let as = 'div'
