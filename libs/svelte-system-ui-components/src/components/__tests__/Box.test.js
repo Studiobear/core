@@ -29,16 +29,6 @@ describe('Box', () => {
     expect(box).toHaveStyle('background-color: rgb(0, 119, 204)')
   })
 
-  test('to pass "as nav" and role prop', async () => {
-    const { getByText } = render(BoxView, {
-      as: 'nav',
-      role: 'navigation',
-      style: { bg: 'primary', _hover: { bg: 'secondary' } },
-    })
-    const box = getByText('I am a box!')
-    expect(box).toHaveAttribute('role', 'navigation')
-  })
-
   test('to not have undeclared props', async () => {
     const { getByText } = render(BoxView, {
       bad: 'prop',

@@ -10,7 +10,7 @@
   export let boxText3 = '3'
 </script>
 
-<Box {style}>
+<Box {style} {...$$props}>
   <Box style={style1}>{boxText1}</Box>
   <Box style={style2}>{boxText2}</Box>
   <Box style={style3}>{boxText3}</Box>

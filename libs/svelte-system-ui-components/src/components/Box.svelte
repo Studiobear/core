@@ -1,22 +1,20 @@
 <script>
   import { styled } from 'svelte-system-ui'
   import theme from '../theme'
-  export let as = 'div'
+
   export let style = {}
+  let compStyles = {
+    boxSizing: 'border-box',
+    margin: 0,
+    minWidth: 0,
+    ...style,
+  }
   let role
-  // console.log('Box', theme, style, $$props)
+  console.log('Box', theme, style, compStyles, $$props)
 </script>
 
-{#if !as || as === 'div'}
-  <div use:styled={[style, $theme]}>
-    <slot>
-      <em>no content was provided</em>
-    </slot>
-  </div>
-{:else if as === 'nav'}
-  <nav role={$$props.role} use:styled={[style, $theme]}>
-    <slot>
-      <em>no content was provided</em>
-    </slot>
-  </nav>
-{/if}
+<div use:styled={[compStyles, $theme]}>
+  <slot>
+    <em>no content was provided</em>
+  </slot>
+</div>
