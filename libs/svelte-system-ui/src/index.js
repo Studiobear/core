@@ -7,6 +7,7 @@ import {
   border,
   flexbox,
   typography as typographySS,
+  grid,
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
@@ -19,6 +20,7 @@ export const system = compose(
   border,
   flexbox,
   typographySS,
+  grid,
 )
 
 const defaultUnits = {
