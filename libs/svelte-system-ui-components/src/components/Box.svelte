@@ -1,0 +1,20 @@
+<script>
+  import { styled } from 'svelte-system-ui'
+  import theme from '../theme'
+
+  export let style = {}
+  let compStyles = {
+    boxSizing: 'border-box',
+    margin: 0,
+    minWidth: 0,
+    ...style,
+  }
+  let role
+  console.log('Box', theme, style, compStyles, $$props)
+</script>
+
+<div use:styled={[compStyles, $theme]}>
+  <slot>
+    <em>no content was provided</em>
+  </slot>
+</div>
