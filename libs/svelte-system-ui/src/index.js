@@ -26,6 +26,7 @@ export const system = compose(
 const defaultUnits = {
   space: 'px',
   layout: '%',
+  grid: 'px',
 }
 const addUnits = (styles, units = defaultUnits) => {
   // console.log('addUnits:', styles, units)
@@ -43,6 +44,10 @@ const addUnits = (styles, units = defaultUnits) => {
           Object.assign(withUnitsO, { [nameO]: `${valueO}${units.space}` })
           continue
         }
+        if (nameO.startsWith('grid') && typeof valueO === 'number') {
+          Object.assign(withUnitsO, { [nameO]: `${valueO}${units.grid}` })
+          continue
+        }
         Object.assign(withUnitsO, { [nameO]: valueO })
       }
       Object.assign(withUnits, { [name]: withUnitsO })
@@ -53,6 +58,10 @@ const addUnits = (styles, units = defaultUnits) => {
       typeof value === 'number'
     ) {
       Object.assign(withUnits, { [name]: `${value}${units.space}` })
+      continue
+    }
+    if (name.startsWith('grid') && typeof value === 'number') {
+      Object.assign(withUnits, { [name]: `${value}${units.grid}` })
       continue
     }
     Object.assign(withUnits, { [name]: value })
@@ -102,7 +111,7 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
 
   for (let [name, value] of Object.entries(attributes)) {
     name = shortHandAttributes.get(name) || [name]
-    // console.log('processCss 1', name, value)
+    console.log('processCss 1', name, value)
     for (let cssProp of name) {
       let cssPropValue
       if (cssProp.startsWith('_')) {
@@ -118,7 +127,7 @@ export const processCss = (attributes, theme, pseudoElementSelector) => {
   cssText.theme = theme
 
   let newCss = system(cssText)
-  // console.log('newCss', newCss, cssMisc)
+  console.log('newCss', newCss, cssMisc)
 
   return addUnits(Object.assign(newCss, cssMisc))
 }

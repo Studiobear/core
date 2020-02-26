@@ -2,15 +2,19 @@
   import Box from './Box'
 
   export let style
-  export const columnGap = [1, 2, 3]
-  export const rowGap = [1, 2, 3]
+  export let colgap = ''
+  export let rowgap = ''
+  export let gridgap = '5px 10px'
   export const container = false
   let d
   if ($$props.container) d = { d: 'grid' }
   if (typeof $$props.container === 'string') d = { d: $$props.container }
+  if (typeof colngap === ('number' || 'string')) gridgap = ''
+  if (typeof rowgap === ('number' || 'string')) gridgap = ''
   let compStyles = {
-    columnGap,
-    rowGap,
+    colgap,
+    rowgap,
+    gridgap,
     ...d,
     ...style,
   }
