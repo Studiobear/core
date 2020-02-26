@@ -1,7 +1,6 @@
 import { action } from '@storybook/addon-actions'
 
 import GridView from './views/gridView.svelte'
-import GridView2 from './views/gridView2.svelte'
 
 export default {
   title: 'Grid',

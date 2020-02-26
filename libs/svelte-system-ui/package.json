@@ -15,11 +15,11 @@
   "sideEffects": false,
   "scripts": {
     "bundle": "microbundle",
-    "clean-dist": "rm -rf dist",
+    "clean": "rm -rf dist",
     "bundlesize": "bundlesize",
     "lint": "prettier --check 'src/**/*.{html,js,svelte}'",
     "lint:fix": "prettier --write 'src/**/*.{html,js,svelte}'",
-    "build": "yarn test && yarn clean-dist && yarn microbundle&& yarn bundlesize",
+    "build": "yarn test && yarn clean && yarn microbundle&& yarn bundlesize",
     "watch": "yarn microbundle watch",
     "test": "ava tests/test.js",
     "test:watch": "yarn test --watch"
