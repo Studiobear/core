@@ -1,6 +1,7 @@
 import { action } from '@storybook/addon-actions'
 
 import GridView from './views/gridView.svelte'
+import GridView2 from './views/gridView2.svelte'
 
 export default {
   title: 'Grid',
@@ -11,6 +12,28 @@ export const withGrid = () => ({
   Component: GridView,
   props: {
     container: true,
+    style: {
+      tempcols: '1fr 1fr',
+      temprows: 'auto auto',
+      p: 4,
+      brd: '1px solid',
+      brdCol: 'primary',
+    },
+    style1: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style2: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style3: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style4: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    gridText1: 'Parent Grid component sets attribute `container` = true',
+    gridText2: 'This uses',
+    gridText3: 'CSS',
+    gridText4: 'Grid',
+  },
+})
+
+export const withGridInline = () => ({
+  Component: GridView,
+  props: {
+    inline: true,
     style: {
       tempcols: '1fr 1fr',
       temprows: 'auto auto',
@@ -171,3 +194,107 @@ export const withGridTemplateAreas = () => ({
     gridText4: 'footer',
   },
 })
+
+export const withGridJustifyItems = () => ({
+  Component: GridView,
+  props: {
+    container: true,
+    gridGap: 4,
+    style: {
+      tempcols: '1fr 1fr',
+      temprows: 'auto auto',
+      p: 4,
+      brd: '1px solid',
+      brdCol: 'primary',
+      just: 'center',
+    },
+    style1: { p: 4, bg: 'secondary', color: 'background' },
+    style2: { p: 4, bg: 'secondary', color: 'background' },
+    style3: { p: 4, bg: 'secondary', color: 'background' },
+    style4: { p: 4, bg: 'secondary', color: 'background' },
+    gridText1: 'This',
+    gridText2: 'uses',
+    gridText3: 'justify-items',
+    gridText4: 'center',
+  },
+})
+
+export const withGridAlignItems = () => ({
+  Component: GridView,
+  props: {
+    container: true,
+    gridGap: 4,
+    style: {
+      tempcols: '1fr 1fr',
+      temprows: 'auto auto',
+      p: 4,
+      brd: '1px solid',
+      brdCol: 'primary',
+      align: 'center',
+      height: '20em',
+    },
+    style1: { p: 4, bg: 'secondary', color: 'background', txtalign: 'right' },
+    style2: { p: 4, bg: 'secondary', color: 'background' },
+    style3: { p: 4, bg: 'secondary', color: 'background', txtalign: 'right' },
+    style4: { p: 4, bg: 'secondary', color: 'background' },
+    gridText1: 'This',
+    gridText2: 'uses',
+    gridText3: 'align-items',
+    gridText4: 'center',
+  },
+})
+
+export const withGridPlaceItems = () => ({
+  Component: GridView,
+  props: {
+    container: true,
+    gridGap: 4,
+    style: {
+      tempcols: '1fr 1fr',
+      temprows: 'auto auto',
+      p: 4,
+      brd: '1px solid',
+      brdCol: 'primary',
+      place: 'center start',
+      height: '20em',
+    },
+    style1: { p: 4, bg: 'secondary', color: 'background', txtalign: 'right' },
+    style2: { p: 4, bg: 'secondary', color: 'background' },
+    style3: { p: 4, bg: 'secondary', color: 'background', txtalign: 'right' },
+    style4: { p: 4, bg: 'secondary', color: 'background' },
+    gridText1: 'This',
+    gridText2: 'uses',
+    gridText3: 'align-items',
+    gridText4: 'center',
+  },
+})
+
+/*
+export const withGridJustifyItems = () => ({
+  Component: GridView2,
+  props: {
+    container: true,
+    gridGap: 4,
+    style: {
+      tempcols: '1fr 1fr',
+      temprows: 'auto auto',
+      p: 4,
+      brd: '1px solid',
+      brdCol: 'primary',
+      just: 'center',
+    },
+    style1: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style2: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style3: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    style4: { p: 4, brd: '1px solid', brdCol: 'secondary' },
+    boxStyle1: { p: 2, bg: 'secondary', color: 'background' },
+    boxStyle2: { p: 2, bg: 'secondary', color: 'background' },
+    boxStyle3: { p: 2, bg: 'secondary', color: 'background' },
+    boxStyle4: { p: 2, bg: 'secondary', color: 'background' },
+    gridText1: 'This',
+    gridText2: 'uses',
+    gridText3: 'justify-items',
+    gridText4: 'center',
+  },
+})
+*/

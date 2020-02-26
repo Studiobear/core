@@ -25,6 +25,7 @@ const brd = 'border'
 const bx = 'box'
 const shd = 'shadow'
 const grid = 'grid'
+const inl = 'inline'
 const ap = 'ap'
 const gap = `g${ap}`
 const Gap = `G${ap}`
@@ -66,6 +67,7 @@ const temp = 'temp'
 const Temp = 'Template'
 const align = 'align'
 const just = 'justify'
+const place = 'place'
 const items = 'Items'
 const area = 'area'
 const Area = 'Area'
@@ -83,6 +85,7 @@ const attachment = 'Attachment'
 const lign = 'lign'
 const olor = 'olor'
 const uto = 'uto'
+const txt = 'text'
 
 export const shortHandAttributes = new Map([
   ['m', [m]],
@@ -128,6 +131,8 @@ export const shortHandAttributes = new Map([
   ['shd', [`${bx}-${shd}`]],
   [content, [content]],
   [align, [`${align}${items}`]],
+  [`just`, [`${just}${items}`]],
+  [`place`, [`${place}${items}`]],
   [`${align}${c}`, [`${align}Content`]],
   [`just${c}`, [`${just}Content`]],
   ['slf', [`${align}Self`]],
@@ -160,6 +165,8 @@ export const shortHandAttributes = new Map([
   [`${flex}${end}`, [`${flex}${end}`]],
   ['ord', [ord]],
   [gap, [gap]],
+  [grid, [grid]],
+  [`in${grid}`, [`${inl}Grid`]],
   [`${grid}${gap}`, [`${grid}${Gap}`]],
   [`${row}`, [`${grid}${Row}`]],
   [`${row}${rev}`, [`${row}${Rev}`]],
@@ -174,4 +181,5 @@ export const shortHandAttributes = new Map([
   [`${temp}${row}s`, [`${grid}${Temp}${Row}s`]],
   [`${temp}${col}s`, [`${grid}${Temp}${Col}s`]],
   [`${grid}${area}s`, [`${grid}${Temp}${Area}s`]],
+  [`txt${align}`, [`${txt}${A}${lign}`]],
 ])

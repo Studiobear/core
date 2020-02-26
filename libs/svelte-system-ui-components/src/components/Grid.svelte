@@ -6,8 +6,10 @@
   export let rowgap = ''
   export let gridgap = '5px 10px'
   export const container = false
+  export const inline = false
   let d
   if ($$props.container) d = { d: 'grid' }
+  if ($$props.inline) d = { d: 'inlgrid' }
   if (typeof $$props.container === 'string') d = { d: $$props.container }
   if (typeof colngap === ('number' || 'string')) gridgap = ''
   if (typeof rowgap === ('number' || 'string')) gridgap = ''
