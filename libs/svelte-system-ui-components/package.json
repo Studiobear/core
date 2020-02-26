@@ -41,7 +41,6 @@
     "eslint-plugin-svelte3": "^2.7.3",
     "jest": "^25.1.0",
     "jest-axe": "^3.3.0",
-    "jest-dom": "^4.0.0",
     "jest-transform-svelte": "^2.1.1",
     "prettier": "^1.19.1",
     "prettier-plugin-svelte": "^0.7.0",
