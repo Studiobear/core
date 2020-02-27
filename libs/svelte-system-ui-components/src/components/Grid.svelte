@@ -1,5 +1,5 @@
 <script>
-  import Box from './Box'
+  import Box from './Box.svelte'
 
   export let style
   export let colgap = ''
@@ -13,14 +13,14 @@
   if (typeof $$props.container === 'string') d = { d: $$props.container }
   if (typeof colngap === ('number' || 'string')) gridgap = ''
   if (typeof rowgap === ('number' || 'string')) gridgap = ''
-  let compStyles = {
+  $: compStyles = {
     colgap,
     rowgap,
     gridgap,
     ...d,
     ...style,
   }
-  console.log('Grid', d, compStyles, $$props)
+  // console.log('Grid', d, compStyles, $$props)
 </script>
 
 <Box {...$$props} style={compStyles}>

@@ -1,7 +1,7 @@
 <script>
   import { styled } from 'svelte-system-ui'
   import theme from '../theme'
-  import Box from './Box'
+  import Box from './Box.svelte'
 
   export let style
   let compStyles = {

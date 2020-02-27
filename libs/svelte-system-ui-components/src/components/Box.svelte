@@ -3,14 +3,14 @@
   import theme from '../theme'
 
   export let style = {}
-  let compStyles = {
+  $: compStyles = {
     boxSizing: 'border-box',
     margin: 0,
     minWidth: 0,
     ...style,
   }
   let role
-  console.log('Box', theme, style, compStyles, $$props)
+  // console.log('Box', theme, style, compStyles, $$props)
 </script>
 
 <div use:styled={[compStyles, $theme]}>
