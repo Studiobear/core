@@ -49,7 +49,7 @@
     "regenerator-runtime": "^0.13.3",
     "rollup": "^1.21.4",
     "rollup-plugin-svelte": "^5.1.0",
-    "svelte": "^3.18.2",
+    "svelte": "^3.19.1",
     "svelte-jester": "^1.0.3",
     "svelte-loader": "^2.13.6",
     "svelte-system-ui": "*",
@@ -68,5 +68,8 @@
   "files": [
     "src",
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "svelte": "3.19.1"
+  }
 }

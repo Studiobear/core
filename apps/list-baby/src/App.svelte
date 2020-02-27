@@ -27,43 +27,59 @@
   export let name = 'world'
 
   $: primary = $theme.colors.primary
+  $: secondary = $theme.colors.secondary
   $: background = $theme.colors.background
-  $: mainStyle = {
-    bg: primary,
+  $: main = {
+    bg: background,
   }
 
-  $: gridStyles = {
+  $: grid = {
     textalign: 'center',
-    brd: '8px solid',
-    brdCol: $theme.colors.text,
   }
 
-  $: headerStyles = {
-    color: $theme.colors.primary,
+  $: header = {
+    color: background,
   }
 
-  $: contentStyles = {
+  $: content = {
     textalign: 'center',
     p: 4,
-    maxw: [0, 0, '20em'],
-    bg: background,
+    maxw: ['20em', '30em', '40em'],
+    bg: primary,
   }
 </script>
 
-<Section {...$$props} as="main" theme={$theme} style={mainStyle}>
-  <Grid container style={gridStyles}>
-    <Flex />
-    <Grid>
-      <Box style={contentStyles}>
-        <Heading as="h1" style={headerStyles}>Hello {name}!</Heading>
-        <p>
-          Visit the
-          <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
-          to learn how to build Svelte apps.
-          <button on:click={changeMode}>{mode}</button>
-        </p>
-      </Box>
-    </Grid>
-    <Flex />
+<Box {...$$props} theme={$theme} style={main}>
+  <Grid container gridgap={0} style={grid}>
+    <Section as="header">
+      <Flex
+        style={{ bg: 'secondary', justc: 'space-between', alignc: 'center', minh: '4em' }}>
+        <Box>Header</Box>
+        <Section as="nav">
+          <a href="/">Home</a>
+        </Section>
+      </Flex>
+    </Section>
+    <Section as="main">
+      <Grid
+        container
+        style={{ justc: 'center', alignc: 'center', minh: ['20em', '30em', '40em'] }}>
+        <Box style={content}>
+          <Heading as="h1" style={header}>Hello {name}!</Heading>
+          <p>
+            Now using hmr!
+            <button on:click={changeMode}>{mode}</button>
+          </p>
+        </Box>
+      </Grid>
+    </Section>
+    <Section as="footer">
+      <Flex
+        style={{ bg: 'secondary', justc: 'space-around', alignc: 'center', minh: '4em' }}>
+        <Box>Footer</Box>
+        <Box>Footer</Box>
+        <Box>Footer</Box>
+      </Flex>
+    </Section>
   </Grid>
-</Section>
+</Box>
