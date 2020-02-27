@@ -6,5 +6,7 @@ describe('App', () => {
     const { getByText } = render(App)
 
     expect(getByText('Hello world!')).toBeInTheDocument()
+    expect(getByText('header')).toBeInTheDocument()
+    expect(getByText('footer')).toBeInTheDocument()
   })
 })
