@@ -1,6 +1,24 @@
+<script context="module">
+  import { setContext } from 'svelte'
+  import { get } from 'svelte/store'
+  import { theme } from './theme'
+
+  let mode = 'light'
+
+  export function changeMode() {
+    if (mode === 'light') {
+      mode = 'dark'
+      theme.dark()
+    } else {
+      mode = 'light'
+      theme.light()
+    }
+  }
+</script>
+
 <script>
   import { addGlobal } from 'svelte-system-ui'
-  import { theme } from './theme'
+  // import { theme } from './theme'
   import {
     Section,
     Grid,
@@ -9,6 +27,8 @@
     Heading,
   } from 'svelte-system-ui-components'
 
+  import { Header, Footer } from './components/index'
+  /*
   let mode = 'light'
 
   function changeMode() {
@@ -21,6 +41,7 @@
     }
     console.log('changeMode: ', mode, $theme)
   }
+  */
 
   addGlobal($theme)
 
@@ -37,7 +58,7 @@
     textalign: 'center',
   }
 
-  $: header = {
+  $: headerStyle = {
     color: background,
   }
 
@@ -51,35 +72,20 @@
 
 <Box {...$$props} theme={$theme} style={main}>
   <Grid container gridgap={0} style={grid}>
-    <Section as="header">
-      <Flex
-        style={{ bg: 'secondary', justc: 'space-between', alignc: 'center', minh: '4em' }}>
-        <Box>Header</Box>
-        <Section as="nav">
-          <a href="/">Home</a>
-        </Section>
-      </Flex>
-    </Section>
+    <Header theme={$theme} />
     <Section as="main">
       <Grid
         container
         style={{ justc: 'center', alignc: 'center', minh: ['20em', '30em', '40em'] }}>
         <Box style={content}>
-          <Heading as="h1" style={header}>Hello {name}!</Heading>
+          <Heading as="h1" style={headerStyle}>Hello {name}!</Heading>
           <p>
             Now using hmr!
-            <button on:click={changeMode}>{mode}</button>
+            <button on:click={changeMode}>{$theme.mode}</button>
           </p>
         </Box>
       </Grid>
     </Section>
-    <Section as="footer">
-      <Flex
-        style={{ bg: 'secondary', justc: 'space-around', alignc: 'center', minh: '4em' }}>
-        <Box>Footer</Box>
-        <Box>Footer</Box>
-        <Box>Footer</Box>
-      </Flex>
-    </Section>
+    <Footer />
   </Grid>
 </Box>

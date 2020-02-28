@@ -10,6 +10,7 @@ export const basic = {
   scale: [0.25, 0.5, 0.75, 1, 1.5, 2, 4, 8],
   colors: {
     text: '#666',
+    heading: '#e6e6e6',
     background: '#fff',
     primary: '#07c',
     secondary: '#30c',
@@ -17,6 +18,7 @@ export const basic = {
     modes: {
       dark: {
         text: '#eee',
+        heading: '#047',
         background: '#212121',
         primary: '#73B4E3',
         secondary: '#8F73E3',

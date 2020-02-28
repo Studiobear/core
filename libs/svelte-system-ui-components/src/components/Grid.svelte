@@ -23,6 +23,6 @@
   // console.log('Grid', d, compStyles, $$props)
 </script>
 
-<Box {...$$props} style={compStyles}>
+<Box style={compStyles}>
   <slot />
 </Box>

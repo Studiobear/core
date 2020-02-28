@@ -7,6 +7,8 @@ import mainTheme from './themeListBaby'
 const basic = typography(mainTheme, kirkhamTheme)
 let dark = Object.assign({}, basic)
 dark.colors = mainTheme.colors.modes.dark
+dark.mode = 'dark'
+basic.mode = 'light'
 console.log('theme: ', basic, dark)
 function createTheme() {
   const { subscribe, set, update } = writable(basic)
