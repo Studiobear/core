@@ -11,7 +11,7 @@ import {
 } from 'styled-system'
 import { shortHandAttributes } from './constants'
 import glob from './glob'
-import typography from './typography'
+import typography, { fontLink } from './typography'
 
 export const system = compose(
   color,
@@ -192,4 +192,4 @@ const parseGlobal = globStyles => {
 
 const addGlobal = theme => glob(parseGlobal(theme))
 
-export { styled, addGlobal, typography }
+export { styled, addGlobal, typography, fontLink }

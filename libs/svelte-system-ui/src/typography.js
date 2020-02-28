@@ -294,4 +294,27 @@ export const typography = (theme = {}, _opts = {}) => {
   }
 }
 
+export const fontLink = typography => {
+  console.log('fontLink: ', typography)
+  let fontsStr = ''
+  if (typography.googleFonts) {
+    const fonts = typography.googleFonts.map(font => {
+      let str = ''
+      str += font.name.split(' ').join('+')
+      str += ':'
+      str += font.styles.join(',')
+
+      return str
+    })
+
+    fontsStr = fonts.join('|')
+
+    if (fontsStr) {
+      console.log('fontLink2: ', fontsStr)
+      return `//fonts.googleapis.com/css?family=${fontsStr}`
+    }
+    return null
+  }
+}
+
 export default typography

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { typography } from 'svelte-system-ui'
+import { typography, fontLink } from 'svelte-system-ui'
 import kirkhamTheme from 'typography-theme-kirkham'
 
 import mainTheme from './themeListBaby'
@@ -22,6 +22,7 @@ function createTheme() {
 }
 
 const theme = createTheme()
+const googleFonts = fontLink(kirkhamTheme)
 
-export { theme, basic, dark }
+export { theme, basic, dark, googleFonts }
 export default theme
