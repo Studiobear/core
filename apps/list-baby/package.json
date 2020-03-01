@@ -53,8 +53,7 @@
     "typography-theme-kirkham": "^0.16.19"
   },
   "dependencies": {
-    "sirv-cli": "^0.4.5",
-    "svelte": "3.19.1"
+    "sirv-cli": "^0.4.5"
   },
   "peerDependencies": {
     "cypress": "^4.0.1",

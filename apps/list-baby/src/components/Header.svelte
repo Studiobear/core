@@ -35,7 +35,7 @@
     justc: 'space-between',
     alignc: 'center',
     pr: 4,
-    flexdir: 'row',
+    direction: 'row',
   }
   let brand = {
     pl: 4,

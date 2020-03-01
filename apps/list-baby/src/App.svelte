@@ -1,7 +1,7 @@
 <script context="module">
   import { setContext } from 'svelte'
   import { get } from 'svelte/store'
-  import { theme } from './theme'
+  import { theme, googleFonts } from './theme'
 
   let mode = 'light'
 
@@ -25,27 +25,12 @@
     Flex,
     Box,
     Heading,
+    Text,
   } from 'svelte-system-ui-components'
 
-  import { Header, Footer } from './components/index'
-  /*
-  let mode = 'light'
-
-  function changeMode() {
-    if (mode === 'light') {
-      mode = 'dark'
-      theme.dark()
-    } else {
-      mode = 'light'
-      theme.light()
-    }
-    console.log('changeMode: ', mode, $theme)
-  }
-  */
+  import { Header, Footer, Todo } from './components/index'
 
   addGlobal($theme)
-
-  export let name = 'world'
 
   $: primary = $theme.colors.primary
   $: secondary = $theme.colors.secondary
@@ -60,15 +45,26 @@
 
   $: headerStyle = {
     color: background,
+    lineHeight: '1.8em',
+    txtalign: 'center',
+    position: 'relative',
+  }
+  $: headerStyle1 = {
+    color: '#ddd',
   }
 
   $: content = {
     textalign: 'center',
     p: 4,
-    maxw: ['20em', '30em', '40em'],
+    minw: ['20em', '30em', '40em'],
+    maxw: '100%',
     bg: primary,
   }
 </script>
+
+<svelte:head>
+  <link href={googleFonts} rel="stylesheet" type="text/css" />
+</svelte:head>
 
 <Box {...$$props} theme={$theme} style={main}>
   <Grid container gridgap={0} style={grid}>
@@ -78,11 +74,24 @@
         container
         style={{ justc: 'center', alignc: 'center', minh: ['20em', '30em', '40em'] }}>
         <Box style={content}>
-          <Heading as="h1" style={headerStyle}>Hello {name}!</Heading>
-          <p>
-            Now using hmr!
-            <button on:click={changeMode}>{$theme.mode}</button>
-          </p>
+          <Heading as="h1" style={headerStyle}>
+            To Do? To Remember? To Share?
+            <br />
+            <span style="font-size: 66px; padding-left: 0.6em;">
+              Make it Duly Listed
+              <span
+                style="font-size: 30px; line-height: 1.8em; position: relative;
+                top: -28px;">
+                **
+              </span>
+            </span>
+          </Heading>
+          <Text style={{ txtalign: 'center', color: $theme.colors.muted }}>
+            **Created by an individual who hates lists
+          </Text>
+        </Box>
+        <Box>
+          <Todo />
         </Box>
       </Grid>
     </Section>
