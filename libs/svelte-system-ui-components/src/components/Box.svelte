@@ -2,6 +2,7 @@
   import { styled } from 'svelte-system-ui'
   import theme from '../theme'
 
+  let div
   export let style = {}
   $: compStyles = {
     boxSizing: 'border-box',
@@ -13,7 +14,7 @@
   // console.log('Box', theme, style, compStyles, $$props)
 </script>
 
-<div {...$$props} use:styled={[compStyles, $theme]}>
+<div bind:this={div} on:click use:styled={[compStyles, $theme]}>
   <slot>
     <em>no content was provided</em>
   </slot>
