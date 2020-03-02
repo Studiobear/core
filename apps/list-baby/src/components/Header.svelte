@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte'
-  import App, { changeMode } from '../App.svelte'
   import theme from '../theme'
   import { Section, Flex, Box, Heading } from 'svelte-system-ui-components'
   /*
@@ -52,7 +51,9 @@
     <Section as="nav">
       <Flex style={nav} />
       <a href="/">Home</a>
-      <button on:click={changeMode}>{mode}</button>
+      <button on:click={mode === 'light' ? theme.dark() : theme.light()}>
+        {mode}
+      </button>
       <slot />
       <Flex style={flex} />
     </Section>

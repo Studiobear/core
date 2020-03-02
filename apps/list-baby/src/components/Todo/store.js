@@ -1,14 +1,29 @@
 import { writable } from 'svelte/store'
+import nanoid from 'nanoid'
 
-const default = {master:[]}
+const list = []
 function store() {
-  const { subscribe, set, update } = writable(default)
+  const { subscribe, set, update } = writable(list)
 
   return {
     subscribe,
-    add: (todo) => update(t => {...t, ...todo}),
-    done: (id) => update(t => (t.id === id) t.done = true),
-    reset: set(default),
+    add: todo =>
+      update(t => {
+        const d = [...t, { id: nanoid(), text: todo, done: false }]
+        console.log('add Todo: ', d)
+        return d
+      }),
+    done: id =>
+      update(t => {
+        const todoIndex = t.findIndex(todo => todo.id === id)
+        const updatedTodo = { ...t[todoIndex], done: !t[todoIndex].done }
+        return [
+          ...t.slice(0, todoIndex),
+          updatedTodo,
+          ...t.slice(todoIndex + 1),
+        ]
+      }),
+    reset: set(list),
   }
 }
 

@@ -91,7 +91,7 @@
           </Text>
         </Box>
         <Box>
-          <Todo />
+          <Todo theme={$theme} />
         </Box>
       </Grid>
     </Section>

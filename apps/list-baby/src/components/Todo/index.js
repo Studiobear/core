@@ -1,4 +1,4 @@
-import Todo from 'todo.svelte'
+import Todo from './Todo.svelte'
 
 export { Todo }
 export default Todo

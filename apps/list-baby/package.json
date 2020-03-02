@@ -1,6 +1,7 @@
 {
   "name": "list-baby",
   "version": "0.0.1",
+  "browser": "true",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -26,6 +27,7 @@
     "@babel/runtime": "^7.0.0",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
+    "@rollup/plugin-replace": "^2.3.1",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/svelte": "^1.11.0",
     "babel-jest": "^25.1.0",
@@ -53,6 +55,7 @@
     "typography-theme-kirkham": "^0.16.19"
   },
   "dependencies": {
+    "nanoid": "^2.1.11",
     "sirv-cli": "^0.4.5"
   },
   "peerDependencies": {

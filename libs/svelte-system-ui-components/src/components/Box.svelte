@@ -13,7 +13,7 @@
   // console.log('Box', theme, style, compStyles, $$props)
 </script>
 
-<div use:styled={[compStyles, $theme]}>
+<div {...$$props} use:styled={[compStyles, $theme]}>
   <slot>
     <em>no content was provided</em>
   </slot>
