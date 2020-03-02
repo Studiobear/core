@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { addGlobal } from 'svelte-system-ui'
-  import { theme, dark, basic } from '../../index'
+  import { theme } from '../../index'
   import { Box, Heading, Text } from '../../../components'
 
   let canvas
@@ -15,7 +15,7 @@
       mode = 'light'
       theme.setLight()
     }
-    console.log('changeMode: ', mode, basic, dark, $theme)
+    // console.log('changeMode: ', mode, $theme)
   }
 
   export let style

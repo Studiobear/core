@@ -62,5 +62,8 @@
     "prettier-plugin-svelte": "^0.7.0",
     "styled-system": "^5.1.5",
     "typography-theme-st-annes": "^0.16.19"
+  },
+  "dependencies": {
+    "svelte": "3.19.1"
   }
 }

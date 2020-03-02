@@ -20,10 +20,15 @@ const getSheet = target => {
   return ssr
 }
 
-const update = (css, sheet, append) =>
-  sheet.data.indexOf(css) < 0 &&
-  (sheet.data = append ? css + sheet.data : sheet.data + css)
-
+const update = (css, sheet, append) => {
+  if (document.contains(document.getElementById(sheet.id))) {
+    document.getElementById(sheet.id).remove()
+  }
+  return (
+    sheet.data.indexOf(css) < 0 &&
+    (sheet.data = append ? css + sheet.data : sheet.data + css)
+  )
+}
 function glob(val) {
   const ctx = this || {}
 
