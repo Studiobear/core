@@ -1,7 +1,7 @@
 <script>
-  import { styled } from 'svelte-styled-system'
+  import { styled } from '@studiobear/svelte-styled-system'
   import { theme } from '../theme'
-  import { Counter } from 'my-svelte-component-library'
+  import { Counter } from '@studiobear/sveltet-styled-system-ui'
 
   import { Box, Heading } from '../components'
 </script>

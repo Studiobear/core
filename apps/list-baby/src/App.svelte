@@ -17,7 +17,7 @@
 </script>
 
 <script>
-  import { addGlobal } from 'svelte-system-ui'
+  import { addGlobal } from '@studiobear/svelte-system-ui'
   // import { theme } from './theme'
   import {
     Section,
@@ -26,7 +26,7 @@
     Box,
     Heading,
     Text,
-  } from 'svelte-system-ui-components'
+  } from '@studiobear/svelte-system-ui-components'
 
   import { Header, Footer, Todo } from './components/index'
 

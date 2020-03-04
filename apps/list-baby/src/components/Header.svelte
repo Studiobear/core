@@ -1,7 +1,12 @@
 <script>
   import { onMount } from 'svelte'
   import theme from '../theme'
-  import { Section, Flex, Box, Heading } from 'svelte-system-ui-components'
+  import {
+    Section,
+    Flex,
+    Box,
+    Heading,
+  } from '@studiobear/svelte-system-ui-components'
   /*
   let mode = 'light'
 
