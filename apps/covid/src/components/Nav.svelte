@@ -54,6 +54,7 @@
   }
 
   $: homeLink = segment === undefined ? menuLinkSelected : menuLinkStyle
+  $: statsLink = segment === 'stats' ? menuLinkSelected : menuLinkStyle
   $: aboutLink = segment === 'about' ? menuLinkSelected : menuLinkStyle
   $: blogLink = segment === 'blog' ? menuLinkSelected : menuLinkStyle
 
@@ -74,6 +75,7 @@
     </Link>
     <Flex dir="row" style={flexNavStyle}>
       <Link href="." style={homeLink}>home</Link>
+      <Link href="stats" style={statsLink}>stats</Link>
       <Link href="about" style={aboutLink}>about</Link>
       <Link href="blog" style={blogLink}>blog</Link>
     </Flex>

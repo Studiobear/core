@@ -14,7 +14,7 @@
     fontSize: ['3em', '.5em', '1em'],
   }
 
-  // console.log('index: ', $$props, theme, $theme)
+  console.log('index: ', $$props, theme, $theme)
 </script>
 
 <svelte:options immutable={true} />
