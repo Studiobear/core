@@ -4,11 +4,13 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
+import copy from 'rollup-plugin-copy'
 import { terser } from 'rollup-plugin-terser'
 import config from 'sapper/config/rollup.js'
 import remark from 'remark'
 import html from 'remark-html'
 import svg from 'rollup-plugin-svg'
+import path from 'path'
 
 import pkg from './package.json'
 
@@ -38,6 +40,22 @@ export default {
     input: config.client.input(),
     output: config.client.output(),
     plugins: [
+      copy({
+        targets: [
+          {
+            src: [
+              path.resolve(
+                '../../node_modules/@openfonts/source-sans-pro_latin/files',
+              ),
+              path.resolve(
+                '../../node_modules/@openfonts/source-sans-pro_latin/index.css',
+              ),
+            ],
+            dest: 'static',
+          },
+        ],
+        resolve: true,
+      }),
       replace({
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),

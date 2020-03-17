@@ -1,6 +1,6 @@
 <script>
   import { addGlobal, styled } from '@studiobear/designspek'
-  import { googleFonts, theme } from '../theme'
+  import { theme } from '../theme'
 
   import { Section, Button, Box } from '@studiobear/designspek-components'
   import { Nav, SSR } from '../components'
@@ -40,7 +40,7 @@
 
 <svelte:options immutable={true} />
 <svelte:head>
-  <link href={googleFonts} rel="stylesheet" type="text/css" />
+  <link href="index.css" rel="stylesheet" type="text/css" />
 </svelte:head>
 
 <Box style={bodyStyle}>

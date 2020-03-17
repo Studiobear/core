@@ -26,6 +26,7 @@
     "kill": "kill $(lsof -ti:3001,3000,3002)"
   },
   "dependencies": {
+    "@openfonts/source-sans-pro_latin": "^1.44.0",
     "compression": "^1.7.1",
     "polka": "1.0.0-next.11",
     "sirv": "^0.4.0"
@@ -70,6 +71,7 @@
     "remark-rehype": "^5.0.0",
     "rollup": "^1.21.4",
     "rollup-plugin-babel": "^4.0.2",
+    "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-svelte": "^5.1.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.2.0",
