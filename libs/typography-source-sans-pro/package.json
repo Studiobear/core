@@ -1,7 +1,7 @@
 {
   "name": "@studiobear/typography-theme-source-sans-pro",
   "description": "Typography theme using Source Sans Pro",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Barry Low <barry@studiobear.co>",
   "source": "src/index.js",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
   "scripts": {
     "bundle": "microbundle",
     "clean": "rm -rf dist",
-    "build": "NODE_ENV=production yarn clean && yarn bundle --compress",
+    "build": "NODE_ENV=production yarn clean && yarn bundle",
     "watch": "NODE_ENV=development yarn bundle watch"
   },
   "license": "MIT",
