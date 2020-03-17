@@ -2132,6 +2132,13 @@
   dependencies:
     svelte "^3.19.1"
 
+"@studiobear/designspek@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.2.3.tgz#97810ca4112cdc6f21455a705798a4207a8c79f9"
+  integrity sha512-DLv6F/Dp4PjA7BdvZGF4dwl/jgp+0A7v63hdy56GY5ZWhCPcLxA8HIbCzqzxZ9NnhamZTJOuEV+MKeyFt4pItg==
+  dependencies:
+    svelte "^3.19.1"
+
 "@testing-library/dom@^6.5.0":
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-6.16.0.tgz#04ada27ed74ad4c0f0d984a1245bb29b1fd90ba9"

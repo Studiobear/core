@@ -132,6 +132,16 @@ export const main = {
       maxWidth: '100%',
     },
   },
+  forwardStyleDefault: [
+    'txtdeco',
+    'textDecoration',
+    'textTransform',
+    'position',
+    'f',
+    's',
+    'fill',
+    'stroke',
+  ],
 }
 
 export default main

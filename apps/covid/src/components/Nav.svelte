@@ -20,7 +20,7 @@
     borderBottom: '1px solid',
     borderColor: theme.colors.primary,
     fontWeight: 300,
-    p: '0 1em',
+    p: '0',
   }
   $: flexStyle = {
     justc: 'space-between',
@@ -38,7 +38,8 @@
     textAlign: 'center',
     fontWeight: 900,
     width: '100%',
-    my: '.25rem',
+    my: '.4rem',
+    fontSize: '2.8em',
   }
   $: brandLinkStyle = {
     textTransform: 'uppercase',
@@ -91,7 +92,7 @@
 <Section as="nav" style={navStyle}>
   <Flex dir="row" style={flexStyle}>
     <Heading as="h1" style={brandStyle}>
-      <Link href="." style={brandLinkStyle}>Be Informed</Link>
+      <Link href="." style={brandLinkStyle}>COVID-19 INFORMER</Link>
     </Heading>
   </Flex>
   <Flex dir="column" style={flexStyle}>

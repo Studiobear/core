@@ -35,11 +35,14 @@
     fontSize: '3em',
     fontWeight: 300,
   }
-  $: banner = styled({
-    width: '100%',
-    height: 'auto',
-    theme: $theme,
-  })
+  $: banner = styled(
+    {
+      w: '100%',
+      h: 'auto',
+    },
+    { theme: $theme },
+  )
+  $: console.log('banner', banner)
 
   onMount(async function getData() {
     const resp = await fetch(url)
@@ -94,7 +97,7 @@
       src="23313_lores.jpg"
       width="700"
       height="454"
-      css={banner}
+      class={banner}
       alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
       Image Library (https://phil.cdc.gov/)]" />
   </Box>
