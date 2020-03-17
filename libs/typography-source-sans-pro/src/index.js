@@ -3,12 +3,13 @@ import { MOBILE_MEDIA_QUERY } from 'typography-breakpoint-constants'
 
 const theme = {
   title: 'Source Sans Pro',
-  baseFontSize: '18px',
-  baseLineHeight: 1.5625,
+  baseFontSize: '20px',
+  baseLineHeight: 1.62,
+  scaleRatio: 3,
   googleFonts: [
     {
       name: 'Source Sans Pro',
-      styles: ['200', '300', '300i', '600', '900'],
+      styles: ['200', '400', '400i', '700', '900'],
     },
   ],
   headerFontFamily: ['Source Sans Pro', 'sans-serif'],
@@ -16,8 +17,8 @@ const theme = {
   headerColor: 'hsla(0,0%,0%,1)',
   bodyColor: 'hsla(0,0%,0%,0.8)',
   headerWeight: 200,
-  bodyWeight: 300,
-  boldWeight: 600,
+  bodyWeight: 400,
+  boldWeight: 700,
   overrideStyles: ({ adjustFontSizeTo, scale, rhythm }, options) => ({
     a: {
       textDecoration: 'none',
@@ -25,9 +26,12 @@ const theme = {
     'a:hover,a:active': {
       color: options.bodyColor,
     },
-    'h1,h2,h3,h4,h5,h6': {
-      marginTop: rhythm(2),
-    },
+    h1: scale(4 / 4),
+    h2: scale(3 / 4),
+    h3: { ...scale(2 / 4), fontWeight: 400 },
+    h4: { ...scale(5 / 12), fontWeight: 700 },
+    h5: { ...scale(4 / 12), fontWeight: 700 },
+    h6: { ...scale(3 / 12), fontWeight: 900 },
     blockquote: {
       ...scale(1 / 5),
       color: gray(41),

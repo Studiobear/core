@@ -1,5 +1,10 @@
 <script>
-  import { Section, Flex, Link } from '@studiobear/designspek-components'
+  import {
+    Section,
+    Flex,
+    Link,
+    Heading,
+  } from '@studiobear/designspek-components'
   export let segment
   export let theme = $$props.theme || {}
   import Logo from './Logo.svelte'
@@ -20,13 +25,26 @@
   $: flexStyle = {
     justc: 'space-between',
     align: 'stretch',
-    px: '1rem',
-    py: '2rem',
+    px: '.25rem',
+    py: '.25rem',
   }
   $: flexNavStyle = {
-    justc: 'space-around',
-    align: 'stretch',
+    justc: 'center',
+    align: 'center',
     position: 'relative',
+  }
+  $: brandStyle = {
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    fontWeight: 900,
+    width: '100%',
+    my: '.25rem',
+  }
+  $: brandLinkStyle = {
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    textAlign: 'center',
+    fontWeight: 900,
   }
   $: menuLinkStyle = {
     color: theme.colors.primary,
@@ -35,12 +53,13 @@
     display: 'inline-block',
     px: '1rem',
     mx: '.25rem',
-    pt: '.5rem',
+    pb: '.25rem',
     brd: '2px solid',
     brdCol: theme.colors.background,
     _hover: {
       brd: '2px solid',
       brdCol: theme.colors.secondary,
+      color: theme.colors.secondary,
     },
   }
 
@@ -50,6 +69,7 @@
     brdCol: theme.colors.primary,
     _hover: {
       brdCol: theme.colors.secondary,
+      color: theme.colors.secondary,
     },
   }
 
@@ -70,14 +90,14 @@
 
 <Section as="nav" style={navStyle}>
   <Flex dir="row" style={flexStyle}>
-    <Link href=".">
-      <Logo fill={theme.colors.primary} style={logoStyle} />
-    </Link>
-    <Flex dir="row" style={flexNavStyle}>
-      <Link href="." style={homeLink}>home</Link>
-      <Link href="stats" style={statsLink}>stats</Link>
-      <Link href="about" style={aboutLink}>about</Link>
-      <Link href="blog" style={blogLink}>blog</Link>
-    </Flex>
+    <Heading as="h1" style={brandStyle}>
+      <Link href="." style={brandLinkStyle}>Be Informed</Link>
+    </Heading>
+  </Flex>
+  <Flex dir="column" style={flexStyle}>
+    <Link href="." style={homeLink}>home</Link>
+    <Link href="stats" style={statsLink}>stats</Link>
+    <Link href="about" style={aboutLink}>about</Link>
+    <Link href="blog" style={blogLink}>blog</Link>
   </Flex>
 </Section>

@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import { styled } from '@studiobear/designspek'
   import { Flex, Box, Heading } from '@studiobear/designspek-components'
   import { theme } from '../theme'
 
@@ -34,6 +35,11 @@
     fontSize: '3em',
     fontWeight: 300,
   }
+  $: banner = styled({
+    width: '100%',
+    height: 'auto',
+    theme: $theme,
+  })
 
   onMount(async function getData() {
     const resp = await fetch(url)
@@ -88,10 +94,11 @@
       src="23313_lores.jpg"
       width="700"
       height="454"
+      css={banner}
       alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
       Image Library (https://phil.cdc.gov/)]" />
   </Box>
-  <Heading as="h1" style={headerStyle}>Be Informed</Heading>
+  <Heading as="h1" style={headerStyle}>Be Calm & Careful</Heading>
   <Heading as="h1" style={headerStyle}>Legend</Heading>
   <table class="table is-bordered is-narrow is-hoverable">
     <thead>

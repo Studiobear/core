@@ -1,7 +1,7 @@
 {
   "name": "@studiobear/typography-theme-source-sans-pro",
   "description": "Typography theme using Source Sans Pro",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Barry Low <barry@studiobear.co>",
   "source": "src/index.js",
   "main": "dist/index.js",
