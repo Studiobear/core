@@ -7,6 +7,6 @@ describe('Nav', () => {
 
     expect(getByText('home')).toBeInTheDocument()
     expect(getByText('about')).toBeInTheDocument()
-    expect(getByText('blog')).toBeInTheDocument()
+    expect(getByText('acknowledgements')).toBeInTheDocument()
   })
 })

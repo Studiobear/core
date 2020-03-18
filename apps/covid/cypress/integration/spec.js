@@ -14,10 +14,10 @@ describe('Sapper template app', () => {
     cy.url().should('include', '/about')
   })
 
-  it('navigates to /blog', () => {
+  it('navigates to /acknowledgements', () => {
     cy.get('nav a')
-      .contains('blog')
+      .contains('acknowledgements')
       .click()
-    cy.url().should('include', '/blog')
+    cy.url().should('include', '/acknowledgements')
   })
 })
