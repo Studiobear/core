@@ -103,7 +103,8 @@
   $: homeLink = segment === undefined ? menuLinkSelected : menuLinkStyle
   $: statsLink = segment === 'stats' ? menuLinkSelected : menuLinkStyle
   $: aboutLink = segment === 'about' ? menuLinkSelected : menuLinkStyle
-  $: blogLink = segment === 'blog' ? menuLinkSelected : menuLinkStyle
+  $: acknowledgementsLink =
+    segment === 'acknowledgements' ? menuLinkSelected : menuLinkStyle
 
   $: title = segment === undefined ? 'Keep Informed' : segment
 
@@ -169,7 +170,9 @@
         <Link href="." style={homeLink}>home</Link>
         <Link href="stats" style={statsLink}>stats</Link>
         <Link href="about" style={aboutLink}>about</Link>
-        <Link href="blog" style={blogLink}>blog</Link>
+        <Link href="acknowledgements" style={acknowledgementsLink}>
+          acknowledgements
+        </Link>
       </div>
     {/if}
   </Flex>
