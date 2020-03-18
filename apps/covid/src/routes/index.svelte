@@ -40,6 +40,25 @@
     },
     { theme: $theme },
   )
+  $: overviewBox = {
+    flexdir: 'column',
+    align: 'center',
+  }
+  let overviewSingleBox = {
+    flexdir: 'column',
+    align: 'center',
+    w: '100%',
+    txtalign: 'center',
+    d: 'flex',
+    flexdir: 'column',
+    alignc: 'stretch',
+  }
+
+  let overviewDoubleBox = {
+    flexdir: 'row',
+    width: '100%',
+    alignc: 'stretch',
+  }
 
   onMount(async function getData() {
     let combined = {}
@@ -69,6 +88,27 @@
       Image Library (https://phil.cdc.gov/)]" />
   </Box>
   <Heading as="h1" style={headerStyle}>Be Calm & Informed</Heading>
+  <Flex style={overviewBox}>
+    <Box style={overviewSingleBox}>
+      <Heading as="h6">Active Global Cases</Heading>
+      <Heading as="h2">{total_active}</Heading>
+    </Box>
+    <Flex style={overviewDoubleBox}>
+      <Box style={overviewSingleBox}>
+        <Heading as="h6">Total Global Recoveries</Heading>
+        <Heading as="h3">{total_recovered}</Heading>
+      </Box>
+      <Box style={overviewSingleBox}>
+        <Heading as="h6">Total Global Deaths</Heading>
+        <Heading as="h3">{total_deaths}</Heading>
+      </Box>
+
+    </Flex>
+    <Box style={overviewSingleBox}>
+      <Heading as="h6">Total Confirmed Global Cases</Heading>
+      <Heading as="h3">{total_confirmed}</Heading>
+    </Box>
+  </Flex>
   <Text />
   <Heading as="h1" style={headerStyle}>Be Aware & Take Care</Heading>
   <Heading as="h1" style={headerStyle}>Legend</Heading>
