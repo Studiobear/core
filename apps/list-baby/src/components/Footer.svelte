@@ -1,6 +1,6 @@
 <script>
   import { theme } from '../theme'
-  import { Section, Flex, Box } from '@studiobear/svelte-system-ui-components'
+  import { Section, Flex, Box } from '@studiobear/designspek-components'
   /*
   $: primary = $theme.colors.primary
   $: secondary = $theme.colors.secondary

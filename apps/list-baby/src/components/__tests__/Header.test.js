@@ -5,6 +5,6 @@ describe('Header', () => {
   test('should render component correctly', () => {
     const { getByText } = render(Header)
 
-    expect(getByText('Header')).toBeInTheDocument()
+    expect(getByText('Duly Listed')).toBeInTheDocument()
   })
 })
