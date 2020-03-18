@@ -1,5 +1,6 @@
 <script>
-  import { addGlobal, styled } from '@studiobear/designspek'
+  import { onMount } from 'svelte'
+  import { addGlobal, styled, removeSSR } from '@studiobear/designspek'
   import { theme } from '../theme'
 
   import { Section, Button, Box } from '@studiobear/designspek-components'
@@ -7,7 +8,7 @@
 
   // $: background = $theme.colors.background || '#fff'
   export let segment
-
+  let SSRActive = true
   $: bodyStyle = {
     bg: $theme.colors.background,
   }
@@ -17,9 +18,14 @@
     bg: $theme.colors.background,
     p: 3,
     mx: 'auto',
-    mt: '6.25rem',
+    pt: '6.25rem',
   }
   $: addGlobal($theme)
+
+  onMount(() => {
+    // removeSSR()
+    SSRActive = false
+  })
 </script>
 
 <style>
@@ -54,4 +60,4 @@
   </Section>
 </Box>
 
-<SSR theme={$theme} />
+<SSR theme={$theme} active={SSRActive} />

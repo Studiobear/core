@@ -30,6 +30,7 @@ export const main = {
     secondary: '#52C9CB',
     muted: '#C0D0D1',
     highlight: '#FFBC34',
+    header: 'rgba(255,255,255,0.8)',
     modes: {
       dark: {
         text: '#EEE',
@@ -38,6 +39,7 @@ export const main = {
         secondary: '#A8E4E5',
         muted: '#314545',
         highlight: '#FFBC34',
+        header: 'rgba(32,44,51,0.8)',
         antialias: true,
       },
     },
@@ -49,9 +51,13 @@ export const main = {
       fontWeight: 'body',
       boxSizing: 'border-box',
     },
+    html: {
+      scrollBehavior: 'smooth',
+    },
     body: {
       antialias: true,
       m: 0,
+      background: 'background',
     },
     h1: {
       ...heading,
@@ -117,15 +123,24 @@ export const main = {
       borderCollapse: 'separate',
       borderSpacing: 0,
       fontFamily: 'body',
+      brd: '1px solid',
+      brdCol: 'muted',
     },
     th: {
       textAlign: 'left',
-      borderBottomStyle: 'solid',
+      bb: '1px solid',
+      brdCol: 'muted',
       fontFamily: 'body',
+    },
+    tr: {
+      bb: '1px solid',
+      brdCol: 'muted',
     },
     td: {
       textAlign: 'left',
       borderBottomStyle: 'solid',
+      bx: '1px solid',
+      brdCol: 'muted',
       fontFamily: 'body',
     },
     img: {
@@ -141,6 +156,7 @@ export const main = {
     's',
     'fill',
     'stroke',
+    'scrollBehavior',
   ],
 }
 

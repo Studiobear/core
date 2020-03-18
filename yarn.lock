@@ -2132,10 +2132,10 @@
   dependencies:
     svelte "^3.19.1"
 
-"@studiobear/designspek@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.2.3.tgz#97810ca4112cdc6f21455a705798a4207a8c79f9"
-  integrity sha512-DLv6F/Dp4PjA7BdvZGF4dwl/jgp+0A7v63hdy56GY5ZWhCPcLxA8HIbCzqzxZ9NnhamZTJOuEV+MKeyFt4pItg==
+"@studiobear/designspek@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.2.4.tgz#21c5df35284adc5856e013a5ac56ad83ab5a88c9"
+  integrity sha512-5aA8WhW5bgxRYWBL/j6MkeHO0UkqiqBF283QweGi7IxNoXTum1ICGNE6tQjpms0IX4rr7TQaJGTkmZAGa3dTDw==
   dependencies:
     svelte "^3.19.1"
 

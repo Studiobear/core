@@ -1,10 +1,12 @@
 <script>
   import { onMount } from 'svelte'
   import { styled } from '@studiobear/designspek'
-  import { Flex, Box, Heading } from '@studiobear/designspek-components'
+  import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import { theme } from '../theme'
 
+  import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
   let data = []
+  let statsGlobal = []
   let total_deaths = 0
   let total_confirmed = 0
   let total_active = 0
@@ -12,28 +14,24 @@
   let total_fatality_rate = 0
   let total_recovery_rate = 0
   let total_compare = 0
+  let last_updated = 0
   // let url =
   //   'https://services9.arcgis.com/N9p5hsImWXAccRNI/arcgis/rest/services/Z7biAeD8PAkqgmWhxG2A/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Confirmed,Deaths,Recovered,Active&orderByFields=Confirmed%20desc'
 
   let url =
     'https://services9.arcgis.com/N9p5hsImWXAccRNI/arcgis/rest/services/Z7biAeD8PAkqgmWhxG2A/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
 
-  function getTotalFatalities(item) {
-    return (item.Deaths / item.Confirmed) * 100
-  }
-
-  function getTotalRecoveries(item) {
-    return (item.Recovered / item.Confirmed) * 100
-  }
+  url =
+    'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
 
   $: flexStyle = {
     flexdir: 'column',
   }
   $: headerStyle = {
     bg: $theme.colors.background,
-    fontFamily: 'Source Sans Pro',
     fontSize: '3em',
     fontWeight: 300,
+    txtalign: 'center',
   }
   $: banner = styled(
     {
@@ -42,52 +40,21 @@
     },
     { theme: $theme },
   )
-  $: console.log('banner', banner)
 
   onMount(async function getData() {
+    let combined = {}
     const resp = await fetch(url)
-    var combined = {}
-    var temp = await resp.json()
-    var records = temp['features']
-    records.map(item => {
-      item = item['attributes']
-      var build_item = {
-        Confirmed: item.Confirmed,
-        Active: item.Active,
-        Deaths: item.Deaths,
-        Recovered: item.Recovered,
-        SubRegion: {
-          name: item.Province_State,
-          Confirmed: item.Confirmed,
-          Active: item.Active,
-          Deaths: item.Deaths,
-          Recovered: item.Recovered,
-        },
-      }
-      if (item.Country_Region in combined) {
-        combined[item.Country_Region].Confirmed += build_item.Confirmed
-        combined[item.Country_Region].Active += build_item.Active
-        combined[item.Country_Region].Deaths += build_item.Deaths
-        combined[item.Country_Region].Recovered += build_item.Recovered
-        combined[item.Country_Region].SubRegion = {
-          [build_item.SubRegion.name]: { ...build_item.SubRegion },
-          ...combined[item.Country_Region].SubRegion,
-        }
-      } else {
-        combined[item.Country_Region] = build_item
-        combined[item.Country_Region].SubRegion = {
-          [build_item.SubRegion.name]: { ...build_item.SubRegion },
-        }
-      }
-      total_deaths += item.Deaths
-      total_confirmed += item.Confirmed
-      total_active += item.Active
-    })
-    total_compare = total_deaths + total_active + total_recovered
+    let temp = await resp.json()
+    let records = temp['features']
+    statsGlobal = calcC19Stats(records)
+
+    total_confirmed = statsGlobal.totalConfirmed
+    total_active = statsGlobal.totalActive
+    total_recovered = statsGlobal.totalRecovered
+    total_deaths = statsGlobal.totalDeaths
     total_fatality_rate = (total_deaths / total_confirmed) * 100
     total_recovery_rate = (total_recovered / total_confirmed) * 100
-    data = combined
-    console.log('data: ', data)
+    data = statsGlobal.data
   })
 </script>
 
@@ -101,7 +68,9 @@
       alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
       Image Library (https://phil.cdc.gov/)]" />
   </Box>
-  <Heading as="h1" style={headerStyle}>Be Calm & Careful</Heading>
+  <Heading as="h1" style={headerStyle}>Be Calm & Informed</Heading>
+  <Text />
+  <Heading as="h1" style={headerStyle}>Be Aware & Take Care</Heading>
   <Heading as="h1" style={headerStyle}>Legend</Heading>
   <table class="table is-bordered is-narrow is-hoverable">
     <thead>
@@ -171,12 +140,12 @@
           </td>
           <td>{JSON.stringify(data[item]['Deaths'])}</td>
           <td
-            class="{getTotalFatalities(data[item]) > total_fatality_rate ? 'is-danger' : ''}{getTotalFatalities(data[item]) < total_fatality_rate ? 'is-success' : ''}">
-            {getTotalFatalities(data[item]).toFixed(2)}%
+            class="{fatalityRate(data[item]) > total_fatality_rate ? 'is-danger' : ''}{fatalityRate(data[item]) < total_fatality_rate ? 'is-success' : ''}">
+            {fatalityRate(data[item]).toFixed(2)}%
           </td>
           <td
-            class="{getTotalRecoveries(data[item]) < total_recovery_rate ? 'is-warning' : ''}{getTotalRecoveries(data[item]) > total_recovery_rate ? 'is-success' : ''}">
-            {getTotalRecoveries(data[item]).toFixed(2)}%
+            class="{recoveryRate(data[item]) < total_recovery_rate ? 'is-warning' : ''}{recoveryRate(data[item]) > total_recovery_rate ? 'is-success' : ''}">
+            {recoveryRate(data[item]).toFixed(2)}%
           </td>
         </tr>
       {/each}
