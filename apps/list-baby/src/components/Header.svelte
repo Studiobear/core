@@ -6,7 +6,7 @@
     Flex,
     Box,
     Heading,
-  } from '@studiobear/svelte-system-ui-components'
+  } from '@studiobear/designspek-components'
   /*
   let mode = 'light'
 

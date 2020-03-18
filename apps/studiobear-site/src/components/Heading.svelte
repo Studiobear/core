@@ -1,5 +1,5 @@
 <script>
-  import { styled } from '@studiobear/svelte-styled-system'
+  import { styled } from '@studiobear/designspek'
   import theme from '../theme'
 
   export let as = 'h1'

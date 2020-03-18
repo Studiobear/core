@@ -1,6 +1,6 @@
 <script>
   import storeTodo from './store'
-  import { Flex, Box, Heading } from '@studiobear/svelte-system-ui-components'
+  import { Flex, Box, Heading } from '@studiobear/designspek-components'
 
   let inputTodo = ''
 
