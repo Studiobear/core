@@ -137,6 +137,7 @@
       r: '20px',
       size: '50px',
       borderRadius: '25px',
+      brdCol: 'none',
       bg: 'rgba(0,0,0,.6)',
       color: $theme.colors.background,
       pt: '5px',
@@ -150,8 +151,10 @@
   )
   $: toTopCaret = styled(
     {
-      fontSize: '2.5rem',
-      fontWeight: 400,
+      fontSize: '2rem',
+      fontWeight: 700,
+      pos: 'relative',
+      t: '-2px',
     },
     $theme,
   )
@@ -223,9 +226,7 @@
     on:click={() => window.scroll({ top: 0, left: 0, behaviour: 'smooth' })}
     transition:fade={{ delay: 50 }}
     class={toTop}>
-    <span class={toTopCaret}>^</span>
-    <br />
-    Top
+    <span class={toTopCaret}>&xwedge;</span>
   </button>
 {/if}
 

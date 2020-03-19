@@ -1,17 +1,28 @@
 <script>
   // import { onMount } from 'svelte'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
+  import { insertCommas } from '../libs'
   export let theme = $$props.theme || {}
-  export let active = 0
-  export let recovered = 0
-  export let deaths = 0
-  export let confirmed = 0
+  export let ssr = $$props.ssr || {}
+  export let overview
+  $: active = overview.active || 0
+  $: recovered = overview.recovered || 0
+  $: confirmed = overview.confirmed || 0
+  $: deaths = overview.deaths || 0
+  $: fatalityRate = overview.fatalityRate || 0
+  $: recoveryRate = overview.recoveryRate || 0
+  $: updated = overview.updated
+
+  $: console.log('ov', overview, insertCommas, insertCommas(100000))
 
   $: overviewBox = {
     flexdir: 'column',
     align: 'center',
     brd: '1px solid',
     brdCol: theme.colors.muted,
+    maxw: '38rem',
+    minw: '24rem',
+    mx: 'auto',
   }
   let overviewSingleBox = {
     flexdir: 'column',
@@ -23,33 +34,100 @@
     alignc: 'stretch',
   }
 
-  let overviewDoubleBox = {
+  $: overviewSingleBoxActive = {
+    ...overviewSingleBox,
+    bg: theme.colors.tertiary,
+    pb: '1.5rem',
+  }
+
+  let overviewMiddleBox = {
     flexdir: 'row',
     width: '100%',
     alignc: 'stretch',
+    pb: '1.5rem',
+  }
+  let overviewBottomBox = {
+    flexdir: 'row',
+    width: '100%',
+    alignc: 'stretch',
+    pb: '1.5rem',
+    bg: theme.colors.muted,
+  }
+  $: ovTitle = {
+    letterSpacing: '0.25rem',
+    fontWeight: 900,
+    color: theme.colors.primary,
+    txtTran: 'uppercase',
   }
   $: h6 = {
     py: 0,
   }
+  $: activeh2 = {
+    fontSize: '4rem',
+    color: theme.colors.background,
+    my: '0.5rem',
+  }
+  $: recoverh3 = {
+    color: theme.colors.green,
+  }
+  $: confirmh3 = {
+    color: theme.colors.blue,
+  }
+  $: deathh3 = {
+    color: theme.colors.purple,
+  }
+  $: ovUpdated = {
+    fontSize: '1rem',
+    color: theme.colors.tertiary,
+    txtTran: 'uppercase',
+  }
+  $: btmh6 = {
+    color: theme.colors.tertiary,
+  }
+  $: btmh4 = {
+    color: theme.colors.text,
+    fontSize: '1.5rem',
+  }
 </script>
 
-<Flex style={overviewBox}>
-  <Box style={overviewSingleBox}>
-    <Heading as="h6" style={h6}>Active</Heading>
-    <Heading as="h2">{active}</Heading>
+<Flex style={overviewBox} {ssr}>
+  <Box style={overviewSingleBox} {ssr}>
+    <Heading as="h6" style={ovTitle} {ssr}>Global Cases</Heading>
   </Box>
-  <Flex style={overviewDoubleBox}>
-    <Box style={overviewSingleBox}>
-      <Heading as="h6">Recoveries</Heading>
-      <Heading as="h3">{recovered}</Heading>
+  <Box style={overviewSingleBoxActive} {ssr}>
+    <Heading as="h6" style={h6} {ssr}>Active</Heading>
+    <Heading as="h2" style={activeh2} {ssr}>{insertCommas(active)}</Heading>
+  </Box>
+  <Flex style={overviewMiddleBox} {ssr}>
+    <Box style={overviewSingleBox} {ssr}>
+      <Heading as="h6" {ssr}>Recoveries</Heading>
+      <Heading as="h3" style={recoverh3} {ssr}>
+        {insertCommas(recovered)}
+      </Heading>
     </Box>
-    <Box style={overviewSingleBox}>
-      <Heading as="h6">Deaths</Heading>
-      <Heading as="h3">{deaths}</Heading>
+    <Box style={overviewSingleBox} {ssr}>
+      <Heading as="h6" {ssr}>Confirmed</Heading>
+      <Heading as="h3" style={confirmh3} {ssr}>
+        {insertCommas(confirmed)}
+      </Heading>
+    </Box>
+    <Box style={overviewSingleBox} {ssr}>
+      <Heading as="h6" {ssr}>Deaths</Heading>
+      <Heading as="h3" style={deathh3} {ssr}>{insertCommas(deaths)}</Heading>
     </Box>
   </Flex>
-  <Box style={overviewSingleBox}>
-    <Heading as="h6">Confirmed</Heading>
-    <Heading as="h3">{confirmed}</Heading>
-  </Box>
+  <Flex style={overviewBottomBox} {ssr}>
+    <Box style={overviewSingleBox} {ssr}>
+      <Heading as="h6" style={btmh6} {ssr}>Recovery Rate</Heading>
+      <Heading as="h4" style={btmh4} {ssr}>{recoveryRate.toFixed(2)}%</Heading>
+    </Box>
+    <Box style={overviewSingleBox} {ssr}>
+      <Heading as="h6" style={btmh6} {ssr}>Fatality Rate</Heading>
+      <Heading as="h4" style={btmh4} {ssr}>{fatalityRate.toFixed(2)}%</Heading>
+    </Box>
+  </Flex>
+
 </Flex>
+<Box style={overviewSingleBox} {ssr}>
+  <Text style={ovUpdated} {ssr}>Last updated: {updated}</Text>
+</Box>
