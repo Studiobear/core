@@ -3,8 +3,11 @@
   import { styled } from '@studiobear/designspek'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import { theme } from '../theme'
+  import { Nav, SSR, OverviewBoxGlobal } from '../components'
 
   import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
+
+  let ssr = true
   let data = []
   let statsGlobal = []
   let total_deaths = 0
@@ -15,13 +18,8 @@
   let total_recovery_rate = 0
   let total_compare = 0
   let last_updated = 0
-  // let url =
-  //   'https://services9.arcgis.com/N9p5hsImWXAccRNI/arcgis/rest/services/Z7biAeD8PAkqgmWhxG2A/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Confirmed,Deaths,Recovered,Active&orderByFields=Confirmed%20desc'
 
   let url =
-    'https://services9.arcgis.com/N9p5hsImWXAccRNI/arcgis/rest/services/Z7biAeD8PAkqgmWhxG2A/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
-
-  url =
     'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
 
   $: flexStyle = {
@@ -29,20 +27,25 @@
   }
   $: headerStyle = {
     bg: $theme.colors.background,
-    fontSize: '3em',
+    fontSize: '3rem',
+    lineHeight: '3rem',
     fontWeight: 300,
-    txtalign: 'center',
+    textAlign: 'center',
   }
   $: banner = styled(
     {
       w: '100%',
       h: 'auto',
     },
-    { theme: $theme },
+    $theme,
+    ssr,
   )
+  $: bannerProps = ssr ? { style: banner } : { class: banner }
   $: overviewBox = {
     flexdir: 'column',
     align: 'center',
+    brd: '1px solid',
+    brdCol: $theme.colors.muted,
   }
   let overviewSingleBox = {
     flexdir: 'column',
@@ -61,6 +64,7 @@
   }
 
   onMount(async function getData() {
+    ssr = false
     let combined = {}
     const resp = await fetch(url)
     let temp = await resp.json()
@@ -83,34 +87,21 @@
       src="23313_lores.jpg"
       width="700"
       height="454"
-      class={banner}
+      {...bannerProps}
       alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
       Image Library (https://phil.cdc.gov/)]" />
   </Box>
-  <Heading as="h1" style={headerStyle}>Be Calm & Informed</Heading>
-  <Flex style={overviewBox}>
-    <Box style={overviewSingleBox}>
-      <Heading as="h6">Active Global Cases</Heading>
-      <Heading as="h2">{total_active}</Heading>
-    </Box>
-    <Flex style={overviewDoubleBox}>
-      <Box style={overviewSingleBox}>
-        <Heading as="h6">Total Global Recoveries</Heading>
-        <Heading as="h3">{total_recovered}</Heading>
-      </Box>
-      <Box style={overviewSingleBox}>
-        <Heading as="h6">Total Global Deaths</Heading>
-        <Heading as="h3">{total_deaths}</Heading>
-      </Box>
+  <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
+  <OverviewBoxGlobal
+    active={total_active}
+    recovered={total_recovered}
+    deaths={total_deaths}
+    confirmed={total_confirmed}
+    theme={$theme}
+    {ssr} />
 
-    </Flex>
-    <Box style={overviewSingleBox}>
-      <Heading as="h6">Total Confirmed Global Cases</Heading>
-      <Heading as="h3">{total_confirmed}</Heading>
-    </Box>
-  </Flex>
   <Text />
-  <Heading as="h1" style={headerStyle}>Be Aware & Take Care</Heading>
+  <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Heading as="h1" style={headerStyle}>Legend</Heading>
   <table class="table is-bordered is-narrow is-hoverable">
     <thead>

@@ -56,6 +56,7 @@ export const main = {
     },
     body: {
       antialias: true,
+      reset: true,
       m: 0,
       background: 'background',
     },
@@ -75,18 +76,21 @@ export const main = {
       fontSize: 3,
       fontWeight: 400,
       color: 'secondary',
+      my: 0.25,
     },
     h4: {
       ...heading,
       fontSize: 2,
       fontWeight: 700,
       color: 'text',
+      my: 0.2,
     },
     h5: {
       ...heading,
       fontSize: 1,
       fontWeight: 700,
       color: 'primary',
+      my: 0.15,
     },
     h6: {
       ...heading,
@@ -94,6 +98,7 @@ export const main = {
       fontWeight: 900,
       textTransform: 'uppercase',
       color: 'secondary',
+      my: 0.1,
     },
     p: {
       color: 'text',
@@ -125,12 +130,14 @@ export const main = {
       fontFamily: 'body',
       brd: '1px solid',
       brdCol: 'muted',
+      color: 'text',
     },
     th: {
       textAlign: 'left',
       bb: '1px solid',
       brdCol: 'muted',
       fontFamily: 'body',
+      color: 'text',
     },
     tr: {
       bb: '1px solid',
@@ -138,10 +145,10 @@ export const main = {
     },
     td: {
       textAlign: 'left',
-      borderBottomStyle: 'solid',
-      bx: '1px solid',
+      br: '1px solid',
       brdCol: 'muted',
       fontFamily: 'body',
+      color: 'text',
     },
     img: {
       maxWidth: '100%',
@@ -157,6 +164,7 @@ export const main = {
     'fill',
     'stroke',
     'scrollBehavior',
+    'borderSpacing',
   ],
 }
 

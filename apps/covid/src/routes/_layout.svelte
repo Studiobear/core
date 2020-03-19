@@ -8,7 +8,7 @@
 
   // $: background = $theme.colors.background || '#fff'
   export let segment
-  let SSRActive = true
+  let ssr = true
   $: bodyStyle = {
     bg: $theme.colors.background,
   }
@@ -16,21 +16,19 @@
   $: mainStyle = {
     maxWidth: '56rem',
     bg: $theme.colors.background,
-    p: 3,
+    p: '3rem',
     mx: 'auto',
     pt: '6.25rem',
   }
   $: addGlobal($theme)
-
   onMount(() => {
-    // removeSSR()
-    SSRActive = false
+    removeSSR()
+    ssr = false
   })
 </script>
 
 <style>
   :global(html) {
-    line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
   }
@@ -49,15 +47,11 @@
   <link href="index.css" rel="stylesheet" type="text/css" />
 </svelte:head>
 
-<Box style={bodyStyle}>
-  <Nav {segment} theme={$theme} />
-  <Section as="main" style={mainStyle}>
-    <button
-      on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
-      {$theme.mode === 'light' ? 'to dark mode' : 'to light mode'}
-    </button>
-    <slot />
+<Box style={bodyStyle} {ssr}>
+  <Nav {segment} {ssr} />
+  <Section as="main" style={mainStyle} {ssr}>
+    <slot {ssr} />
   </Section>
 </Box>
 
-<SSR theme={$theme} active={SSRActive} />
+<SSR theme={$theme} active={ssr} />
