@@ -13,7 +13,7 @@
   $: recoveryRate = overview.recoveryRate || 0
   $: updated = overview.updated
 
-  $: console.log('ov', overview, insertCommas, insertCommas(100000))
+  // $: console.log('ov', overview, insertCommas, insertCommas(100000))
 
   $: overviewBox = {
     flexdir: 'column',

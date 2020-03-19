@@ -5,8 +5,6 @@ describe('Nav', () => {
   test('should render component correctly', () => {
     const { getByText } = render(Nav, { theme })
 
-    expect(getByText('home')).toBeInTheDocument()
-    expect(getByText('about')).toBeInTheDocument()
-    expect(getByText('acknowledgements')).toBeInTheDocument()
+    expect(getByText('PSA: COVID-19')).toBeInTheDocument()
   })
 })
