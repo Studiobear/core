@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
+import image from 'svelte-image'
 import json from '@rollup/plugin-json'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
@@ -65,6 +66,15 @@ export default {
         dev,
         hydratable: true,
         emitCss: false,
+        preprocess: {
+          ...image({
+            trace: {
+              background: '#fff',
+              color: '#C0D0D1',
+              threshold: 180,
+            },
+          }),
+        },
       }),
       resolve({
         browser: true,
@@ -124,6 +134,9 @@ export default {
         generate: 'ssr',
         dev,
         hydratable: true,
+        preprocess: {
+          ...image(),
+        },
       }),
       resolve({
         dedupe: ['svelte'],

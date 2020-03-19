@@ -1,9 +1,10 @@
 <script>
   import { onMount } from 'svelte'
   import { styled } from '@studiobear/designspek'
+  import Image from 'svelte-image'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import { theme } from '../theme'
-  import { Nav, SSR, OverviewBoxGlobal } from '../components'
+  import { Nav, SSR, OverviewBoxGlobal, Icon, Card } from '../components'
 
   import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
 
@@ -33,6 +34,8 @@
     lineHeight: '3rem',
     fontWeight: 300,
     textAlign: 'center',
+    px: '1rem',
+    my: '1rem',
   }
   $: banner = styled(
     {
@@ -40,7 +43,6 @@
       h: 'auto',
     },
     $theme,
-    ssr,
   )
   $: bannerProps = ssr ? { style: banner } : { class: banner }
   $: overviewBox = {
@@ -64,14 +66,19 @@
     width: '100%',
     alignc: 'stretch',
   }
-
+  let icon = {
+    w: '6rem',
+    h: 'aut0',
+    mr: '1rem',
+  }
   onMount(async function getData() {
     ssr = false
     let combined = {}
     const resp = await fetch(url)
     let temp = await resp.json()
+    // let temp = {}
     let records = temp['features']
-    statsGlobal = calcC19Stats(records)
+    if (records) statsGlobal = calcC19Stats(records)
 
     overview = {
       confirmed: statsGlobal.totalConfirmed,
@@ -87,18 +94,36 @@
 </script>
 
 <Flex style={flexStyle}>
-  <Box>
+  <Box style={{ h: 'auto', objectFit: 'cover' }}>
+    <Image
+      class={banner}
+      src="23313_lores.jpg"
+      width="700"
+      height="454"
+      alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
+      Image Library (https://phil.cdc.gov/)]" />
+    <!--
     <img
       src="23313_lores.jpg"
       width="700"
       height="454"
       {...bannerProps}
-      alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
-      Image Library (https://phil.cdc.gov/)]" />
+       />
+       -->
   </Box>
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
-
-  <Text />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
+  <Card theme={$theme}>
+    <Flex>
+      <Icon name="coronavirus-2" style={icon} fill={$theme.colors.tertiary} />
+      <Heading as="h3">Wash your hands often.</Heading>
+    </Flex>
+    <Box>
+      <Text>
+        <strong>Best: Warm water and soap for 20 seconds.</strong>
+        Hand sanitizer with at least 60% alcohol will work in a pinch too.
+      </Text>
+    </Box>
+  </Card>
 </Flex>
