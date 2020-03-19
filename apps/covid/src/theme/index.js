@@ -1,10 +1,10 @@
 import { writable } from 'svelte/store'
 import { typography } from '@studiobear/designspek'
-import soureSansProTheme from '@studiobear/typography-theme-source-sans-pro'
+import sourceSansProTheme from '@studiobear/typography-theme-source-sans-pro'
 
 import mainTheme from './themeMain'
 
-const basic = typography(mainTheme, soureSansProTheme)
+const basic = typography(mainTheme, sourceSansProTheme)
 let dark = JSON.parse(JSON.stringify(basic))
 dark.colors = mainTheme.colors.modes.dark
 if (dark.colors.antialias) {

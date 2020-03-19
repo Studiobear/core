@@ -22,6 +22,7 @@ blocks:
             - checkout
             - yarn global add lerna
             - lerna bootstrap
+            - yarn build
             - yarn check-packages && yarn test
             - cache store monorepo-ci-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) .
 promotions:
