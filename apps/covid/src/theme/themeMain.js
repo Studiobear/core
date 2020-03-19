@@ -28,18 +28,30 @@ export const main = {
     background: '#FFF',
     primary: '#F14A49',
     secondary: '#52C9CB',
+    tertiary: '#314545',
     muted: '#C0D0D1',
     highlight: '#FFBC34',
     header: 'rgba(255,255,255,0.8)',
+    green: '#7ad721',
+    purple: '#ac80e7',
+    yellow: '#ffbc34',
+    blue: '#1da4bf',
+    red: '#b53837',
     modes: {
       dark: {
         text: '#EEE',
         background: '#202C33',
         primary: '#F46E6D',
         secondary: '#A8E4E5',
+        tertiary: '#52C9CB',
         muted: '#314545',
         highlight: '#FFBC34',
         header: 'rgba(32,44,51,0.8)',
+        green: '#caefa6',
+        purple: '#c8aaef',
+        yellow: '#ffe4ae',
+        blue: '#a9f1ff',
+        red: '#f9b7b6',
         antialias: true,
       },
     },
@@ -56,6 +68,7 @@ export const main = {
     },
     body: {
       antialias: true,
+      reset: true,
       m: 0,
       background: 'background',
     },
@@ -75,18 +88,21 @@ export const main = {
       fontSize: 3,
       fontWeight: 400,
       color: 'secondary',
+      my: 0.25,
     },
     h4: {
       ...heading,
       fontSize: 2,
       fontWeight: 700,
       color: 'text',
+      my: 0.2,
     },
     h5: {
       ...heading,
       fontSize: 1,
       fontWeight: 700,
       color: 'primary',
+      my: 0.15,
     },
     h6: {
       ...heading,
@@ -94,6 +110,7 @@ export const main = {
       fontWeight: 900,
       textTransform: 'uppercase',
       color: 'secondary',
+      my: 0.1,
     },
     p: {
       color: 'text',
@@ -125,12 +142,14 @@ export const main = {
       fontFamily: 'body',
       brd: '1px solid',
       brdCol: 'muted',
+      color: 'text',
     },
     th: {
       textAlign: 'left',
       bb: '1px solid',
       brdCol: 'muted',
       fontFamily: 'body',
+      color: 'text',
     },
     tr: {
       bb: '1px solid',
@@ -138,10 +157,10 @@ export const main = {
     },
     td: {
       textAlign: 'left',
-      borderBottomStyle: 'solid',
-      bx: '1px solid',
+      br: '1px solid',
       brdCol: 'muted',
       fontFamily: 'body',
+      color: 'text',
     },
     img: {
       maxWidth: '100%',
@@ -150,6 +169,7 @@ export const main = {
   forwardStyleDefault: [
     'txtdeco',
     'textDecoration',
+    'txtTran',
     'textTransform',
     'position',
     'f',
@@ -157,6 +177,7 @@ export const main = {
     'fill',
     'stroke',
     'scrollBehavior',
+    'borderSpacing',
   ],
 }
 

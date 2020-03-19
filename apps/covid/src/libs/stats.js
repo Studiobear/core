@@ -66,3 +66,12 @@ export const calcC19Stats = d => {
     data: combined,
   }
 }
+
+export const insertCommas = num => {
+  if (typeof num === 'number' && num > 999) {
+    let num_parts = num.toString().split('.')
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return num_parts.join('.')
+  }
+  return num
+}

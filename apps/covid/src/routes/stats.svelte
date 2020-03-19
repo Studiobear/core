@@ -59,17 +59,6 @@
 </script>
 
 <Flex style={flexStyle}>
-  <Box>
-    <img
-      src="23313_lores.jpg"
-      width="700"
-      height="454"
-      class={banner}
-      alt="Computer generated rendering of Covid 19 [Source: CDC Public Health
-      Image Library (https://phil.cdc.gov/)]" />
-  </Box>
-  <Heading as="h1" style={headerStyle}>Be Calm & Informed</Heading>
-  <Text />
   <Heading as="h1" style={headerStyle}>Be Aware & Take Care</Heading>
   <Heading as="h1" style={headerStyle}>Legend</Heading>
   <table class="table is-bordered is-narrow is-hoverable">
@@ -87,32 +76,7 @@
   </table>
 </Flex>
 <Flex style={flexStyle}>
-  <h1 class="title">Totals:</h1>
-  <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
-    <thead>
-      <tr>
-        <th>Confirmed</th>
-        <th>Active</th>
-        <th>Recovered</th>
-        <th>Deaths</th>
-        <th>Fatality Rate</th>
-        <th>Recovery Rate</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{total_confirmed}</td>
-        <td>{total_active}</td>
-        <td>{total_recovered}</td>
-        <td>{total_deaths}</td>
-        <td>{total_fatality_rate.toFixed(2)}%</td>
-        <td>{total_recovery_rate.toFixed(2)}%</td>
-      </tr>
-    </tbody>
-  </table>
-</Flex>
-<Flex style={flexStyle}>
-  <h1 class="title">By Country:</h1>
+  <h1 class="title">Cases By Country:</h1>
   <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
     <thead>
       <tr>

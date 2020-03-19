@@ -2118,26 +2118,26 @@
   dependencies:
     type-detect "4.0.8"
 
-"@studiobear/designspek-components@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.2.2.tgz#6185b88a833cf22c0dd2772d7708df0416690f4b"
-  integrity sha512-hII/B/4/mmzFGV/69tpexIo25G5FJXzVWSVbdhhCxo27EruFCCNfLu/o80St+L1riS25ALgLt61dLH73X4gb5w==
+"@studiobear/designspek-components@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.1.tgz#417dac4356b20fdcf3fcf46850e21aedd3c8a024"
+  integrity sha512-mAK0HAtWXt7edMbI6AKGtHKSUtfJ5tTHMT5uviwi8FzJxUDhip1How8truqtQ+AahRApgmtVEljVrDVXWE4KOQ==
   dependencies:
-    "@studiobear/designspek" "^0.2.2"
+    "@studiobear/designspek" "^0.3.0"
 
-"@studiobear/designspek@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.2.2.tgz#fda0576344d6df73838a9ee1a442a934cc9e0dc3"
-  integrity sha512-LxIvpD96fy7BCO99ptCGVC0PO6GAPS0gaLGCK3XuMlEskLVAyfOAdF0cWT4WbrYmmTlqwAc9vsDDFWNyLLrNAg==
+"@studiobear/designspek@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.0.tgz#539039ea7b172a1799af25a567718f7e040bc8bf"
+  integrity sha512-vYuvEt+7BZELCvXHFnvzy/ZM2azgTkhtXXCNgFNeu3CAKL4fajdRN1bFqmYryHlhltKKgFzVwUMCcvjMVfDdcA==
   dependencies:
     svelte "^3.19.1"
 
-"@studiobear/designspek@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.2.4.tgz#21c5df35284adc5856e013a5ac56ad83ab5a88c9"
-  integrity sha512-5aA8WhW5bgxRYWBL/j6MkeHO0UkqiqBF283QweGi7IxNoXTum1ICGNE6tQjpms0IX4rr7TQaJGTkmZAGa3dTDw==
+"@studiobear/designspek@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.1.tgz#d750b4e46e3f69f655478fc35813302321ae4e30"
+  integrity sha512-BRt1RUvAtazPwUGJ0M5PZsswgQq7Oc8FR0ZNi9B9hT9u3fe6mLsDx08rBdLq2Sh9CInZA0oygwSfWOlt/ZN7yQ==
   dependencies:
-    svelte "^3.19.1"
+    svelte "^3.20.1"
 
 "@testing-library/dom@^6.5.0":
   version "6.16.0"
@@ -12437,6 +12437,11 @@ svelte@^3.19.1:
   version "3.20.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.20.0.tgz#15a0c118712720abe5396415a1a6e4ecefadb627"
   integrity sha512-RMJeM/1603O9nJKb7KL1BCGFJ5cbOKTvjPjkkhRwu+qbub70hp/Q3vn7gF8aPlna5zG1IhiYuAfQw95yZGA8cA==
+
+svelte@^3.20.1:
+  version "3.20.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.20.1.tgz#8417fcd883a2f534b642a0737368272e651cf3ac"
+  integrity sha512-m/dw52BZf+p6KYnyKLErIcGalu4pwJrQbUM7VZriRw6ZlJj1qMAZsLcIWzEB3I0hhdJwkKb7LrrvUIeqmbO92Q==
 
 svgo@^0.7.0:
   version "0.7.2"
