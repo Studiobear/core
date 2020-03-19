@@ -16,12 +16,11 @@
   // $: console.log('ov', overview, insertCommas, insertCommas(100000))
 
   $: overviewBox = {
+    w: ['100%', '100%', '100%', '100%', '100%'],
     flexdir: 'column',
     align: 'center',
     brd: '1px solid',
     brdCol: theme.colors.muted,
-    maxw: '38rem',
-    minw: '24rem',
     mx: 'auto',
   }
   let overviewSingleBox = {
@@ -56,8 +55,8 @@
   $: ovTitle = {
     letterSpacing: '0.25rem',
     fontWeight: 900,
-    color: theme.colors.primary,
-    txtTran: 'uppercase',
+    color: theme.colors.tertiary,
+    textTransform: 'uppercase',
   }
   $: h6 = {
     py: 0,
@@ -66,6 +65,9 @@
     fontSize: '4rem',
     color: theme.colors.background,
     my: '0.5rem',
+  }
+  $: middleh6 = {
+    color: theme.colors.tertiary,
   }
   $: recoverh3 = {
     color: theme.colors.green,
@@ -80,6 +82,7 @@
     fontSize: '1rem',
     color: theme.colors.tertiary,
     txtTran: 'uppercase',
+    mb: 0,
   }
   $: btmh6 = {
     color: theme.colors.tertiary,
@@ -100,19 +103,19 @@
   </Box>
   <Flex style={overviewMiddleBox} {ssr}>
     <Box style={overviewSingleBox} {ssr}>
-      <Heading as="h6" {ssr}>Recoveries</Heading>
+      <Heading as="h6" style={middleh6} {ssr}>Recoveries</Heading>
       <Heading as="h3" style={recoverh3} {ssr}>
         {insertCommas(recovered)}
       </Heading>
     </Box>
     <Box style={overviewSingleBox} {ssr}>
-      <Heading as="h6" {ssr}>Confirmed</Heading>
+      <Heading as="h6" style={middleh6} {ssr}>Confirmed</Heading>
       <Heading as="h3" style={confirmh3} {ssr}>
         {insertCommas(confirmed)}
       </Heading>
     </Box>
     <Box style={overviewSingleBox} {ssr}>
-      <Heading as="h6" {ssr}>Deaths</Heading>
+      <Heading as="h6" style={middleh6} {ssr}>Deaths</Heading>
       <Heading as="h3" style={deathh3} {ssr}>{insertCommas(deaths)}</Heading>
     </Box>
   </Flex>

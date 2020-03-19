@@ -4,11 +4,12 @@
   import { theme } from '../theme'
 
   import { Section, Button, Box } from '@studiobear/designspek-components'
-  import { Nav, SSR } from '../components'
+  import { Nav, SSR, Icons } from '../components'
 
   // $: background = $theme.colors.background || '#fff'
   export let segment
   let ssr = true
+
   $: bodyStyle = {
     bg: $theme.colors.background,
   }
@@ -16,14 +17,15 @@
   $: mainStyle = {
     maxWidth: '56rem',
     bg: $theme.colors.background,
-    p: '3rem',
+    p: ['0rem', '0rem', '1rem', '2rem', '3rem'],
     mx: 'auto',
     pt: '6.25rem',
   }
-  $: addGlobal($theme)
+
   onMount(() => {
     removeSSR()
     ssr = false
+    addGlobal($theme)
   })
 </script>
 
@@ -45,6 +47,10 @@
 <svelte:options immutable={true} />
 <svelte:head>
   <link href="index.css" rel="stylesheet" type="text/css" />
+  <meta
+    name="Description"
+    content="A curated compilation of information, tips and stats about COVID-19
+    for the purpose of maintaining a calm and informed persective" />
 </svelte:head>
 
 <Box style={bodyStyle} {ssr}>
@@ -53,5 +59,5 @@
     <slot {ssr} />
   </Section>
 </Box>
-
+<Icons />
 <SSR theme={$theme} active={ssr} />

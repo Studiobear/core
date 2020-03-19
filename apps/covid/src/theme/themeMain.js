@@ -6,6 +6,7 @@ const heading = {
 }
 
 export const main = {
+  breakpoints: ['320px', '480px', '769px', '1025px', '1281px'],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fonts: {
     body:
@@ -71,10 +72,11 @@ export const main = {
       reset: true,
       m: 0,
       background: 'background',
+      w: '100vw',
     },
     h1: {
       ...heading,
-      fontSize: 5,
+      fontSize: [3, 3.5, 4, 4.5, 5],
       py: '0.5rem',
       color: 'primary',
     },
@@ -178,6 +180,7 @@ export const main = {
     'stroke',
     'scrollBehavior',
     'borderSpacing',
+    'objectFit',
   ],
 }
 

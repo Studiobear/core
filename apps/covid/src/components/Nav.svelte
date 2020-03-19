@@ -69,7 +69,7 @@
     fontWeight: 900,
     width: '100%',
     my: '.4rem',
-    fontSize: '2.8em',
+    fontSize: ['2em', '2em', '2.2em', '2.4em', '2.8em', '3em'],
     theme: $theme,
   }
   $: brandLinkStyle = {
@@ -130,6 +130,18 @@
     },
     $theme,
   )
+  $: navBttnSpanHidden = styled(
+    {
+      pos: 'absolute',
+      l: '-1000px',
+      t: 'auto',
+      w: '1px',
+      h: '1px',
+      m: 0,
+      overflow: 'hidden',
+    },
+    $theme,
+  )
   $: toTop = styled(
     {
       pos: 'fixed',
@@ -177,16 +189,16 @@
         <span class={navBttnSpan} />
         <span class={navBttnSpan} />
         <span class={navBttnSpan} />
+        <span class={navBttnSpanHidden}>Menu</span>
       </button>
     </Flex>
     {#if menuVisible}
-      <div
-        class={navStyle}
-        transition:fly={{ x: 250, opacity: 1, delay: 50, duration: 600 }}>
+      <div class={navStyle} transition:fly={{ x: 250, opacity: 1 }}>
         <button class={navBttn} on:click={() => (menuVisible = !menuVisible)}>
           <span class={navBttnSpan} />
           <span class={navBttnSpan} />
           <span class={navBttnSpan} />
+          <span class={navBttnSpanHidden}>Menu Close</span>
         </button>
         <button
           on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
@@ -227,6 +239,7 @@
     transition:fade={{ delay: 50 }}
     class={toTop}>
     <span class={toTopCaret}>&xwedge;</span>
+    <span class={navBttnSpanHidden}>To Top</span>
   </button>
 {/if}
 
