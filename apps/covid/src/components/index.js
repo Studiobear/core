@@ -4,5 +4,7 @@ import OverviewBoxGlobal from './OverviewBoxGlobal.svelte'
 import Icons from './Icons.svelte'
 import Icon from './Icon.svelte'
 import Card from './Card.svelte'
+import CardHead from './CardHead.svelte'
+import CardBody from './CardBody.svelte'
 
-export { Nav, SSR, OverviewBoxGlobal, Icons, Icon, Card }
+export { Nav, SSR, OverviewBoxGlobal, Icons, Icon, Card, CardHead, CardBody }

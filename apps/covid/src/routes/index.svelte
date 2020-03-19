@@ -4,7 +4,15 @@
   import Image from 'svelte-image'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import { theme } from '../theme'
-  import { Nav, SSR, OverviewBoxGlobal, Icon, Card } from '../components'
+  import {
+    Nav,
+    SSR,
+    OverviewBoxGlobal,
+    Icon,
+    Card,
+    CardHead,
+    CardBody,
+  } from '../components'
 
   import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
 
@@ -68,7 +76,7 @@
   }
   let icon = {
     w: '6rem',
-    h: 'aut0',
+    h: 'auto',
     mr: '1rem',
   }
   onMount(async function getData() {
@@ -115,15 +123,16 @@
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Card theme={$theme}>
-    <Flex>
+    <CardHead>
       <Icon name="coronavirus-2" style={icon} fill={$theme.colors.tertiary} />
       <Heading as="h3">Wash your hands often.</Heading>
-    </Flex>
-    <Box>
+    </CardHead>
+    <CardBody>
       <Text>
         <strong>Best: Warm water and soap for 20 seconds.</strong>
-        Hand sanitizer with at least 60% alcohol will work in a pinch too.
+        Alcohol-based sanitizer with at least 70% alcohol or diluted household
+        bleach (4tsp/qt of water) will work in a pinch too.
       </Text>
-    </Box>
+    </CardBody>
   </Card>
 </Flex>
