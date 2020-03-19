@@ -79,10 +79,13 @@
     color: theme.colors.purple,
   }
   $: ovUpdated = {
-    fontSize: '1rem',
+    fontSize: '0.8rem',
     color: theme.colors.tertiary,
     txtTran: 'uppercase',
+    txtAlign: 'center',
     mb: 0,
+    mt: '0.25rem',
+    px: '1rem',
   }
   $: btmh6 = {
     color: theme.colors.tertiary,
@@ -131,6 +134,4 @@
   </Flex>
 
 </Flex>
-<Box style={overviewSingleBox} {ssr}>
-  <Text style={ovUpdated} {ssr}>Last updated: {updated}</Text>
-</Box>
+<Text style={ovUpdated} {ssr}>Last updated: {updated}</Text>

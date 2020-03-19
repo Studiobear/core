@@ -35,6 +35,7 @@
     fontWeight: 300,
     textAlign: 'center',
     px: '1rem',
+    my: '1rem',
   }
   $: banner = styled(
     {
@@ -66,8 +67,9 @@
     alignc: 'stretch',
   }
   let icon = {
-    w: '10rem',
-    h: '10rem',
+    w: '6rem',
+    h: 'aut0',
+    mr: '1rem',
   }
   onMount(async function getData() {
     ssr = false
@@ -111,8 +113,6 @@
   </Box>
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
-
-  <Text />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Card theme={$theme}>
     <Flex>
@@ -121,7 +121,7 @@
     </Flex>
     <Box>
       <Text>
-        <strong>Best = Warm water and soap for 20 seconds.</strong>
+        <strong>Best: Warm water and soap for 20 seconds.</strong>
         Hand sanitizer with at least 60% alcohol will work in a pinch too.
       </Text>
     </Box>

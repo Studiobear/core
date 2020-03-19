@@ -56,7 +56,7 @@
 <Box style={bodyStyle} {ssr}>
   <Nav {segment} {ssr} />
   <Section as="main" style={mainStyle} {ssr}>
-    <slot {ssr} />
+    <slot />
   </Section>
 </Box>
 <Icons />

@@ -9,8 +9,8 @@
     brd: '1px solid',
     brdCol: theme.colors.muted,
     borderRadius: '0.5rem',
-    px: '0.5rem',
-    py: '0.75rem',
+    px: '1rem',
+    py: '1rem',
     ...style,
   }
 </script>
