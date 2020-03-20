@@ -2391,6 +2391,13 @@
   dependencies:
     svelte "^3.20.1"
 
+"@sveltejs/pancake@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@sveltejs/pancake/-/pancake-0.0.13.tgz#0efcf9345a5f49c9316b5a73c9fbb8e52723882c"
+  integrity sha512-RH5ClJakBgLnWvDkimXZHeDf8LVs+fEqylzQB8g31t07uXzwOLtEjF+2NWJv/EBjQT2Eie7d5C2/84CfLe9iaw==
+  dependencies:
+    yootils "0.0.16"
+
 "@testing-library/dom@^6.5.0":
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-6.16.0.tgz#04ada27ed74ad4c0f0d984a1245bb29b1fd90ba9"
@@ -14208,3 +14215,8 @@ yauzl@2.4.1:
   integrity sha1-lSj0QtqxsihOWLQ3m7GU4i4MQAU=
   dependencies:
     fd-slicer "~1.0.1"
+
+yootils@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/yootils/-/yootils-0.0.16.tgz#4a41acf7f0c333c8508e72b046b0c749171b9de8"
+  integrity sha512-aIVecm5ucOzwhtKbl0zkfg0ZSOUR9c2da0k8cIc9umjjzkvVCWUUX/UHZ1CLPsv4wmJLqt0aWeLB7p9n9JDwYQ==
