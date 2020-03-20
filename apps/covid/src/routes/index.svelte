@@ -46,6 +46,13 @@
     px: '1rem',
     my: '1rem',
   }
+  $: h3Style = {
+    fontWeight: 700,
+    fontSize: '2rem',
+    textAlign: 'center',
+    lineHeight: '3rem',
+    my: '1rem',
+  }
   $: banner = styled(
     {
       w: '100%',
@@ -124,9 +131,43 @@
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Card theme={$theme}>
+    <CardBody>
+      <Heading as="h3" style={h3Style}>
+        The best way to protect yourself and everyone else is to avoid being
+        exposed to the virus.
+      </Heading>
+    </CardBody>
+  </Card>
+  <Card theme={$theme}>
+    <CardHead>
+      <Icon name="infection" style={icon} fill={$theme.colors.tertiary} />
+      <Heading as="h3">Social Distancing for the Win</Heading>
+    </CardHead>
+    <CardBody>
+      <Text>
+        <strong>Best: Warm water and soap for 20 seconds.</strong>
+        Alcohol-based sanitizer with at least 70% alcohol or diluted household
+        bleach (4tsp/qt of water) will work in a pinch too.
+      </Text>
+    </CardBody>
+  </Card>
+  <Card theme={$theme}>
     <CardHead>
       <Icon name="coronavirus-2" style={icon} fill={$theme.colors.tertiary} />
       <Heading as="h3">Wash your hands often.</Heading>
+    </CardHead>
+    <CardBody>
+      <Text>
+        <strong>Best: Warm water and soap for 20 seconds.</strong>
+        Alcohol-based sanitizer with at least 70% alcohol or diluted household
+        bleach (4tsp/qt of water) will work in a pinch too.
+      </Text>
+    </CardBody>
+  </Card>
+  <Card theme={$theme}>
+    <CardHead>
+      <Icon name="coronavirus" style={icon} fill={$theme.colors.tertiary} />
+      <Heading as="h3">Keep your germs to yourself</Heading>
     </CardHead>
     <CardBody>
       <Text>
