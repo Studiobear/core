@@ -4,7 +4,7 @@ Curating a basic subset of useful information about COVID-19. Experimenting with
 
 **Interface Screenshots**
 
-![Interface screenshots comparing Covid-19 Global Cases app with Plague, Inc](https://raw.githubusercontent.com/Studiobear/core/apps/covid/static/covid19-screenshots.jpg)
+![Interface screenshots comparing Covid-19 Global Cases app with Plague, Inc](https://raw.githubusercontent.com/Studiobear/core/master/apps/covid/static/covid19-screenshots.jpg)
 
 ---
 
