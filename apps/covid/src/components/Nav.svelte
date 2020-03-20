@@ -7,6 +7,7 @@
     Link,
     Heading,
   } from '@studiobear/designspek-components'
+  import Icon from './Icon.svelte'
   import { theme } from '../theme'
   export let segment
   export let ssr
@@ -80,9 +81,10 @@
     theme: $theme,
   }
   $: menuLinkStyle = {
-    color: $theme.colors.secondary,
+    color: $theme.colors.tertiary,
     textTransform: 'uppercase',
     textDecoration: 'none',
+    fontSize: '1.4rem',
     px: '1rem',
     py: '.25rem',
     _hover: {
@@ -113,10 +115,11 @@
       w: '40px',
       h: '30px',
       border: '2px solid',
-      borderColor: $theme.colors.muted,
+      borderColor: $theme.colors.tertiary,
       pt: '5px',
       mt: '12px',
       mr: '12px',
+      borderRadius: '5px',
     },
     $theme,
   )
@@ -126,7 +129,7 @@
       w: '100%',
       h: '2px',
       mb: '3px',
-      bg: $theme.colors.muted,
+      bg: $theme.colors.tertiary,
     },
     $theme,
   )
@@ -139,6 +142,15 @@
       h: '1px',
       m: 0,
       overflow: 'hidden',
+    },
+    $theme,
+  )
+  $: navClose = styled(
+    {
+      fontSize: '2rem',
+      fontWeight: 700,
+      pos: 'relative',
+      t: '-13px',
     },
     $theme,
   )
@@ -170,6 +182,11 @@
     },
     $theme,
   )
+  $: modeIcon = {
+    size: '1.25rem',
+    color: $theme.colors.tertiary,
+    pt: '.5rem',
+  }
 </script>
 
 <svelte:head>
@@ -194,40 +211,47 @@
     </Flex>
     {#if menuVisible}
       <div class={navStyle} transition:fly={{ x: 250, opacity: 1 }}>
-        <button class={navBttn} on:click={() => (menuVisible = !menuVisible)}>
-          <span class={navBttnSpan} />
-          <span class={navBttnSpan} />
-          <span class={navBttnSpan} />
-          <span class={navBttnSpanHidden}>Menu Close</span>
-        </button>
-        <button
-          on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
-          {$theme.mode === 'light' ? 'to dark mode' : 'to light mode'}
-        </button>
-        <Link
-          href="."
-          style={homeLink}
-          onClick={() => (menuVisible = !menuVisible)}>
-          home
-        </Link>
-        <Link
-          href="stats"
-          style={statsLink}
-          onClick={() => (menuVisible = !menuVisible)}>
-          stats
-        </Link>
-        <Link
-          href="why"
-          style={whyLink}
-          onClick={() => (menuVisible = !menuVisible)}>
-          why
-        </Link>
-        <Link
-          href="about"
-          style={aboutLink}
-          on:click={() => (menuVisible = !menuVisible)}>
-          about
-        </Link>
+        <Flex
+          style={{ flexdir: 'row-reverse', justc: 'space-between', px: '0.5rem' }}>
+          <button class={navBttn} on:click={() => (menuVisible = !menuVisible)}>
+            <span class={navClose}>&rtri;</span>
+            <span class={navBttnSpanHidden}>Menu Close</span>
+          </button>
+          <button
+            on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
+            {#if $theme.mode === 'light'}
+              <Icon name="virus-2" style={modeIcon} />
+            {:else}
+              <Icon name="virus-1" style={modeIcon} />
+            {/if}
+          </button>
+        </Flex>
+        <Flex style={{ flexdir: 'column', py: '1rem' }}>
+          <Link
+            href="."
+            style={homeLink}
+            on:click={() => (menuVisible = !menuVisible)}>
+            home
+          </Link>
+          <Link
+            href="stats"
+            style={statsLink}
+            on:click={() => (menuVisible = !menuVisible)}>
+            stats
+          </Link>
+          <Link
+            href="why"
+            style={whyLink}
+            on:click={() => (menuVisible = !menuVisible)}>
+            why
+          </Link>
+          <Link
+            href="about"
+            style={aboutLink}
+            on:click={() => (menuVisible = !menuVisible)}>
+            about
+          </Link>
+        </Flex>
       </div>
     {/if}
   </Flex>

@@ -44,6 +44,7 @@
     "@studiobear/designspek": "^0.3.1",
     "@studiobear/designspek-components": "^0.3.1",
     "@studiobear/typography-theme-source-sans-pro": "*",
+    "@sveltejs/pancake": "^0.0.13",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/svelte": "^1.11.0",
     "babel-jest": "^25.1.0",
