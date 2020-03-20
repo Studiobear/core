@@ -17,6 +17,7 @@
     textAlign: 'center',
     px: '1rem',
     my: '1rem',
+    color: $theme.colors.tertiary,
   }
 </script>
 

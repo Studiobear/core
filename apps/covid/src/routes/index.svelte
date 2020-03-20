@@ -34,8 +34,7 @@
 
   $: flexStyle = {
     flexdir: 'column',
-    mb: '4rem',
-    mt: '4rem',
+    py: '4rem',
   }
   $: headerStyle = {
     bg: $theme.colors.background,
@@ -43,16 +42,11 @@
     lineHeight: '3rem',
     fontWeight: 300,
     textAlign: 'center',
+
     px: '1rem',
     my: '1rem',
   }
-  $: h3Style = {
-    fontWeight: 700,
-    fontSize: '2rem',
-    textAlign: 'center',
-    lineHeight: '3rem',
-    my: '1rem',
-  }
+
   $: banner = styled(
     {
       w: '100%',
@@ -81,6 +75,17 @@
     flexdir: 'row',
     width: '100%',
     alignc: 'stretch',
+  }
+  let emphasisCard = {
+    bg: $theme.colors.secondary,
+  }
+  $: h3Emphasis = {
+    fontWeight: 700,
+    fontSize: '2rem',
+    textAlign: 'center',
+    lineHeight: '3rem',
+    my: '1rem',
+    color: $theme.colors.background,
   }
   let icon = {
     w: '6rem',
@@ -130,9 +135,9 @@
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
-  <Card theme={$theme}>
+  <Card theme={$theme} style={emphasisCard}>
     <CardBody>
-      <Heading as="h3" style={h3Style}>
+      <Heading as="h3" style={h3Emphasis}>
         The best way to protect yourself and everyone else is to avoid being
         exposed to the virus.
       </Heading>

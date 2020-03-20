@@ -71,7 +71,8 @@ export const main = {
       antialias: true,
       reset: true,
       m: 0,
-      background: 'background',
+      bg: 'background',
+      bgCol: 'background',
       w: '100vw',
     },
     h1: {
@@ -183,6 +184,7 @@ export const main = {
     'stroke',
     'scrollBehavior',
     'borderSpacing',
+    'borderCollapse',
     'objectFit',
   ],
 }

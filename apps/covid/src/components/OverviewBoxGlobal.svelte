@@ -45,7 +45,7 @@
     alignc: 'stretch',
     pb: '1.5rem',
   }
-  let overviewBottomBox = {
+  $: overviewBottomBox = {
     flexdir: 'row',
     width: '100%',
     alignc: 'stretch',

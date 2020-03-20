@@ -26,7 +26,7 @@
 
   $: flexMain = {
     flexdir: 'column',
-    mt: '3rem',
+    pt: '4rem',
     maxw: '100vw',
   }
   $: flexStyle = {
@@ -51,20 +51,16 @@
     px: '1rem',
     my: '1rem',
   }
-  $: banner = styled(
-    {
-      w: '100%',
-      h: 'auto',
-    },
-    { theme: $theme },
-  )
 
-  $: table = {
-    borderCollapse: 'collapse',
-    overflowX: 'auto',
-    w: 'fit-content',
-    maxw: '100%',
-  }
+  $: table = styled(
+    {
+      borderCollapse: 'collapse',
+      overflowX: 'auto',
+      w: 'fit-content',
+      maxw: '100%',
+    },
+    $theme,
+  )
 
   onMount(async function getData() {
     let combined = {}
@@ -88,7 +84,7 @@
 </Flex>
 <Flex style={flexStyle}>
   <Heading as="h2" style={h2Style}>Cases By Country:</Heading>
-  <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
+  <table class={table}>
     <thead>
       <tr>
         <th>Country Name</th>
