@@ -167,6 +167,9 @@ export const main = {
     img: {
       maxWidth: '100%',
     },
+    li: {
+      color: 'text',
+    },
   },
   forwardStyleDefault: [
     'txtdeco',

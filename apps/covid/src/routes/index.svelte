@@ -145,9 +145,10 @@
     </CardHead>
     <CardBody>
       <Text>
-        <strong>Best: Warm water and soap for 20 seconds.</strong>
-        Alcohol-based sanitizer with at least 70% alcohol or diluted household
-        bleach (4tsp/qt of water) will work in a pinch too.
+        <strong>Virus is most likely spread from person-to-person.</strong>
+        Try to stay at least 6 feet (~2m) away from other people out in public.
+        Virus can travel through respitory droplets from infected cough or
+        sneeze landing on surfaces, skin and mucas membranes or inhaled.
       </Text>
     </CardBody>
   </Card>
@@ -166,14 +167,14 @@
   </Card>
   <Card theme={$theme}>
     <CardHead>
-      <Icon name="coronavirus" style={icon} fill={$theme.colors.tertiary} />
+      <Icon name="coronavirus-1" style={icon} fill={$theme.colors.tertiary} />
       <Heading as="h3">Keep your germs to yourself</Heading>
     </CardHead>
     <CardBody>
       <Text>
-        <strong>Best: Warm water and soap for 20 seconds.</strong>
-        Alcohol-based sanitizer with at least 70% alcohol or diluted household
-        bleach (4tsp/qt of water) will work in a pinch too.
+        <strong>If sick, stay home except to get medical care.</strong>
+        Cover coughs and sneezes and after immediately wash hands. Facemasks are
+        best worn when sick and in public and otherwise saved for caregivers.
       </Text>
     </CardBody>
   </Card>
