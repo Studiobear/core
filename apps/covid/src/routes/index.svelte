@@ -35,6 +35,7 @@
   $: flexStyle = {
     flexdir: 'column',
     mb: '4rem',
+    mt: '4rem',
   }
   $: headerStyle = {
     bg: $theme.colors.background,

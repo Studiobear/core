@@ -31,6 +31,7 @@
       bg: $theme.colors.header,
       fontWeight: 300,
       p: '0',
+      maxw: '100vw',
     },
     $theme,
   )

@@ -20,6 +20,7 @@
     p: ['0rem', '0rem', '1rem', '2rem', '3rem'],
     mx: 'auto',
     pt: '6.25rem',
+    width: '100vw',
   }
 
   onMount(() => {

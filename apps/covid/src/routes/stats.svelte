@@ -24,14 +24,32 @@
   url =
     'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
 
+  $: flexMain = {
+    flexdir: 'column',
+    mt: '3rem',
+    maxw: '100vw',
+  }
   $: flexStyle = {
     flexdir: 'column',
+    mt: '0.5rem',
+    maxw: '100vw',
   }
   $: headerStyle = {
     bg: $theme.colors.background,
-    fontSize: '3em',
+    fontSize: '3rem',
+    lineHeight: '3rem',
     fontWeight: 300,
-    txtalign: 'center',
+    textAlign: 'center',
+    px: '1rem',
+    mt: '1rem',
+    mb: 0,
+  }
+  $: h2Style = {
+    lineHeight: '2.8rem',
+    fontWeight: 300,
+    textAlign: 'center',
+    px: '1rem',
+    my: '1rem',
   }
   $: banner = styled(
     {
@@ -40,6 +58,13 @@
     },
     { theme: $theme },
   )
+
+  $: table = {
+    borderCollapse: 'collapse',
+    overflowX: 'auto',
+    w: 'fit-content',
+    maxw: '100%',
+  }
 
   onMount(async function getData() {
     let combined = {}
@@ -58,25 +83,11 @@
   })
 </script>
 
-<Flex style={flexStyle}>
-  <Heading as="h1" style={headerStyle}>Be Aware & Take Care</Heading>
-  <Heading as="h1" style={headerStyle}>Legend</Heading>
-  <table class="table is-bordered is-narrow is-hoverable">
-    <thead>
-      <tr>
-        <th class="has-background-danger">Higher than Average Fatality</th>
-        <th class="has-background-warning">Lower than Average Recovery</th>
-        <th class="has-background-success">
-          Higher than Average Recovery OR Lower than Average Fatality
-        </th>
-        <th class="has-background-link">More Active than Recovered</th>
-        <th class="has-background-primary">More Recovered than Active</th>
-      </tr>
-    </thead>
-  </table>
+<Flex style={flexMain}>
+  <Heading as="h1" style={headerStyle}>Context is Everything</Heading>
 </Flex>
 <Flex style={flexStyle}>
-  <h1 class="title">Cases By Country:</h1>
+  <Heading as="h2" style={h2Style}>Cases By Country:</Heading>
   <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
     <thead>
       <tr>
@@ -114,5 +125,22 @@
         </tr>
       {/each}
     </tbody>
+  </table>
+</Flex>
+<Flex style={flexStyle}>
+  <Heading as="h1" style={headerStyle}>Context is Everything</Heading>
+  <Heading as="h1" style={headerStyle}>Legend</Heading>
+  <table class="table is-bordered is-narrow is-hoverable">
+    <thead>
+      <tr>
+        <th class="has-background-danger">Higher than Average Fatality</th>
+        <th class="has-background-warning">Lower than Average Recovery</th>
+        <th class="has-background-success">
+          Higher than Average Recovery OR Lower than Average Fatality
+        </th>
+        <th class="has-background-link">More Active than Recovered</th>
+        <th class="has-background-primary">More Recovered than Active</th>
+      </tr>
+    </thead>
   </table>
 </Flex>
