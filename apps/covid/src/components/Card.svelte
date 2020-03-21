@@ -1,7 +1,7 @@
 <script>
   import { Box } from '@studiobear/designspek-components'
 
-  export let style = {}
+  export let style = $$props.style || {}
   export let theme = $$props.theme || { colors: { muted: '#C0D0D1' } }
   let compStyles = {
     mx: '0.5rem',

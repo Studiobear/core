@@ -6,6 +6,7 @@
     Flex,
     Link,
     Heading,
+    Button,
   } from '@studiobear/designspek-components'
   import Icon from './Icon.svelte'
   import { theme } from '../theme'
@@ -53,7 +54,6 @@
       flexdir: 'column',
       justc: 'stretch',
       align: 'stretch',
-      px: '.25rem',
       py: '.25rem',
       bg: $theme.colors.muted,
     },
@@ -83,11 +83,11 @@
   }
   $: menuLinkStyle = {
     color: $theme.colors.tertiary,
-    textTransform: 'uppercase',
+    txtTran: 'uppercase',
     textDecoration: 'none',
-    fontSize: '1.4rem',
-    px: '1rem',
-    py: '.25rem',
+    fontSize: '1.6rem',
+    px: '1.5rem',
+    py: '1rem',
     _hover: {
       bg: $theme.colors.secondary,
       color: $theme.colors.background,
@@ -96,10 +96,10 @@
 
   $: menuLinkSelected = {
     ...menuLinkStyle,
-    color: $theme.colors.primary,
+    color: $theme.colors.background,
+    bg: $theme.colors.primary,
     _hover: {
-      bg: $theme.colors.primary,
-      color: $theme.colors.background,
+      bg: $theme.colors.tertiary,
     },
   }
 
@@ -110,20 +110,18 @@
 
   $: title = segment === undefined ? 'Keep Informed' : segment
 
-  $: navBttn = styled(
-    {
-      d: 'block',
-      w: '40px',
-      h: '30px',
-      border: '2px solid',
-      borderColor: $theme.colors.tertiary,
-      pt: '5px',
-      mt: '12px',
-      mr: '12px',
-      borderRadius: '5px',
-    },
-    $theme,
-  )
+  $: navBttn = {
+    d: 'block',
+    w: '40px',
+    h: '30px',
+    border: '2px solid',
+    borderColor: $theme.colors.tertiary,
+    bg: $theme.colors.background,
+    pt: '5px',
+    mt: '12px',
+    mr: '12px',
+    borderRadius: '5px',
+  }
   $: navBttnSpan = styled(
     {
       d: 'block',
@@ -152,6 +150,7 @@
       fontWeight: 700,
       pos: 'relative',
       t: '-13px',
+      color: $theme.colors.tertiary,
     },
     $theme,
   )
@@ -183,10 +182,20 @@
     },
     $theme,
   )
+  $: modeBttn = {
+    d: 'block',
+    size: '2.5rem',
+    border: '1px solid',
+    brdCol: 'transparent',
+    bg: $theme.colors.grey,
+    lineHeight: '2.5rem',
+    pt: '5px',
+    borderRadius: '2.5rem',
+    mt: '0.5rem',
+    ml: '0.5rem',
+  }
   $: modeIcon = {
     size: '1.25rem',
-    color: $theme.colors.tertiary,
-    pt: '.5rem',
   }
 </script>
 
@@ -200,32 +209,39 @@
       <Heading as="h1" style={brandStyle} {ssr}>
         <Link href="." style={brandLinkStyle} {ssr}>PSA: COVID-19</Link>
       </Heading>
-      <button
-        class={navBttn}
+      <Button
+        style={navBttn}
         on:click={() => (menuVisible = !menuVisible)}
         {ssr}>
         <span class={navBttnSpan} />
         <span class={navBttnSpan} />
         <span class={navBttnSpan} />
         <span class={navBttnSpanHidden}>Menu</span>
-      </button>
+      </Button>
     </Flex>
     {#if menuVisible}
       <div class={navStyle} transition:fly={{ x: 250, opacity: 1 }}>
         <Flex
           style={{ flexdir: 'row-reverse', justc: 'space-between', px: '0.5rem' }}>
-          <button class={navBttn} on:click={() => (menuVisible = !menuVisible)}>
+          <Button style={navBttn} on:click={() => (menuVisible = !menuVisible)}>
             <span class={navClose}>&rtri;</span>
             <span class={navBttnSpanHidden}>Menu Close</span>
-          </button>
-          <button
+          </Button>
+          <Button
+            style={modeBttn}
             on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
             {#if $theme.mode === 'light'}
-              <Icon name="virus-2" style={modeIcon} />
+              <Icon
+                name="virus-2"
+                fill={$theme.colors.tertiary}
+                style={modeIcon} />
             {:else}
-              <Icon name="virus-1" style={modeIcon} />
+              <Icon
+                name="virus-1"
+                fill={$theme.colors.tertiary}
+                style={modeIcon} />
             {/if}
-          </button>
+          </Button>
         </Flex>
         <Flex style={{ flexdir: 'column', py: '1rem' }}>
           <Link

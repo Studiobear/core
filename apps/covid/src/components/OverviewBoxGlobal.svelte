@@ -16,11 +16,17 @@
   // $: console.log('ov', overview, insertCommas, insertCommas(100000))
 
   $: overviewBox = {
-    w: ['100%', '100%', '100%', '100%', '100%'],
+    w: ['100vw', '100vw', '100%', '100%', '100%'],
     flexdir: 'column',
     align: 'center',
-    brd: '1px solid',
-    brdCol: theme.colors.muted,
+    brd: ['none', 'none', '1px solid', '1px solid', '1px solid'],
+    brdCol: [
+      'transparent',
+      'transparent',
+      theme.colors.muted,
+      theme.colors.muted,
+      theme.colors.muted,
+    ],
     mx: 'auto',
   }
   let overviewSingleBox = {
@@ -32,25 +38,21 @@
     flexdir: 'column',
     alignc: 'stretch',
   }
-
-  $: overviewSingleBoxActive = {
-    ...overviewSingleBox,
-    bg: theme.colors.tertiary,
-    pb: '1.5rem',
-  }
-
   let overviewMiddleBox = {
     flexdir: 'row',
     width: '100%',
     alignc: 'stretch',
     pb: '1.5rem',
   }
-  let overviewBottomBox = {
-    flexdir: 'row',
-    width: '100%',
-    alignc: 'stretch',
+  $: overviewSingleBoxActive = {
+    ...overviewSingleBox,
+    bg: theme.colors.quaternary,
     pb: '1.5rem',
-    bg: theme.colors.muted,
+  }
+
+  $: overviewBottomBox = {
+    ...overviewMiddleBox,
+    bg: theme.colors.grey,
   }
   $: ovTitle = {
     letterSpacing: '0.25rem',

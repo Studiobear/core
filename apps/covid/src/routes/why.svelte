@@ -4,8 +4,7 @@
 
   $: flexStyle = {
     flexdir: 'column',
-    mb: '4rem',
-    mt: '4rem',
+    py: '4rem',
     px: ['1.5rem', '1.5rem', '1.5rem', '1.5rem', '2rem'],
   }
 
@@ -27,7 +26,7 @@
 <Flex style={flexStyle}>
   <Heading as="h1" style={headerStyle}>Why?</Heading>
 
-  <Text>
+  <Text style={{ color: $theme.colors.tertiary }}>
     This
     <strong>Public Service Application: COVID-19</strong>
     manifested from a curiousity brought about by informational context
@@ -51,9 +50,11 @@
     COVID-19 Global Cases app conjured up an uncomfortable sense of potential
     doom.
   </Text>
-  <Text>
+  <Text style={{ color: $theme.colors.tertiary }}>
     Like many in this grand Age of Information, I turned to search engines and,
     surely, answers at my finger tips. I was wrong.
   </Text>
-  <Heading as="h4">To be continued...</Heading>
+  <Heading as="h4" style={{ color: $theme.colors.tertiary }}>
+    To be continued...
+  </Heading>
 </Flex>

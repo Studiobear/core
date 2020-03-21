@@ -2370,24 +2370,24 @@
   dependencies:
     type-detect "4.0.8"
 
-"@studiobear/designspek-components@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.1.tgz#417dac4356b20fdcf3fcf46850e21aedd3c8a024"
-  integrity sha512-mAK0HAtWXt7edMbI6AKGtHKSUtfJ5tTHMT5uviwi8FzJxUDhip1How8truqtQ+AahRApgmtVEljVrDVXWE4KOQ==
+"@studiobear/designspek-components@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.2.tgz#9b7db009a72a8a9e18cfa0b783587c498d31a585"
+  integrity sha512-GJjs9Lhlym+kHY4R/bgyDVWLvySmzG4miqHtAXtbUlGkvAXC9LBVAUVihjOC/+TdkVbwpwAFq4LBib8F88bvNw==
   dependencies:
-    "@studiobear/designspek" "^0.3.0"
-
-"@studiobear/designspek@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.0.tgz#539039ea7b172a1799af25a567718f7e040bc8bf"
-  integrity sha512-vYuvEt+7BZELCvXHFnvzy/ZM2azgTkhtXXCNgFNeu3CAKL4fajdRN1bFqmYryHlhltKKgFzVwUMCcvjMVfDdcA==
-  dependencies:
-    svelte "^3.19.1"
+    "@studiobear/designspek" "^0.3.1"
 
 "@studiobear/designspek@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.1.tgz#d750b4e46e3f69f655478fc35813302321ae4e30"
   integrity sha512-BRt1RUvAtazPwUGJ0M5PZsswgQq7Oc8FR0ZNi9B9hT9u3fe6mLsDx08rBdLq2Sh9CInZA0oygwSfWOlt/ZN7yQ==
+  dependencies:
+    svelte "^3.20.1"
+
+"@studiobear/designspek@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.2.tgz#69700d79ef63678c3628e60c17702b337ee8ccfd"
+  integrity sha512-2dJHbbTLukH9E3AXpobGmk7R2TA7TszKOCfZI+tT9CFF720jwM1X8DNy3wIwsYuM+YbxCst9f/VKrRe/zcrdGw==
   dependencies:
     svelte "^3.20.1"
 
@@ -12909,11 +12909,6 @@ svelte@^3.12.1, svelte@^3.20.1:
   version "3.20.1"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.20.1.tgz#8417fcd883a2f534b642a0737368272e651cf3ac"
   integrity sha512-m/dw52BZf+p6KYnyKLErIcGalu4pwJrQbUM7VZriRw6ZlJj1qMAZsLcIWzEB3I0hhdJwkKb7LrrvUIeqmbO92Q==
-
-svelte@^3.19.1:
-  version "3.20.0"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.20.0.tgz#15a0c118712720abe5396415a1a6e4ecefadb627"
-  integrity sha512-RMJeM/1603O9nJKb7KL1BCGFJ5cbOKTvjPjkkhRwu+qbub70hp/Q3vn7gF8aPlna5zG1IhiYuAfQw95yZGA8cA==
 
 svgo@^0.7.0:
   version "0.7.2"

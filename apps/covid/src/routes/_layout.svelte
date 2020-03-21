@@ -22,11 +22,10 @@
     pt: '6.25rem',
     width: '100vw',
   }
-
+  $: addGlobal($theme)
   onMount(() => {
     removeSSR()
     ssr = false
-    addGlobal($theme)
   })
 </script>
 

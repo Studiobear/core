@@ -30,12 +30,11 @@
   let overview = {}
 
   let url =
-    'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true'
+    'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?f=json&where=Confirmed%20%3E%200&outFields=Country_Region,Province_State,Last_Update,Lat,Long_,Confirmed,Deaths,Recovered,Active&returnGeometry=true&orderByFields=Active%20desc'
 
   $: flexStyle = {
     flexdir: 'column',
-    mb: '4rem',
-    mt: '4rem',
+    py: '4rem',
   }
   $: headerStyle = {
     bg: $theme.colors.background,
@@ -43,16 +42,11 @@
     lineHeight: '3rem',
     fontWeight: 300,
     textAlign: 'center',
+
     px: '1rem',
     my: '1rem',
   }
-  $: h3Style = {
-    fontWeight: 700,
-    fontSize: '2rem',
-    textAlign: 'center',
-    lineHeight: '3rem',
-    my: '1rem',
-  }
+
   $: banner = styled(
     {
       w: '100%',
@@ -61,26 +55,16 @@
     $theme,
   )
   $: bannerProps = ssr ? { style: banner } : { class: banner }
-  $: overviewBox = {
-    flexdir: 'column',
-    align: 'center',
-    brd: '1px solid',
-    brdCol: $theme.colors.muted,
+  let emphasisCard = {
+    bg: $theme.colors.tertiary,
   }
-  let overviewSingleBox = {
-    flexdir: 'column',
-    align: 'center',
-    w: '100%',
-    txtalign: 'center',
-    d: 'flex',
-    flexdir: 'column',
-    alignc: 'stretch',
-  }
-
-  let overviewDoubleBox = {
-    flexdir: 'row',
-    width: '100%',
-    alignc: 'stretch',
+  let h3Emphasis = {
+    fontWeight: 700,
+    fontSize: '2rem',
+    textAlign: 'center',
+    lineHeight: '3rem',
+    my: '1rem',
+    color: $theme.colors.background,
   }
   let icon = {
     w: '6rem',
@@ -130,9 +114,9 @@
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
-  <Card theme={$theme}>
+  <Card theme={$theme} style={emphasisCard}>
     <CardBody>
-      <Heading as="h3" style={h3Style}>
+      <Heading as="h3" style={h3Emphasis}>
         The best way to protect yourself and everyone else is to avoid being
         exposed to the virus.
       </Heading>
