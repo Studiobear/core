@@ -33,6 +33,7 @@
     flexdir: 'column',
     mt: '0.5rem',
     maxw: '100vw',
+    pb: '3rem',
   }
   $: headerStyle = {
     bg: $theme.colors.background,
@@ -52,12 +53,108 @@
     my: '1rem',
   }
 
+  $: h4Style = {
+    lineHeight: '2rem',
+    fontWeight: 700,
+    textTran: 'uppercase',
+    textAlign: 'center',
+    px: '1rem',
+    mt: '0.5rem',
+  }
+
   $: table = styled(
     {
       borderCollapse: 'collapse',
       overflowX: 'auto',
       w: 'fit-content',
       maxw: '100%',
+    },
+    $theme,
+  )
+
+  $: tableHeader = styled(
+    {
+      bg: $theme.colors.quaternary,
+    },
+    $theme,
+  )
+  $: th = styled(
+    {
+      color: $theme.colors.background,
+      p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+    },
+    $theme,
+  )
+
+  $: tableData = styled(
+    {
+      overflowY: 'scroll',
+      maxh: '20rem',
+    },
+    $theme,
+  )
+
+  $: td = styled(
+    {
+      colors: $theme.colors.text,
+      p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+    },
+    $theme,
+  )
+
+  $: moreActThanRec = styled(
+    {
+      ...td,
+      bg: $theme.colors.lightBlue,
+    },
+    $theme,
+  )
+
+  $: moreRec = styled(
+    {
+      ...td,
+      bg: $theme.colors.lightPurple,
+    },
+    $theme,
+  )
+
+  $: highAvgFat = styled(
+    {
+      ...td,
+      bg: $theme.colors.lightRed,
+    },
+    $theme,
+  )
+
+  $: lowAvgFat = styled(
+    {
+      ...td,
+      bg: $theme.colors.lightYellow,
+    },
+    $theme,
+  )
+
+  $: highRecov = styled(
+    {
+      ...td,
+      bg: $theme.colors.lightGreen,
+    },
+    $theme,
+  )
+
+  $: legendBody = styled(
+    { w: ['100%', '100%', 'auto', 'auto', 'auto'] },
+    $theme,
+  )
+  $: legendTh = styled(
+    {
+      ...td,
+      display: ['block', 'block', 'table', 'table', 'table'],
+      fontSize: '0.8rem',
+      color: $theme.colors.text,
+      px: ['0.75rem', '0.75rem', '0.5rem', '0.5rem', '0.5rem'],
+      py: ['0.25rem', '0.25rem', '0.5rem', '0.5rem', '0.5rem'],
+      textAlign: 'center',
     },
     $theme,
   )
@@ -84,59 +181,73 @@
 </Flex>
 <Flex style={flexStyle}>
   <Heading as="h2" style={h2Style}>Cases By Country:</Heading>
-  <table class={table}>
+  <Heading as="h4" style={h4Style}>Legend</Heading>
+  <table class="{table} {legendBody}">
     <thead>
       <tr>
-        <th>Country Name</th>
-        <th>Confirmed</th>
-        <th>Active</th>
-        <th>Recovered</th>
-        <th>Deaths</th>
-        <th>Fatality Rate</th>
-        <th>Recovery Rate</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each Object.keys(data) as item}
-        <tr>
-          <td>{String(JSON.stringify(item)).replace(/"/g, '')}</td>
-          <td>{JSON.stringify(data[item]['Confirmed'])}</td>
-          <td
-            class={data[item]['Recovered'] < data[item]['Active'] ? 'has-background-link' : ''}>
-            {JSON.stringify(data[item]['Active'])}
-          </td>
-          <td
-            class={data[item]['Recovered'] > data[item]['Active'] ? 'has-background-primary' : ''}>
-            {JSON.stringify(data[item]['Recovered'])}
-          </td>
-          <td>{JSON.stringify(data[item]['Deaths'])}</td>
-          <td
-            class="{fatalityRate(data[item]) > total_fatality_rate ? 'is-danger' : ''}{fatalityRate(data[item]) < total_fatality_rate ? 'is-success' : ''}">
-            {fatalityRate(data[item]).toFixed(2)}%
-          </td>
-          <td
-            class="{recoveryRate(data[item]) < total_recovery_rate ? 'is-warning' : ''}{recoveryRate(data[item]) > total_recovery_rate ? 'is-success' : ''}">
-            {recoveryRate(data[item]).toFixed(2)}%
-          </td>
-        </tr>
-      {/each}
-    </tbody>
-  </table>
-</Flex>
-<Flex style={flexStyle}>
-  <Heading as="h1" style={headerStyle}>Context is Everything</Heading>
-  <Heading as="h1" style={headerStyle}>Legend</Heading>
-  <table class="table is-bordered is-narrow is-hoverable">
-    <thead>
-      <tr>
-        <th class="has-background-danger">Higher than Average Fatality</th>
-        <th class="has-background-warning">Lower than Average Recovery</th>
-        <th class="has-background-success">
-          Higher than Average Recovery OR Lower than Average Fatality
+        <th class="{highAvgFat} {legendTh}">Higher Avg Fatalities</th>
+        <th class="{lowAvgFat} {legendTh}">Lower Avg Recoveries</th>
+        <th class="{highRecov} {legendTh}">
+          Higher Avg Recoveries OR Lower Avg Fatalities
         </th>
-        <th class="has-background-link">More Active than Recovered</th>
-        <th class="has-background-primary">More Recovered than Active</th>
+        <th class="{moreActThanRec} {legendTh}">More Active than Recovered</th>
+        <th class="{moreRec} {legendTh}">More Recovered than Active</th>
       </tr>
     </thead>
   </table>
+  <Box style={{ overflowX: 'scroll' }}>
+    <table class={table}>
+      <thead class={tableHeader}>
+        <tr>
+          <th class={th}>Country Name</th>
+          <th class={th}>Active</th>
+          <th class={th}>Confirmed</th>
+
+          <th class={th}>Recovered</th>
+          <th class={th}>Deaths</th>
+          <th class={th}>Fatality Rate</th>
+          <th class={th}>Recovery Rate</th>
+        </tr>
+      </thead>
+      <tbody class={tableData}>
+        {#each Object.keys(data) as item}
+          <tr>
+            <td class={td}>{String(JSON.stringify(item)).replace(/"/g, '')}</td>
+            <td
+              class={data[item]['Recovered'] < data[item]['Active'] ? moreActThanRec : td}>
+              {JSON.stringify(data[item]['Active'])}
+            </td>
+            <td>{JSON.stringify(data[item]['Confirmed'])}</td>
+            <td
+              class={data[item]['Recovered'] > data[item]['Active'] ? moreRec : td}>
+              {JSON.stringify(data[item]['Recovered'])}
+            </td>
+            <td>{JSON.stringify(data[item]['Deaths'])}</td>
+            <td
+              class="{fatalityRate(data[item]) > total_fatality_rate ? highAvgFat : ''}
+              {fatalityRate(data[item]) < total_fatality_rate ? lowAvgFat : td}">
+              {fatalityRate(data[item]).toFixed(2)}%
+            </td>
+            <td
+              class="{recoveryRate(data[item]) < total_recovery_rate ? moreRec : ''}
+              {recoveryRate(data[item]) > total_recovery_rate ? highRecov : td}">
+              {recoveryRate(data[item]).toFixed(2)}%
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+      <tfoot class={tableHeader}>
+        <tr>
+          <th class={th}>Country Name</th>
+          <th class={th}>Active</th>
+          <th class={th}>Confirmed</th>
+
+          <th class={th}>Recovered</th>
+          <th class={th}>Deaths</th>
+          <th class={th}>Fatality Rate</th>
+          <th class={th}>Recovery Rate</th>
+        </tr>
+      </tfoot>
+    </table>
+  </Box>
 </Flex>

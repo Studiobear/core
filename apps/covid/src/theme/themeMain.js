@@ -41,6 +41,11 @@ export const main = {
     red: '#b53837',
     grey: '#8E9999',
     subtle: '#C0D0D1',
+    lightRed: '#f9b7b6',
+    lightYellow: '#ffe4ae',
+    lightGreen: '#caefa6',
+    lightBlue: '#a9f1ff',
+    lightPurple: '#c8aaef',
     modes: {
       dark: {
         text: '#EEE',
@@ -59,6 +64,11 @@ export const main = {
         red: '#f9b7b6',
         grey: '#050707',
         subtle: '#585F5F',
+        lightRed: '#b53837',
+        lightYellow: '#cf7b34',
+        lightGreen: '#6c934e',
+        lightBlue: '#408aa6',
+        lightPurple: '#685aae',
         antialias: true,
       },
     },
@@ -178,21 +188,6 @@ export const main = {
       color: 'text',
     },
   },
-  forwardStyleDefault: [
-    'txtdeco',
-    'textDecoration',
-    'txtTran',
-    'textTransform',
-    'position',
-    'f',
-    's',
-    'fill',
-    'stroke',
-    'scrollBehavior',
-    'borderSpacing',
-    'borderCollapse',
-    'objectFit',
-  ],
 }
 
 export default main
