@@ -62,18 +62,25 @@
     mt: '0.5rem',
   }
 
+  let tableContainer = {
+    overflowX: 'scroll',
+    h: '25rem',
+    overflow: 'auto',
+    maxw: '100vw',
+    w: '100%',
+  }
   $: table = styled(
     {
       borderCollapse: 'collapse',
-      overflowX: 'auto',
-      w: 'fit-content',
-      maxw: '100%',
     },
     $theme,
   )
 
   $: tableHeader = styled(
     {
+      pos: 'sticky',
+      t: 0,
+      d: 'table-caption',
       bg: $theme.colors.quaternary,
     },
     $theme,
@@ -88,8 +95,7 @@
 
   $: tableData = styled(
     {
-      overflowY: 'scroll',
-      maxh: '20rem',
+      w: '100%',
     },
     $theme,
   )
@@ -149,7 +155,7 @@
   $: legendTh = styled(
     {
       ...td,
-      display: ['block', 'block', 'table', 'table', 'table'],
+      display: ['block', 'block', 'table-cell', 'table-cell', 'table-cell'],
       fontSize: '0.8rem',
       color: $theme.colors.text,
       px: ['0.75rem', '0.75rem', '0.5rem', '0.5rem', '0.5rem'],
@@ -195,7 +201,7 @@
       </tr>
     </thead>
   </table>
-  <Box style={{ overflowX: 'scroll' }}>
+  <Box style={tableContainer}>
     <table class={table}>
       <thead class={tableHeader}>
         <tr>
@@ -236,18 +242,6 @@
           </tr>
         {/each}
       </tbody>
-      <tfoot class={tableHeader}>
-        <tr>
-          <th class={th}>Country Name</th>
-          <th class={th}>Active</th>
-          <th class={th}>Confirmed</th>
-
-          <th class={th}>Recovered</th>
-          <th class={th}>Deaths</th>
-          <th class={th}>Fatality Rate</th>
-          <th class={th}>Recovery Rate</th>
-        </tr>
-      </tfoot>
     </table>
   </Box>
 </Flex>
