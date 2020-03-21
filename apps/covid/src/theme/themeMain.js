@@ -30,6 +30,7 @@ export const main = {
     primary: '#F14A49',
     secondary: '#52C9CB',
     tertiary: '#314545',
+    quaternary: '#314545',
     muted: '#C0D0D1',
     highlight: '#FFBC34',
     header: 'rgba(255,255,255,0.8)',
@@ -38,6 +39,8 @@ export const main = {
     yellow: '#ffbc34',
     blue: '#1da4bf',
     red: '#b53837',
+    grey: '#8E9999',
+    subtle: '#C0D0D1',
     modes: {
       dark: {
         text: '#EEE',
@@ -45,6 +48,7 @@ export const main = {
         primary: '#F46E6D',
         secondary: '#A8E4E5',
         tertiary: '#52C9CB',
+        quaternary: '#507777',
         muted: '#314545',
         highlight: '#FFBC34',
         header: 'rgba(32,44,51,0.8)',
@@ -53,6 +57,8 @@ export const main = {
         yellow: '#ffe4ae',
         blue: '#a9f1ff',
         red: '#f9b7b6',
+        grey: '#050707',
+        subtle: '#585F5F',
         antialias: true,
       },
     },

@@ -55,31 +55,10 @@
     $theme,
   )
   $: bannerProps = ssr ? { style: banner } : { class: banner }
-  $: overviewBox = {
-    flexdir: 'column',
-    align: 'center',
-    brd: '1px solid',
-    brdCol: $theme.colors.muted,
-  }
-  let overviewSingleBox = {
-    flexdir: 'column',
-    align: 'center',
-    w: '100%',
-    txtalign: 'center',
-    d: 'flex',
-    flexdir: 'column',
-    alignc: 'stretch',
-  }
-
-  let overviewDoubleBox = {
-    flexdir: 'row',
-    width: '100%',
-    alignc: 'stretch',
-  }
   let emphasisCard = {
-    bg: $theme.colors.secondary,
+    bg: $theme.colors.tertiary,
   }
-  $: h3Emphasis = {
+  let h3Emphasis = {
     fontWeight: 700,
     fontSize: '2rem',
     textAlign: 'center',

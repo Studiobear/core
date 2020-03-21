@@ -54,7 +54,6 @@
       flexdir: 'column',
       justc: 'stretch',
       align: 'stretch',
-      px: '.25rem',
       py: '.25rem',
       bg: $theme.colors.muted,
     },
@@ -84,11 +83,11 @@
   }
   $: menuLinkStyle = {
     color: $theme.colors.tertiary,
-    textTransform: 'uppercase',
+    txtTran: 'uppercase',
     textDecoration: 'none',
-    fontSize: '1.4rem',
-    px: '1rem',
-    py: '.25rem',
+    fontSize: '1.6rem',
+    px: '1.5rem',
+    py: '1rem',
     _hover: {
       bg: $theme.colors.secondary,
       color: $theme.colors.background,
@@ -97,10 +96,10 @@
 
   $: menuLinkSelected = {
     ...menuLinkStyle,
-    color: $theme.colors.primary,
+    color: $theme.colors.background,
+    bg: $theme.colors.primary,
     _hover: {
-      bg: $theme.colors.primary,
-      color: $theme.colors.background,
+      bg: $theme.colors.tertiary,
     },
   }
 
@@ -117,6 +116,7 @@
     h: '30px',
     border: '2px solid',
     borderColor: $theme.colors.tertiary,
+    bg: $theme.colors.background,
     pt: '5px',
     mt: '12px',
     mr: '12px',
@@ -150,6 +150,7 @@
       fontWeight: 700,
       pos: 'relative',
       t: '-13px',
+      color: $theme.colors.tertiary,
     },
     $theme,
   )
@@ -185,15 +186,16 @@
     d: 'block',
     size: '2.5rem',
     border: '1px solid',
-    bdCol: 'transparent',
+    brdCol: 'transparent',
+    bg: $theme.colors.grey,
     lineHeight: '2.5rem',
     pt: '5px',
     borderRadius: '2.5rem',
     mt: '0.5rem',
+    ml: '0.5rem',
   }
   $: modeIcon = {
     size: '1.25rem',
-    color: $theme.colors.tertiary,
   }
 </script>
 
@@ -229,9 +231,15 @@
             style={modeBttn}
             on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
             {#if $theme.mode === 'light'}
-              <Icon name="virus-2" style={modeIcon} />
+              <Icon
+                name="virus-2"
+                fill={$theme.colors.tertiary}
+                style={modeIcon} />
             {:else}
-              <Icon name="virus-1" style={modeIcon} />
+              <Icon
+                name="virus-1"
+                fill={$theme.colors.tertiary}
+                style={modeIcon} />
             {/if}
           </Button>
         </Flex>
