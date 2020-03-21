@@ -7,4 +7,5 @@ import Card from './Card.svelte'
 import CardHead from './CardHead.svelte'
 import CardBody from './CardBody.svelte'
 
+export * from './MyContext'
 export { Nav, SSR, OverviewBoxGlobal, Icons, Icon, Card, CardHead, CardBody }

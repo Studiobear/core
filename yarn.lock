@@ -12900,6 +12900,11 @@ svelte-jester@^1.0.3:
   dependencies:
     cosmiconfig "^6.0.0"
 
+svelte-loadable@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/svelte-loadable/-/svelte-loadable-1.4.0.tgz#b67683987656e412fc9c274e86581bee864ee9b6"
+  integrity sha512-m6LbuQeuWUE7JsTKvYldvg/bW9JJO7YzqPtq39DL+2cKAob78ycZH2D+FgWd+4LlNuPoHbxgOkSCuYIjZqw05g==
+
 svelte-waypoint@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/svelte-waypoint/-/svelte-waypoint-0.1.4.tgz#ab467bed08c5f38716709872cf53d3f9da17831b"
