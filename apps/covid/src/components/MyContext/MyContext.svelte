@@ -1,6 +1,7 @@
 <script>
   // import { onMount } from 'svelte'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
+  import GetContextFab from './GetContextFab.svelte'
   import { insertCommas } from '../../libs'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
@@ -14,18 +15,12 @@
   $: updated = overview.updated
 
   $: overviewBox = {
-    w: ['100vw', '100vw', '100%', '100%', '100%'],
     flexdir: 'column',
     align: 'center',
-    brd: ['none', 'none', '1px solid', '1px solid', '1px solid'],
-    brdCol: [
-      'transparent',
-      'transparent',
-      theme.colors.muted,
-      theme.colors.muted,
-      theme.colors.muted,
-    ],
+    bg: theme.colors.muted,
     mx: 'auto',
+    py: '1rem',
+    w: '100vw',
   }
   let overviewSingleBox = {
     flexdir: 'column',
@@ -35,6 +30,7 @@
     d: 'flex',
     flexdir: 'column',
     alignc: 'stretch',
+    my: '0.5rem',
   }
   let overviewMiddleBox = {
     flexdir: 'row',
@@ -58,10 +54,15 @@
     color: theme.colors.tertiary,
     textTransform: 'uppercase',
   }
+
+  function handleFab(event) {
+    alert(event.detail.go)
+  }
 </script>
 
 <Flex style={overviewBox} {ssr}>
   <Box style={overviewSingleBox} {ssr}>
-    <Heading as="h6" style={ovTitle} {ssr}>Get My Context</Heading>
+    <GetContextFab {theme} {ssr} on:message={handleFab} />
+    <Heading as="h6" style={ovTitle} {ssr}>Near Me</Heading>
   </Box>
 </Flex>
