@@ -1,3 +1,4 @@
+require('dotenv').config()
 import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
@@ -60,6 +61,9 @@ export default {
       replace({
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.GEOCODING_API_KEY': dev
+          ? JSON.stringify(process.env.GOOGLE_GEOCODING_API_TEST)
+          : JSON.stringify(process.env.GOOGLE_GEOCODING_API),
       }),
       svg(),
       svelte({

@@ -72,6 +72,7 @@
   $: table = styled(
     {
       borderCollapse: 'collapse',
+      tableLayout: 'fixed',
     },
     $theme,
   )
@@ -104,6 +105,7 @@
     {
       colors: $theme.colors.text,
       p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+      wordBreak: 'break-word',
     },
     $theme,
   )
