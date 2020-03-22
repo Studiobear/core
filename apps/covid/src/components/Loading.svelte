@@ -21,7 +21,7 @@
     },
     ...style,
   }
-  console.log('Loading: ', icon)
+  // console.log('Loading: ', icon)
 </script>
 
 <Icon {name} {theme} style={icon} {fill} {ssr} />

@@ -100,7 +100,7 @@
     const resp = await fetch(geoCodeURL)
     let temp = await resp.json()
     let address = await getAddress(temp.results)
-    await console.log('geocodeLocation', lat, lng, temp, address)
+    await console.log('geocodeLocation', temp)
     locationData.status = 'received'
     locationData.message = `You are in <br /> ${address.formatted}`
   }
@@ -130,7 +130,7 @@
     }
   }
 
-  $: console.log('locationData:', locationData)
+  // $: console.log('locationData:', locationData)
 </script>
 
 <Modal style={modal} bind:show={modalVisible} on:message={closeModal}>

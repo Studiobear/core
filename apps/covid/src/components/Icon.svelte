@@ -10,7 +10,7 @@
   export let name = 'coronavirus-1'
 
   $: compStyles = styled(style, theme, ssr)
-  $: console.log('SVG:', style, compStyles)
+  // $: console.log('SVG:', style, compStyles)
 </script>
 
 <SVG {fill} {theme} {viewBox} {...$$props} {style} {ssr}>

@@ -21,7 +21,7 @@
 
   export let show = false
   const dispatch = createEventDispatcher()
-  console.log('overlay: ', show)
+  // console.log('overlay: ', show)
   function overlayClick(e) {
     if ('close' in e.target.dataset) show = false
     dispatch('message', {
