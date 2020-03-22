@@ -14,7 +14,7 @@
       zIndex: 10,
       d: 'flex',
       flexDir: 'column',
-      justC: 'center',
+      align: 'center',
     },
     theme,
   )

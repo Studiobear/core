@@ -1,11 +1,13 @@
 <script>
   // import { onMount } from 'svelte'
-  import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
+  import { Flex, Box, Heading } from '@studiobear/designspek-components'
   import GetContextFab from './GetContextFab.svelte'
+  import Modal from '../Modal.svelte'
   import { insertCommas } from '../../libs'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
   export let overview
+  let modalVisible = false
   $: active = overview.active || 0
   $: recovered = overview.recovered || 0
   $: confirmed = overview.confirmed || 0
@@ -55,14 +57,27 @@
     textTransform: 'uppercase',
   }
 
-  function handleFab(event) {
-    alert(event.detail.go)
+  $: nmTitle = {
+    ...ovTitle,
+    txtAlign: 'center',
+    lineHeight: '1.2rem',
+  }
+
+  function openModal(e) {
+    modalVisible = e.detail.go
+  }
+
+  function closeModal(e) {
+    modalVisible = e.detail.close
   }
 </script>
 
+<Modal bind:show={modalVisible} on:message={closeModal}>
+  <Heading as="h6" style={nmTitle} {ssr}>Use your location</Heading>
+</Modal>
 <Flex style={overviewBox} {ssr}>
   <Box style={overviewSingleBox} {ssr}>
-    <GetContextFab {theme} {ssr} on:message={handleFab} />
+    <GetContextFab {theme} {ssr} on:message={openModal} />
     <Heading as="h6" style={ovTitle} {ssr}>Near Me</Heading>
   </Box>
 </Flex>
