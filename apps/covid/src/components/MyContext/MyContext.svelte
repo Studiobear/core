@@ -4,7 +4,7 @@
   import GetContextFab from './GetContextFab.svelte'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
-  import { insertCommas } from '../../libs'
+  import { insertCommas, getAddress } from '../../libs'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
   export let overview
@@ -99,8 +99,10 @@
 
     const resp = await fetch(geoCodeURL)
     let temp = await resp.json()
-    await console.log('geocodeLocation', lat, lng, temp)
-    // locationData.status = 'received'
+    let address = await getAddress(temp.results)
+    await console.log('geocodeLocation', lat, lng, temp, address)
+    locationData.status = 'received'
+    locationData.message = `You are in <br /> ${address.formatted}`
   }
   const getGeoLocation = () => {
     locationData.status = 'loading'
@@ -108,7 +110,7 @@
       const latitude = position.coords.latitude
       const longitude = position.coords.longitude
 
-      locationData.message = `Latitude: ${latitude} °, Longitude: ${longitude} °`
+      locationData.message = `Latitude: ${latitude}°, Longitude: ${longitude}°`
       geocodeLocation(latitude, longitude)
       getLocation = false
     }
@@ -157,16 +159,18 @@
   {:else if locationData.status === 'loading'}
     <Box style={overviewSingleBox}>
       <Loading {theme} fill={theme.colors.primary} style={loading} />
-      <Heading as="h6" style={ovTitle}>loading...</Heading>
+      <Heading as="h6" style={nmTitle}>loading...</Heading>
     </Box>
   {:else if locationData.status === 'error'}
     <Box style={overviewSingleBox}>
       <GetContextFab {theme} on:message={openModal} />
-      <Heading as="h6" style={ovTitle}>{locationData.message}</Heading>
+      <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
     </Box>
   {:else if locationData.status === 'received'}
     <Box style={overviewSingleBox}>
-      <Heading as="h6" style={ovTitle}>{locationData.message}</Heading>
+      <Heading as="h6" style={nmTitle}>
+        {@html locationData.message}
+      </Heading>
     </Box>
   {:else}
     <Box style={overviewSingleBox}>

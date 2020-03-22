@@ -1,1 +1,2 @@
-export * from './stats.js'
+export * from './stats'
+export * from './geocode'
