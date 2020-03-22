@@ -9,6 +9,7 @@
     Button,
   } from '@studiobear/designspek-components'
   import Icon from './Icon.svelte'
+  import Overlay from './Overlay.svelte'
   import { theme } from '../theme'
   export let segment
   export let ssr
@@ -22,6 +23,10 @@
   let topOffset = 120
 
   $: toTopVisible = y > topOffset ? true : false
+
+  function handleOverlay(event) {
+    menuVisible = event.detail.close
+  }
 
   $: headStyle = styled(
     {
@@ -56,6 +61,7 @@
       align: 'stretch',
       py: '.25rem',
       bg: $theme.colors.muted,
+      zIndex: 20,
     },
     $theme,
   )
@@ -220,6 +226,7 @@
       </Button>
     </Flex>
     {#if menuVisible}
+      <Overlay bind:show={menuVisible} on:message={handleOverlay} />
       <div class={navStyle} transition:fly={{ x: 250, opacity: 1 }}>
         <Flex
           style={{ flexdir: 'row-reverse', justc: 'space-between', px: '0.5rem' }}>

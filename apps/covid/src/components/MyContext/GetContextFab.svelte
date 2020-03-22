@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte'
   import { styled } from '@studiobear/designspek'
-  import { Icon } from '../index'
+  import Icon from '../Icon.svelte'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
   $: nearMe = styled(
