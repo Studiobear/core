@@ -28,6 +28,7 @@
   "dependencies": {
     "@openfonts/source-sans-pro_latin": "^1.44.0",
     "compression": "^1.7.1",
+    "cors": "^2.8.5",
     "polka": "1.0.0-next.11",
     "sirv": "^0.4.0"
   },

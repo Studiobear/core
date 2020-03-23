@@ -2,6 +2,7 @@
   import { tick } from 'svelte'
   import { Flex, Box, Heading, Button } from '@studiobear/designspek-components'
   import GetContextFab from './GetContextFab.svelte'
+  import RevGeocode from './RevGeocode.svelte'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
   import { insertCommas, getAddress } from '../../libs'
@@ -13,6 +14,9 @@
   $: locationData = {
     status: 'start',
     message: '',
+    lat: '',
+    lng: '',
+    data: {},
   }
 
   let modalVisible = false
@@ -95,15 +99,30 @@
 
   const geocodeLocation = async (lat, lng) => {
     const API_KEY = process.env.GEOCODING_API_KEY
-    let geoCodeURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
-
-    const resp = await fetch(geoCodeURL)
-    let temp = await resp.json()
-    let address = await getAddress(temp.results)
-    await console.log('geocodeLocation', temp)
+    let address = { formatted: 'nodejs land' }
+    if (process.browser) {
+      //let geoCodeURL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+      //const mode = 'no-cors'
+      //const resp = await fetch(geoCodeURL, { mode })
+      //await console.log('geocodeLocation', resp)
+      //let temp = await resp.json()
+      //address = await getAddress(temp.results)
+    }
     locationData.status = 'received'
     locationData.message = `You are in <br /> ${address.formatted}`
   }
+
+  const handleAddress = async e => {
+    const addressStatus = e.detail.status
+    const addressData = e.detail.data
+    let address = await getAddress(addressData)
+    locationData.status = 'received'
+    locationData.message = `You are in <br /> ${address.formatted}`
+    locationData.data = address
+
+    console.log('handleAddress', addressStatus, addressData, locationData)
+  }
+
   const getGeoLocation = () => {
     locationData.status = 'loading'
     const success = position => {
@@ -111,8 +130,10 @@
       const longitude = position.coords.longitude
 
       locationData.message = `Latitude: ${latitude}°, Longitude: ${longitude}°`
-      geocodeLocation(latitude, longitude)
+      locationData.lat = latitude
+      locationData.lng = longitude
       getLocation = false
+      locationData.status = 'geocoding'
     }
 
     const error = () => {
@@ -160,6 +181,15 @@
     <Box style={overviewSingleBox}>
       <Loading {theme} fill={theme.colors.primary} style={loading} />
       <Heading as="h6" style={nmTitle}>loading...</Heading>
+    </Box>
+  {:else if locationData.status === 'geocoding'}
+    <Box style={overviewSingleBox}>
+      <Loading {theme} fill={theme.colors.secondary} style={loading} />
+      <Heading as="h6" style={nmTitle}>getting local data...</Heading>
+      <RevGeocode
+        lat={locationData.lat}
+        lng={locationData.lng}
+        on:message={handleAddress} />
     </Box>
   {:else if locationData.status === 'error'}
     <Box style={overviewSingleBox}>
