@@ -150,8 +150,23 @@
     const error = err => {
       locationData.error = true
       locationData.status = 'error'
-      locationData.message = `Unable to retrieve your location: ${err.essage}`
-      console.log('getGeoLocation err:', err.essage)
+      err.code = 'PERMISSION_DENIED'
+      switch (err.code) {
+        case 'PERMISSION_DENIED':
+          locationData.message =
+            'Location services disabled or denied. Try manually setting a location or using the default'
+          break
+        case 'POSITION_UNAVAILABLE':
+          locationData.message =
+            'Location unavailable at this time. Try manually setting a location or using the default'
+          break
+        case 'TIMEOUT':
+          locationData.message =
+            'Location timed out. Try manually setting a location or using the default'
+          break
+        default:
+          locationData.message = `Unable to retrieve your location: ${err.code}`
+      }
     }
 
     if (!navigator.geolocation) {
@@ -159,11 +174,11 @@
       locationData.message = 'Geolocation is not supported by your browser'
     } else {
       locationData.message = 'Locating…'
-      navigator.geolocation.getCurrentPosition(success, error)
+      navigator.geolocation.getCurrentPosition(error, error)
     }
   }
 
-  // $: console.log('locationData:', locationData)
+  $: console.log('locationData:', locationData)
 </script>
 
 <Modal style={modal} bind:show={modalVisible} on:message={closeModal}>
@@ -206,10 +221,7 @@
   {:else if locationData.status === 'error'}
     <Box style={overviewSingleBox}>
       <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
-      <GetContextFab
-        {theme}
-        fill={theme.colors.primary}
-        on:message={openModal} />
+      <GetContextFab {theme} on:message={openModal} />
       <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
     </Box>
   {:else if locationData.status === 'received'}

@@ -118,7 +118,7 @@
 
   $: navBttn = {
     m: 0,
-    p: 0,
+    pb: 0,
     d: 'block',
     w: '40px',
     h: '30px',
@@ -126,6 +126,7 @@
     borderColor: $theme.colors.tertiary,
     bg: $theme.colors.background,
     pt: '5px',
+    px: '8px',
     mt: '12px',
     mr: '12px',
     borderRadius: '5px',
