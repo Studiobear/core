@@ -20,7 +20,7 @@
   let menuVisible = false
   let toTopVisible = true
   let y = 0
-  let topOffset = 120
+  let topOffset = 400
 
   $: toTopVisible = y > topOffset ? true : false
 
@@ -117,6 +117,8 @@
   $: title = segment === undefined ? 'Keep Informed' : segment
 
   $: navBttn = {
+    m: 0,
+    pb: 0,
     d: 'block',
     w: '40px',
     h: '30px',
@@ -124,6 +126,7 @@
     borderColor: $theme.colors.tertiary,
     bg: $theme.colors.background,
     pt: '5px',
+    px: '8px',
     mt: '12px',
     mr: '12px',
     borderRadius: '5px',
@@ -152,6 +155,8 @@
   )
   $: navClose = styled(
     {
+      m: 0,
+      p: 0,
       fontSize: '2rem',
       fontWeight: 700,
       pos: 'relative',
@@ -162,6 +167,8 @@
   )
   $: toTop = styled(
     {
+      m: 0,
+      p: 0,
       pos: 'fixed',
       b: '20px',
       r: '20px',
@@ -181,6 +188,8 @@
   )
   $: toTopCaret = styled(
     {
+      m: 0,
+      p: 0,
       fontSize: '2rem',
       fontWeight: 700,
       pos: 'relative',
@@ -189,6 +198,8 @@
     $theme,
   )
   $: modeBttn = {
+    m: 0,
+    p: 0,
     d: 'block',
     size: '2.5rem',
     border: '1px solid',

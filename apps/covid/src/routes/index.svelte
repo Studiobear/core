@@ -113,7 +113,7 @@
   </Box>
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
-  <MyContext {overview} theme={$theme} {ssr} />
+  <MyContext {overview} {data} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Card theme={$theme} style={emphasisCard}>
     <CardBody>

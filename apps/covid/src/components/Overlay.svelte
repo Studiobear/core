@@ -3,6 +3,7 @@
   import { fade } from 'svelte/transition'
   import { styled } from '@studiobear/designspek'
   export let theme = $$props.theme || {}
+  export let style = $$props.style || {}
   $: overlay = styled(
     {
       pos: 'fixed',
@@ -15,6 +16,7 @@
       d: 'flex',
       flexDir: 'column',
       align: 'center',
+      ...style,
     },
     theme,
   )

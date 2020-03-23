@@ -14,10 +14,12 @@
       brdCol: 'transparent',
       bg: 'rgba(255,255,255,.3)',
       color: theme.colors.background,
-      pt: '2px',
       txtTran: 'uppercase',
       txtAlign: 'center',
       lineHeight: '0rem',
+      d: 'inline-flex',
+      align: 'baseline',
+      justc: 'center',
       _active: {
         bg: 'rgba(80,119,119,.6)',
       },

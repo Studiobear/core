@@ -1,13 +1,21 @@
 <script>
   import { tick } from 'svelte'
-  import { Flex, Box, Heading, Button } from '@studiobear/designspek-components'
+  import {
+    Flex,
+    Box,
+    Heading,
+    Button,
+    Text,
+  } from '@studiobear/designspek-components'
   import GetContextFab from './GetContextFab.svelte'
   import RevGeocode from './RevGeocode.svelte'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
+  import OverviewBoxLocal from '../OverviewBoxLocal.svelte'
   import { insertCommas, getAddress } from '../../libs'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
+  export let data
   export let overview
   let location = ''
   let locationType = 'default'
@@ -21,14 +29,6 @@
 
   let modalVisible = false
   let getLocation = true
-
-  $: active = overview.active || 0
-  $: recovered = overview.recovered || 0
-  $: confirmed = overview.confirmed || 0
-  $: deaths = overview.deaths || 0
-  $: fatalityRate = overview.fatalityRate || 0
-  $: recoveryRate = overview.recoveryRate || 0
-  $: updated = overview.updated
 
   $: overviewBox = {
     flexdir: 'column',
@@ -64,6 +64,15 @@
     ...overviewMiddleBox,
     bg: theme.colors.grey,
   }
+
+  $: modalTitle = {
+    fontWeight: 400,
+    color: theme.colors.secondary,
+    fontSize: '1.4rem',
+    lineHeight: '1.6rem',
+    txtAlign: 'center',
+  }
+
   $: ovTitle = {
     letterSpacing: '0.25rem',
     fontWeight: 900,
@@ -77,9 +86,23 @@
     lineHeight: '1.2rem',
   }
 
+  $: changeLocBttn = {
+    bg: theme.colors.background,
+    brdCol: theme.colors.quaternary,
+  }
+
+  $: changeLocTxt = {
+    letterSpacing: '0.25rem',
+    fontWeight: 400,
+    color: theme.colors.text,
+    textTransform: 'uppercase',
+    fontSize: '0.9rem',
+    txtdeco: 'underline',
+  }
+
   let modal = {
-    pt: '1rem',
-    px: '1.5rem',
+    py: '1.5rem',
+    px: '1.25rem',
     maxw: '80vw',
   }
 
@@ -87,8 +110,14 @@
     animation: 'spin 6s infinite',
   }
 
+  let geoLocText = {
+    lineHeight: '1.2rem',
+    txtAlign: 'center',
+  }
+
   const openModal = async e => {
-    locationData.status === 'start'
+    locationData.status = 'start'
+    getLocation = true
     modalVisible = e.detail.go
   }
 
@@ -131,7 +160,7 @@
     locationData.message = `You are in <br /> ${address.formatted}`
     locationData.data = address
 
-    console.log('handleAddress', addressStatus, addressData, locationData)
+    // console.log('handleAddress', addressStatus, addressData, locationData)
   }
 
   const getGeoLocation = () => {
@@ -150,8 +179,22 @@
     const error = err => {
       locationData.error = true
       locationData.status = 'error'
-      locationData.message = 'Unable to retrieve your location'
-      console.log('getGeoLocation err:', err)
+      err.code = 'PERMISSION_DENIED'
+      switch (err.code) {
+        case 'PERMISSION_DENIED':
+          locationData.message =
+            'Location services disabled or denied. Check privacy settings.'
+          break
+        case 'POSITION_UNAVAILABLE':
+          locationData.message =
+            'Location unavailable at this time. Try manual location.'
+          break
+        case 'TIMEOUT':
+          locationData.message = 'Location timed out. Try manual location.'
+          break
+        default:
+          locationData.message = `Unable to retrieve your location: ${err.code}`
+      }
     }
 
     if (!navigator.geolocation) {
@@ -168,9 +211,16 @@
 
 <Modal style={modal} bind:show={modalVisible} on:message={closeModal}>
   {#if getLocation && locationData.status === 'start'}
+    <Heading as="h4" style={modalTitle}>
+      Get case statistics based on your location
+    </Heading>
     <Button on:click={getGeoLocation}>
       <Heading as="h6" style={nmTitle}>Use My location</Heading>
     </Button>
+    <Text style={geoLocText}>
+      Uses device geolocation to set your country, region and county. Stored on
+      your device and does not get transmitted off.
+    </Text>
     <Heading as="h4" style={nmTitle}>Or</Heading>
     <Button on:click={chooseLocation}>
       <Heading as="h6" style={nmTitle}>Use California, USA</Heading>
@@ -211,9 +261,15 @@
     </Box>
   {:else if locationData.status === 'received'}
     <Box style={overviewSingleBox}>
+      <OverviewBoxLocal local={locationData.data} {overview} {data} {theme} />
       <Heading as="h6" style={nmTitle}>
         {@html locationData.message}
       </Heading>
+      <Button
+        style={changeLocBttn}
+        on:click={() => openModal({ detail: { go: true } })}>
+        <Heading as="h6" style={changeLocTxt}>Change Location</Heading>
+      </Button>
     </Box>
   {:else}
     <Box style={overviewSingleBox}>
