@@ -36,7 +36,7 @@
     bg: theme.colors.muted,
     mx: 'auto',
     py: '1rem',
-    w: '100vw',
+    w: '100%',
   }
   let overviewSingleBox = {
     flexdir: 'column',
@@ -129,10 +129,10 @@
     locationData.status = 'received'
     locationData.message = `You are in <br /> California, USA`
     locationData.data = {
-      formatted: 'California, USA',
+      formatted: 'Napa County, California, USA',
       addressNames: {
-        long: ['California', 'United States'],
-        short: ['CA', 'US'],
+        long: ['Napa County', 'California', 'United States'],
+        short: ['Napa County', 'CA', 'US'],
       },
     }
   }

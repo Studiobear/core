@@ -23,7 +23,7 @@
   let topOffset = 400
 
   $: toTopVisible = y > topOffset ? true : false
-
+  // $: console.log('Nav Y:', y)
   function handleOverlay(event) {
     menuVisible = event.detail.close
   }

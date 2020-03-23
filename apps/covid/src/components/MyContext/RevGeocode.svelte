@@ -5,19 +5,15 @@
   let revGeocode
   const dispatch = createEventDispatcher()
 
-  $: console.log('geocode:', lat, lng)
   onMount(async function geocodeRevLkup() {
-    console.log('geocode2:', lat, lng)
     let latlng = { lat, lng }
-    console.log('geocode:', latlng)
     try {
       revGeocode = async () => {
         const geocoder = await new window.google.maps.Geocoder()
-        await console.log('revGeocode', geocoder, latlng, lat, lng)
+        // await console.log('revGeocode', geocoder, latlng, lat, lng)
         return geocoder.geocode({ location: latlng }, (results, status) => {
           if (status === 'OK') {
             if (results[0]) {
-              console.log('geocode results: ', results)
               dispatch('message', {
                 status: 'success',
                 data: results,
