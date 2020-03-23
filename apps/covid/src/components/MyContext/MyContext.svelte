@@ -88,6 +88,7 @@
   }
 
   const openModal = async e => {
+    locationData.status === 'start'
     modalVisible = e.detail.go
   }
 
@@ -95,7 +96,17 @@
     modalVisible = e.detail.close
   }
 
-  const chooseLocation = () => {}
+  const chooseLocation = () => {
+    locationData.status = 'received'
+    locationData.message = `You are in <br /> California, USA`
+    locationData.data = {
+      formatted: 'California, USA',
+      addressNames: {
+        long: ['California', 'United States'],
+        short: ['CA', 'US'],
+      },
+    }
+  }
 
   const geocodeLocation = async (lat, lng) => {
     const API_KEY = process.env.GEOCODING_API_KEY
@@ -136,10 +147,11 @@
       locationData.status = 'geocoding'
     }
 
-    const error = () => {
+    const error = err => {
       locationData.error = true
       locationData.status = 'error'
       locationData.message = 'Unable to retrieve your location'
+      console.log('getGeoLocation err:', err)
     }
 
     if (!navigator.geolocation) {
@@ -160,7 +172,7 @@
       <Heading as="h6" style={nmTitle}>Use My location</Heading>
     </Button>
     <Heading as="h4" style={nmTitle}>Or</Heading>
-    <Button>
+    <Button on:click={chooseLocation}>
       <Heading as="h6" style={nmTitle}>Use California, USA</Heading>
     </Button>
   {:else if locationData.status === 'loading'}
@@ -175,7 +187,7 @@
   {#if getLocation && locationData.status === 'start'}
     <Box style={overviewSingleBox} {ssr}>
       <GetContextFab {theme} {ssr} on:message={openModal} />
-      <Heading as="h6" style={ovTitle} {ssr}>Near Me</Heading>
+      <Heading as="h6" style={ovTitle} {ssr}>Cases Near Me</Heading>
     </Box>
   {:else if locationData.status === 'loading'}
     <Box style={overviewSingleBox}>
@@ -193,8 +205,9 @@
     </Box>
   {:else if locationData.status === 'error'}
     <Box style={overviewSingleBox}>
-      <GetContextFab {theme} on:message={openModal} />
       <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
+      <GetContextFab {theme} on:message={openModal} />
+      <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
     </Box>
   {:else if locationData.status === 'received'}
     <Box style={overviewSingleBox}>
