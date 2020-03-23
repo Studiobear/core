@@ -2,17 +2,17 @@
   import { onMount } from 'svelte'
   import { styled } from '@studiobear/designspek'
   import Image from 'svelte-image'
-  import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
-  import { theme } from '../theme'
   import {
-    Nav,
-    SSR,
-    OverviewBoxGlobal,
-    Icon,
+    Flex,
+    Box,
+    Heading,
+    Text,
     Card,
     CardHead,
     CardBody,
-  } from '../components'
+  } from '@studiobear/designspek-components'
+  import { theme } from '../theme'
+  import { Nav, SSR, OverviewBoxGlobal, Icon, MyContext } from '../components'
 
   import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
 
@@ -113,6 +113,7 @@
   </Box>
   <Heading as="h1" style={headerStyle} {ssr}>Keep Calm & Stay Informed</Heading>
   <OverviewBoxGlobal {overview} theme={$theme} {ssr} />
+  <MyContext {overview} theme={$theme} {ssr} />
   <Heading as="h1" style={headerStyle}>Take Care & Stay Aware</Heading>
   <Card theme={$theme} style={emphasisCard}>
     <CardBody>

@@ -9,6 +9,8 @@ blocks:
     skip:
       when: branch != 'master' AND branch != 'develop'
     task:
+      secrets:
+        - name: api-google-geocoding
       jobs:
         - name: Build Core Apps
           commands:
