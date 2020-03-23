@@ -20,7 +20,7 @@
   let menuVisible = false
   let toTopVisible = true
   let y = 0
-  let topOffset = 120
+  let topOffset = 400
 
   $: toTopVisible = y > topOffset ? true : false
 

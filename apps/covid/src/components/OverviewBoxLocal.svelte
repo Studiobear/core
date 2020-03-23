@@ -100,7 +100,7 @@
   $: ovTitle = {
     letterSpacing: '0.25rem',
     fontWeight: 900,
-    color: theme.colors.tertiary,
+    color: theme.colors.primary,
     textTransform: 'uppercase',
   }
   $: h6 = {
