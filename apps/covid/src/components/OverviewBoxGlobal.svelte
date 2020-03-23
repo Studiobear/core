@@ -134,6 +134,5 @@
       <Heading as="h4" style={btmh4} {ssr}>{fatalityRate.toFixed(2)}%</Heading>
     </Box>
   </Flex>
-
+  <Text style={ovUpdated} {ssr}>Last updated: {updated}</Text>
 </Flex>
-<Text style={ovUpdated} {ssr}>Last updated: {updated}</Text>
