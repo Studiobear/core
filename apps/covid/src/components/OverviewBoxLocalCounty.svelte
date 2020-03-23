@@ -5,18 +5,18 @@
   export let theme = $$props.theme || {}
   export let county
   export let region
-  let regStats = {}
+  $: regStats = {}
   let available = false
 
   let cntyShort = county.replace(' County', '')
   let regUpper = region.toUpperCase()
 
-  let cntyActive = 0
-  let cntyRecovered = 0
-  let cntyConfirmed = 0
-  let cntyDeaths = 0
-  let cntyFatalityRate = 0
-  let cntyRecoveryRate = 0
+  $: cntyActive = 0
+  $: cntyRecovered = 0
+  $: cntyConfirmed = 0
+  $: cntyDeaths = 0
+  $: cntyFatalityRate = 0
+  $: cntyRecoveryRate = 0
 
   const CACountyURL =
     'https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json'
