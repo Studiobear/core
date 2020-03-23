@@ -16,7 +16,7 @@
   // $: console.log('ov', overview, insertCommas, insertCommas(100000))
 
   $: overviewBox = {
-    w: ['100vw', '100vw', '100%', '100%', '100%'],
+    w: '100%',
     flexdir: 'column',
     align: 'center',
     brd: ['none', 'none', '1px solid', '1px solid', '1px solid'],
