@@ -114,7 +114,7 @@
       available = true
       regStats = await calcC19CACountyStats(temp, regUpper)
     }
-    await console.log('OVcounty: ', available, regStats, regStats[county])
+    // await console.log('OVcounty: ', available, regStats, regStats[county])
 
     cntyConfirmed = regStats[county].cases.total || 0
     cntyDeaths = regStats[county].deaths.total || 0

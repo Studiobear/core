@@ -106,9 +106,9 @@ export const calcC19CACountyStats = async (d, region) => {
     } else {
       itemData = { [item.GEOGRAPHY]: itemCategory }
     }
-    console.log('calcCountyItem: ', itemData)
+    // console.log('calcCountyItem: ', itemData)
     combined = { ...combined, ...itemData }
   })
-  console.log('calcCounty: ', combined)
+  // console.log('calcCounty: ', combined)
   return combined
 }

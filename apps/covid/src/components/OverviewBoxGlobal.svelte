@@ -2,6 +2,7 @@
   // import { onMount } from 'svelte'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import { insertCommas } from '../libs'
+  import Loading from './Loading.svelte'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
   export let overview
@@ -92,9 +93,16 @@
   $: btmh6 = {
     color: theme.colors.tertiary,
   }
+  $: loadingh6 = {
+    color: theme.colors.secondary,
+  }
   $: btmh4 = {
     color: theme.colors.text,
     fontSize: '1.5rem',
+  }
+  $: loading = {
+    animation: 'spin 6s infinite',
+    mt: '0.5rem',
   }
 </script>
 
@@ -103,8 +111,13 @@
     <Heading as="h6" style={ovTitle} {ssr}>Global Cases</Heading>
   </Box>
   <Box style={overviewSingleBoxActive} {ssr}>
-    <Heading as="h6" style={h6} {ssr}>Active</Heading>
-    <Heading as="h2" style={activeh2} {ssr}>{insertCommas(active)}</Heading>
+    {#if active === 0}
+      <Loading {theme} fill={theme.colors.primary} style={loading} {ssr} />
+      <Heading as="h6" style={loadingh6} {ssr}>Loading...</Heading>
+    {:else}
+      <Heading as="h6" style={h6} {ssr}>Active</Heading>
+      <Heading as="h2" style={activeh2} {ssr}>{insertCommas(active)}</Heading>
+    {/if}
   </Box>
   <Flex style={overviewMiddleBox} {ssr}>
     <Box style={overviewSingleBox} {ssr}>
