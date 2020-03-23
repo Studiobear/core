@@ -6,13 +6,15 @@
   export let ssr = $$props.ssr || {}
   $: nearMe = styled(
     {
+      m: 0,
+      p: 0,
       size: '4rem',
       borderRadius: '2rem',
       brd: '1px solid',
       brdCol: 'transparent',
       bg: 'rgba(255,255,255,.3)',
       color: theme.colors.background,
-      pt: '5px',
+      pt: '2px',
       txtTran: 'uppercase',
       txtAlign: 'center',
       lineHeight: '0rem',
