@@ -150,8 +150,8 @@
     const error = err => {
       locationData.error = true
       locationData.status = 'error'
-      locationData.message = 'Unable to retrieve your location'
-      console.log('getGeoLocation err:', err)
+      locationData.message = `Unable to retrieve your location: ${err.essage}`
+      console.log('getGeoLocation err:', err.essage)
     }
 
     if (!navigator.geolocation) {
@@ -206,7 +206,10 @@
   {:else if locationData.status === 'error'}
     <Box style={overviewSingleBox}>
       <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
-      <GetContextFab {theme} on:message={openModal} />
+      <GetContextFab
+        {theme}
+        fill={theme.colors.primary}
+        on:message={openModal} />
       <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
     </Box>
   {:else if locationData.status === 'received'}

@@ -117,6 +117,8 @@
   $: title = segment === undefined ? 'Keep Informed' : segment
 
   $: navBttn = {
+    m: 0,
+    p: 0,
     d: 'block',
     w: '40px',
     h: '30px',
@@ -152,6 +154,8 @@
   )
   $: navClose = styled(
     {
+      m: 0,
+      p: 0,
       fontSize: '2rem',
       fontWeight: 700,
       pos: 'relative',
@@ -162,6 +166,8 @@
   )
   $: toTop = styled(
     {
+      m: 0,
+      p: 0,
       pos: 'fixed',
       b: '20px',
       r: '20px',
@@ -181,6 +187,8 @@
   )
   $: toTopCaret = styled(
     {
+      m: 0,
+      p: 0,
       fontSize: '2rem',
       fontWeight: 700,
       pos: 'relative',
@@ -189,6 +197,8 @@
     $theme,
   )
   $: modeBttn = {
+    m: 0,
+    p: 0,
     d: 'block',
     size: '2.5rem',
     border: '1px solid',
