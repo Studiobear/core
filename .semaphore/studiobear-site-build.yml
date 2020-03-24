@@ -10,7 +10,7 @@ blocks:
       when: branch != 'master' AND branch != 'develop'
     task:
       secrets:
-        - name: api-google-geocoding
+        - name: covid-env
       jobs:
         - name: Build Core Apps
           commands:

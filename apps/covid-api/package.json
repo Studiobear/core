@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=production babel-watch ./src/index.js",
     "start": "NODE_ENV=production node ./dist/index.js",
     "generate": "yarn build && NODE_ENV=production node ./dist/index.js",
-    "static": "sirv start ./public -D -p 3100",
+    "static:dev": "sirv start ./public -D -p 3100 --cors",
+    "static": "sirv start ./public -p 3100 --cors --host 0.0.0.0",
     "build": "yarn clean && yarn transpile",
     "transpile": "babel ./src --out-dir ./dist",
     "clean": "rm -rf ./dist"

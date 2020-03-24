@@ -1,27 +1,28 @@
-From mhart/alpine-node:10
+From mhart/alpine-node:10 AS base
+  
+WORKDIR /app
 
-ENV PORT=3100
-ENV NODE_ENV=production
+FROM base AS development
+COPY package.json yarn.lock lerna.json /app/
 
-RUN mkdir -p /var/www/app && \
-    mkdir -p /var/www/app/node_modules
+COPY ./apps/covid-api /app/apps/covid-api/
 
 # Use app directory as current workdir
-WORKDIR /var/www/app
-ENV PATH /var/www/app/node_modules/.bin:$PATH
-# Copy package.json to workdir
-COPY package.json /var/www/app/
-COPY yarn.lock /var/www/app/
-COPY lerna.json /var/www/app/
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY ./apps/covid-api /var/www/app/apps/covid-api/
-RUN mkdir -p /var/www/app/apps/covid-api/public/
-RUN touch /var/www/app/apps/covid-api/public/covid19_US_CA_County.json
+RUN yarn install --pure-lockfile --production
+RUN cp -R node_modules /tmp/node_modules
 
-RUN npx lerna bootstrap
-Run yarn fix-packages
+RUN yarn install --pure-lockfile
+COPY . .
 
-Run yarn workspace covid-api build
+FROM development AS builder
+RUN mkdir -p ./apps/covid-api/public/
+RUN touch ./apps/covid-api/public/covid19_US_CA_County.json
+RUN yarn workspace covid-api build
+RUN cp -R ./apps/covid-api /tmp/covid-api
 
-# Expose Port
-EXPOSE $PORT
+FROM base AS release
+COPY --from=builder /tmp/node_modules ./node_modules
+COPY --from=builder /tmp/covid-api /app/apps/covid-api
+COPY --from=builder /app/package.json /app/
