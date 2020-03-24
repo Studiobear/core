@@ -21,10 +21,10 @@
     "test": "run-p --race jest cy:run"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.9.0",
     "@babel/runtime": "^7.0.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
@@ -45,7 +45,7 @@
     "jest": "^25.1.0",
     "jest-transform-svelte": "^2.1.1",
     "nollup": "^0.10.6",
-    "prettier": "^1.19.1",
+    "prettier": "1.19.1",
     "prettier-plugin-svelte": "^0.7.0",
     "rollup": "^1.21.4",
     "rollup-plugin-hot": "^0.0.11",

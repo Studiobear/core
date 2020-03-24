@@ -1,0 +1,49 @@
+{
+  "name": "covid-api",
+  "version": "0.0.1",
+  "description": "Server for covid-19 data",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "babel-watch ./src/index.js",
+    "server": "NODE_ENV=production node ./dist/index.js",
+    "build": "yarn clean && yarn transpile",
+    "transpile": "babel ./src --out-dir ./dist",
+    "clean": "rm -rf ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Barry Low <barry@studiobear.co>",
+  "license": "MIT",
+  "dependencies": {
+    "@polka/send-type": "^0.5.2",
+    "axios": "^0.19.2",
+    "compression": "^1.7.4",
+    "polka": "1.0.0-next.11",
+    "sirv": "^0.4.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-watch": "^7.0.0",
+    "nodemon": "^2.0.2",
+    "prettier": "1.19.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": 2,
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  }
+}
