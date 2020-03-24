@@ -7,7 +7,7 @@ const generateUS_CA_County = async () => {
   return writeUS_CA_County(parsed)
 }
 
-const job = new CronJob('0 */1 * * * *', function() {
+const job = new CronJob('0 */15 * * * *', function() {
   let d = Date(Date.now())
   generateUS_CA_County()
   console.log('US_CA_County data generated at ' + d.toString())

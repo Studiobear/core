@@ -8,19 +8,16 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./:/var/www/app
-      - /var/www/app/node_modules
-    working_dir: /var/www/app
+      - static:/app
+    working_dir: /app
     restart: always
-    command: yarn workspace covid-api generate
+    command: yarn workspace covid-api start
     network_mode: webproxy
   serve:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: covid-api_generate:latest
     environment:
       - NODE_ENV=production
-      - APP_PATH=/var/www/app
+      - APP_PATH=/app
       - PROD_GRAPHQL=https://covid19-api.landofhere.com
       - VIRTUAL_HOST=covid19-api.landofhere.com
       - LETSENCRYPT_HOST=covid19-api.landofhere.com
@@ -30,15 +27,16 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./:/var/www/app
-      - /var/www/app/node_modules
-    working_dir: /var/www/app
+      - static:/app
+    working_dir: /app
     restart: always
     command: yarn workspace covid-api static
-    expose:
-      - 3100
+    ports:
+      - "3100"
     network_mode: webproxy
 networks:
   default:
     external:
       name: webproxy
+volumes:
+   static:

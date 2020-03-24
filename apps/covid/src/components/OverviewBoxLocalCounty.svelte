@@ -18,8 +18,10 @@
   $: cntyFatalityRate = 0
   $: cntyRecoveryRate = 0
 
-  const CACountyURL =
-    'https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json'
+  // const CACountyURL =
+  //  'https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json'
+
+  const CACountyURL = process.env.CA_COUNTY_URL
 
   $: overviewBox = {
     w: '100%',
@@ -110,11 +112,11 @@
   onMount(async function getData() {
     const resp = await fetch(CACountyURL)
     let temp = await resp.json()
+
     if (region === 'California') {
       available = true
-      regStats = await calcC19CACountyStats(temp, regUpper)
+      regStats = temp
     }
-    // await console.log('OVcounty: ', available, regStats, regStats[county])
 
     cntyConfirmed = regStats[county].cases.total || 0
     cntyDeaths = regStats[county].deaths.total || 0

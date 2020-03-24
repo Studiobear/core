@@ -1,5 +1,4 @@
 <script>
-  // import { onMount } from 'svelte'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import OverviewBoxLocalCounty from './OverviewBoxLocalCounty.svelte'
   import { insertCommas } from '../libs'
