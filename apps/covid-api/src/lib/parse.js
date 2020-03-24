@@ -1,7 +1,7 @@
-export const fatalityRate = (d) => (d.Deaths / d.Confirmed) * 100
-export const recoveryRate = (d) => (d.Recovered / d.Confirmed) * 100
+export const fatalityRate = d => (d.Deaths / d.Confirmed) * 100
+export const recoveryRate = d => (d.Recovered / d.Confirmed) * 100
 
-export const calcC19Stats = (d) => {
+export const calcC19Stats = d => {
   let combined = {}
   let total_deaths = 0
   let total_confirmed = 0
@@ -9,7 +9,7 @@ export const calcC19Stats = (d) => {
   let total_recovered = 0
   let last_updated = 0
 
-  d.map((item) => {
+  d.map(item => {
     item = item['attributes']
     var build_item = {
       Confirmed: item.Confirmed,
@@ -66,7 +66,7 @@ export const calcC19Stats = (d) => {
   }
 }
 
-export const insertCommas = (num) => {
+export const insertCommas = num => {
   if (typeof num === 'number' && num > 999) {
     let num_parts = num.toString().split('.')
     num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -75,24 +75,23 @@ export const insertCommas = (num) => {
   return num
 }
 
-const objDateToArray = async (obj) => {
+const objDateToArray = async obj => {
   let dateArray = []
-  const dateRegex = /(\d)+(\/){1}(\d)+(\/){1}(\d)+/g
+  const dateRegex = /(\d)+(\/){1}(\d)+(\/){1}(\d)+/
   for (let [key, value] of Object.entries(obj)) {
-    if (dateRegex.test(key)) dateArray.push(obj)
+    if (dateRegex.test(key)) dateArray.push({ [key]: value })
   }
   return dateArray
 }
-let combined = {}
-let category = {}
 
-const parseC19CACountyStats = async (d, region) =>
-  Promise.all(
-    d.map(async (item) => {
+const parseC19CACountyStats = async (d, region) => {
+  let combined = {}
+  return Promise.all(
+    d.map(async item => {
       let itemData = {}
       let itemCategory = {}
       let dateItems = await objDateToArray(item)
-      category = {
+      let category = {
         total: item.TOTALS,
         time: dateItems,
       }
@@ -109,14 +108,15 @@ const parseC19CACountyStats = async (d, region) =>
       // console.log('calcCountyItem: ', itemData)
       combined = { ...combined, ...itemData }
     }),
-  )
-
+  ).then(res => {
+    // console.log('parseC19', res, combined)
+    return combined
+  })
+}
 export const calcC19CACountyStats = async (d, region) => {
   const parseData = await parseC19CACountyStats(d, region)
-    .then((res) => {
-      return combined
-    })
-    .catch((err) => {
+    .then(res => res)
+    .catch(err => {
       console.log('calcStats err: ', err)
       return 'ERROR!'
     })

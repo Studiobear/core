@@ -3,14 +3,13 @@ const dataPath = '../../public/sample.json'
 export const readFile = (
   callback,
   returnJson = true,
-  filePath,
+  filePath = dataPath,
   encoding = 'utf8',
 ) => {
   fs.readFile(filePath, encoding, (err, data) => {
     if (err) {
       throw err
     }
-    console.log('readFile:', data)
     callback(returnJson && data !== '' ? JSON.parse(data) : data)
   })
 }
@@ -21,11 +20,12 @@ export const writeFile = (
   filePath = dataPath,
   options = { encoding: 'utf8', flag: 'w' },
 ) => {
-  fs.writeFile(filePath, fileData, options, (err) => {
+  fs.writeFile(filePath, fileData, options, err => {
     if (err) {
       throw err
     }
-
+    filePath = ''
+    fileData = ''
     callback()
   })
 }
