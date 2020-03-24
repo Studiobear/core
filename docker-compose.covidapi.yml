@@ -1,0 +1,44 @@
+version: '3'
+services:
+  generate:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.CovidAPI
+    container_name: covidapi-generate
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/var/www/app
+      - /var/www/app/node_modules
+    working_dir: /var/www/app
+    restart: always
+    command: yarn workspace covid-api generate
+    network_mode: webproxy
+  serve:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=production
+      - APP_PATH=/var/www/app
+      - PROD_GRAPHQL=https://covid19-api.landofhere.com
+      - VIRTUAL_HOST=covid19-api.landofhere.com
+      - LETSENCRYPT_HOST=covid19-api.landofhere.com
+      - LETSENCRYPT_EMAIL=barry@landofhere.com
+      - VIRTUAL_PORT=3100
+    container_name: covidapi-serve
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/var/www/app
+      - /var/www/app/node_modules
+    working_dir: /var/www/app
+    restart: always
+    command: yarn workspace covid-api static
+    expose:
+      - 3100
+    network_mode: webproxy
+networks:
+  default:
+    external:
+      name: webproxy
