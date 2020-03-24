@@ -10,8 +10,7 @@
     "static": "sirv start ./public -D -p 3100",
     "build": "yarn clean && yarn transpile",
     "transpile": "babel ./src --out-dir ./dist",
-    "clean": "rm -rf ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf ./dist"
   },
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",

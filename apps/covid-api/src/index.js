@@ -7,13 +7,11 @@ const generateUS_CA_County = async () => {
   return writeUS_CA_County(parsed)
 }
 
-console.log('Before job instantiation')
 const job = new CronJob('0 */1 * * * *', function() {
   let d = Date(Date.now())
   generateUS_CA_County()
   console.log('US_CA_County data generated at ' + d.toString())
 })
-console.log('After job instantiation')
 job.start()
 
 /*
