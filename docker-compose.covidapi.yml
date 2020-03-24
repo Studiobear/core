@@ -8,31 +8,25 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - static:/app
+      - static:/app/apps/covid-api/public
     working_dir: /app
     restart: always
     command: yarn workspace covid-api start
     network_mode: webproxy
   serve:
     image: covid-api_generate:latest
-    environment:
-      - NODE_ENV=production
-      - APP_PATH=/app
-      - PROD_GRAPHQL=https://covid19-api.landofhere.com
-      - VIRTUAL_HOST=covid19-api.landofhere.com
-      - LETSENCRYPT_HOST=covid19-api.landofhere.com
-      - LETSENCRYPT_EMAIL=barry@landofhere.com
-      - VIRTUAL_PORT=3100
+    env_file:
+      - .env
     container_name: covidapi-serve
     tty: true
     stdin_open: true
     volumes:
-      - static:/app
+      - static:/app/apps/covid-api/public
     working_dir: /app
     restart: always
     command: yarn workspace covid-api static
-    ports:
-      - "3100"
+    expose:
+      - 3100
     network_mode: webproxy
 networks:
   default:

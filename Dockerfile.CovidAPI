@@ -24,7 +24,5 @@ RUN cp -R ./apps/covid-api /tmp/covid-api
 
 FROM base AS release
 COPY --from=builder /tmp/node_modules ./node_modules
-COPY --from=builder /tmp/apps/covid-api /app/apps/covid-api
+COPY --from=builder /tmp/covid-api /app/apps/covid-api
 COPY --from=builder /app/package.json /app/
-# Expose Port
-EXPOSE 3100
