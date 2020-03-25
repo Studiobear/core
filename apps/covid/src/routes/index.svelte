@@ -14,7 +14,7 @@
   import { theme } from '../theme'
   import { Nav, SSR, OverviewBoxGlobal, Icon, MyContext } from '../components'
 
-  import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
+  import { fatalityRate, recoveryRate, C19Stats } from '../libs'
 
   let ssr = true
   let data = []
@@ -78,7 +78,7 @@
     let temp = await resp.json()
     // let temp = {}
     let records = temp['features']
-    if (records) statsGlobal = calcC19Stats(records)
+    if (records) statsGlobal = await C19Stats(records)
 
     overview = {
       confirmed: statsGlobal.totalConfirmed,

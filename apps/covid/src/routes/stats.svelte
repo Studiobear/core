@@ -2,10 +2,12 @@
   import { onMount } from 'svelte'
   import { styled } from '@studiobear/designspek'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
+  import sortObjectsArray from 'sort-objects-array'
   import { theme } from '../theme'
 
-  import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
-  let data = []
+  import { fatalityRate, recoveryRate, C19Stats } from '../libs'
+  $: data = []
+  let sortData
   let statsGlobal = []
   let total_deaths = 0
   let total_confirmed = 0
@@ -208,18 +210,42 @@
 
   onMount(async function getData() {
     let combined = {}
+    let sorted
     const resp = await fetch(url)
     let temp = await resp.json()
     let records = temp['features']
-    statsGlobal = calcC19Stats(records)
-
+    statsGlobal = await C19Stats(records)
+    //await console.log('statsGlobal', statsGlobal)
     total_confirmed = statsGlobal.totalConfirmed
     total_active = statsGlobal.totalActive
     total_recovered = statsGlobal.totalRecovered
     total_deaths = statsGlobal.totalDeaths
     total_fatality_rate = (total_deaths / total_confirmed) * 100
     total_recovery_rate = (total_recovered / total_confirmed) * 100
-    data = statsGlobal.data
+    last_updated = statsGlobal.lastUpdated
+
+    sortData = sortBy => {
+      let opts = sorted === 'desc' ? '' : 'desc'
+      sorted = sorted === 'desc' ? '' : 'desc'
+      switch (sortBy) {
+        case 'country':
+          return (data = sortObjectsArray(statsGlobal.data, 'Name', opts))
+          break
+        case 'confirmed':
+          return (data = sortObjectsArray(statsGlobal.data, 'Confirmed', opts))
+          break
+        case 'recovered':
+          return (data = sortObjectsArray(statsGlobal.data, 'Recovered', opts))
+          break
+        case 'deaths':
+          return (data = sortObjectsArray(statsGlobal.data, 'Deaths', opts))
+          break
+        default:
+          return (data = sortObjectsArray(statsGlobal.data, 'Active', opts))
+      }
+    }
+
+    await sortData('active')
   })
 </script>
 
@@ -228,6 +254,7 @@
 </Flex>
 <Flex style={flexStyle}>
   <Heading as="h2" style={h2Style}>Cases By Country:</Heading>
+  <Text style={{ txtAlign: 'center' }}>{last_updated}</Text>
   <Heading as="h4" style={h4Style}>Legend</Heading>
   <table class="{table} {legendBody}">
     <thead>
@@ -255,20 +282,26 @@
       </colGroup>
       <thead class={tableHeader}>
         <tr>
-          <th class={thCountry}>Country Name</th>
-          <th class={th}>Active</th>
-          <th class={th}>Confirmed</th>
-          <th class={th}>Fatality Rate</th>
-          <th class={th}>Recovery Rate</th>
-          <th class={th}>Recovered</th>
-          <th class={th}>Deaths</th>
+          <th class={thCountry} on:click={() => sortData('country')}>
+            Country Name
+          </th>
+          <th class={th} on:click={() => sortData('active')}>Active</th>
+          <th class={th} on:click={() => sortData('confirmed')}>Confirmed</th>
+          <th class={th} on:click={() => sortData('fatality')}>
+            Fatality Rate
+          </th>
+          <th class={th} on:click={() => sortData('recovery')}>
+            Recovery Rate
+          </th>
+          <th class={th} on:click={() => sortData('recovered')}>Recovered</th>
+          <th class={th} on:click={() => sortData('deaths')}>Deaths</th>
         </tr>
       </thead>
       <tbody class={tableData}>
         {#each Object.keys(data) as item}
           <tr>
             <td class={tdCountry}>
-              {String(JSON.stringify(item)).replace(/"/g, '')}
+              {String(JSON.stringify(data[item]['Name'])).replace(/"/g, '')}
             </td>
             <td
               class="{td}
