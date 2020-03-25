@@ -73,30 +73,54 @@
     {
       borderCollapse: 'collapse',
       tableLayout: 'fixed',
+      whiteSpace: 'nowrap',
+    },
+    $theme,
+  )
+
+  $: tableGlobal = styled(
+    {
+      borderCollapse: 'collapse',
+      tableLayout: 'fixed',
+      minw: '30rem',
     },
     $theme,
   )
 
   $: tableHeader = styled(
     {
-      pos: 'sticky',
-      t: 0,
-      d: 'table-caption',
-      bg: $theme.colors.quaternary,
+      brdCol: 'transparent',
     },
     $theme,
   )
   $: th = styled(
     {
+      pos: 'sticky',
+      t: 0,
       color: $theme.colors.background,
       p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+      bg: $theme.colors.quaternary,
+      txtAlign: 'center',
+    },
+    $theme,
+  )
+
+  $: thCountry = styled(
+    {
+      pos: 'sticky',
+      t: 0,
+      color: $theme.colors.background,
+      p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+      bg: $theme.colors.quaternary,
+      txtAlign: 'right',
+      pr: '0.5rem',
     },
     $theme,
   )
 
   $: tableData = styled(
     {
-      w: '100%',
+      w: 'auto',
     },
     $theme,
   )
@@ -106,6 +130,18 @@
       colors: $theme.colors.text,
       p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
       wordBreak: 'break-word',
+      txtAlign: 'center',
+    },
+    $theme,
+  )
+
+  $: tdCountry = styled(
+    {
+      colors: $theme.colors.text,
+      p: ['0.25rem', '0.25rem', '0.5rem', '0.75rem', '0.75rem'],
+      wordBreak: 'break-word',
+      txtAlign: 'right',
+      pr: '0.5rem',
     },
     $theme,
   )
@@ -150,6 +186,9 @@
     $theme,
   )
 
+  $: colCountry = styled({ w: '22%' }, $theme)
+  $: colStat = styled({ w: '13%' }, $theme)
+
   $: legendBody = styled(
     { w: ['100%', '100%', 'auto', 'auto', 'auto'] },
     $theme,
@@ -193,54 +232,68 @@
   <table class="{table} {legendBody}">
     <thead>
       <tr>
-        <th class="{highAvgFat} {legendTh}">Higher Avg Fatalities</th>
+        <th class="{moreActThanRec} {legendTh}">More Active than Recovered</th>
         <th class="{lowAvgFat} {legendTh}">Lower Avg Recoveries</th>
+        <th class="{highAvgFat} {legendTh}">Higher Avg Fatalities</th>
         <th class="{highRecov} {legendTh}">
           Higher Avg Recoveries OR Lower Avg Fatalities
         </th>
-        <th class="{moreActThanRec} {legendTh}">More Active than Recovered</th>
         <th class="{moreRec} {legendTh}">More Recovered than Active</th>
       </tr>
     </thead>
   </table>
   <Box style={tableContainer}>
-    <table class={table}>
+    <table class={tableGlobal}>
+      <colGroup>
+        <col class={colCountry} />
+        <col class={colStat} />
+        <col class={colStat} />
+        <col class={colStat} />
+        <col class={colStat} />
+        <col class={colStat} />
+        <col class={colStat} />
+      </colGroup>
       <thead class={tableHeader}>
         <tr>
-          <th class={th}>Country Name</th>
+          <th class={thCountry}>Country Name</th>
           <th class={th}>Active</th>
           <th class={th}>Confirmed</th>
-
-          <th class={th}>Recovered</th>
-          <th class={th}>Deaths</th>
           <th class={th}>Fatality Rate</th>
           <th class={th}>Recovery Rate</th>
+          <th class={th}>Recovered</th>
+          <th class={th}>Deaths</th>
         </tr>
       </thead>
       <tbody class={tableData}>
         {#each Object.keys(data) as item}
           <tr>
-            <td class={td}>{String(JSON.stringify(item)).replace(/"/g, '')}</td>
+            <td class={tdCountry}>
+              {String(JSON.stringify(item)).replace(/"/g, '')}
+            </td>
             <td
-              class={data[item]['Recovered'] < data[item]['Active'] ? moreActThanRec : td}>
+              class="{td}
+              {data[item]['Recovered'] < data[item]['Active'] && moreActThanRec}">
               {JSON.stringify(data[item]['Active'])}
             </td>
-            <td>{JSON.stringify(data[item]['Confirmed'])}</td>
+            <td class={td}>{JSON.stringify(data[item]['Confirmed'])}</td>
             <td
-              class={data[item]['Recovered'] > data[item]['Active'] ? moreRec : td}>
-              {JSON.stringify(data[item]['Recovered'])}
-            </td>
-            <td>{JSON.stringify(data[item]['Deaths'])}</td>
-            <td
-              class="{fatalityRate(data[item]) > total_fatality_rate ? highAvgFat : ''}
-              {fatalityRate(data[item]) < total_fatality_rate ? lowAvgFat : td}">
+              class="{td}
+              {fatalityRate(data[item]) > total_fatality_rate && highAvgFat}
+              {fatalityRate(data[item]) < total_fatality_rate && lowAvgFat}">
               {fatalityRate(data[item]).toFixed(2)}%
             </td>
             <td
-              class="{recoveryRate(data[item]) < total_recovery_rate ? moreRec : ''}
-              {recoveryRate(data[item]) > total_recovery_rate ? highRecov : td}">
+              class="{td}
+              {recoveryRate(data[item]) < total_recovery_rate && moreRec}
+              {recoveryRate(data[item]) > total_recovery_rate && highRecov}">
               {recoveryRate(data[item]).toFixed(2)}%
             </td>
+            <td
+              class="{td}
+              {data[item]['Recovered'] > data[item]['Active'] && moreRec}">
+              {JSON.stringify(data[item]['Recovered'])}
+            </td>
+            <td class={td}>{JSON.stringify(data[item]['Deaths'])}</td>
           </tr>
         {/each}
       </tbody>

@@ -165,9 +165,8 @@
     </Flex>
     <Box style={overviewBottomBox}>
       <Text style={btmh6}>
-        {@html `Unfortunately, recoveries are not being tracked or are unavailable at
-        the county level at this times. This means we cannot track progress
-        locally. Thus, the local goal is to keep <strong># of confirmed</strong> as low as possible.`}
+        {@html `Unfortunately, recoveries are not being tracked or are unavailable at this time at
+        the county level. This means we cannot track progress locally. Thus, the local goal is to keep <strong># of confirmed</strong> as low as possible.`}
       </Text>
     </Box>
   </Flex>
@@ -176,8 +175,8 @@
     <Box style={overviewBottomBox}>
       <Heading as="h6" style={h6}>Local data not yet available</Heading>
       <Text style={btmh6}>
-        We're sorry, data at your country level isn't available or connected to
-        this app yet.
+        We're sorry, data from your county/precinct level isn't available or
+        connected to this app yet.
       </Text>
     </Box>
   </Flex>
