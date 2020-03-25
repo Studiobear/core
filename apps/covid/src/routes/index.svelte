@@ -14,7 +14,7 @@
   import { theme } from '../theme'
   import { Nav, SSR, OverviewBoxGlobal, Icon, MyContext } from '../components'
 
-  import { fatalityRate, recoveryRate, calcC19Stats } from '../libs'
+  import { fatalityRate, recoveryRate, C19Stats } from '../libs'
 
   let ssr = true
   let data = []
@@ -78,7 +78,7 @@
     let temp = await resp.json()
     // let temp = {}
     let records = temp['features']
-    if (records) statsGlobal = calcC19Stats(records)
+    if (records) statsGlobal = await C19Stats(records)
 
     overview = {
       confirmed: statsGlobal.totalConfirmed,
@@ -145,8 +145,8 @@
     <CardBody>
       <Text>
         <strong>Best: Warm water and soap for 20 seconds.</strong>
-        Alcohol-based sanitizer with at least 70% alcohol or diluted household
-        bleach (4tsp/qt of water) will work in a pinch too.
+        Alcohol-based sanitizers with at least 70% alcohol will do in a pinch
+        too.
       </Text>
     </CardBody>
   </Card>
@@ -159,7 +159,31 @@
       <Text>
         <strong>If sick, stay home except to get medical care.</strong>
         Cover coughs and sneezes and after immediately wash hands. Facemasks are
-        best worn when sick and in public and otherwise saved for caregivers.
+        best worn if your sick and out in public; otherwise, save them for
+        caregivers.
+      </Text>
+    </CardBody>
+  </Card>
+  <Card theme={$theme}>
+    <CardHead>
+      <Icon name="hand" style={icon} fill={$theme.colors.tertiary} />
+      <Heading as="h3">Clean AND Disinfect often</Heading>
+    </CardHead>
+    <CardBody>
+      <Text>
+        <strong>
+          All the surfaces you touch frequently - handles, knobs, devices,
+          counters, sinks
+        </strong>
+        Use diluted household bleach (4tsp/qt of water), 70% alcohol solutions
+        or EPA-registered household disinfectants. A list of
+        <a
+          href="https://www.epa.gov/pesticide-registration/list-n-disinfectants-use-against-sars-cov-2"
+          target="_blank">
+          disenfectants for use against viral pathogens
+        </a>
+        by the United States Environmental Protection Agency — note the
+        recommended surface contact times!
       </Text>
     </CardBody>
   </Card>

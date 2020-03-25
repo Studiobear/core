@@ -79,6 +79,7 @@
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.2.0",
     "sapper": "^0.27.10",
+    "sort-objects-array": "^1.7.1",
     "svelte": "^3.20.1",
     "svelte-image": "^0.1.9",
     "svelte-jester": "^1.0.3",

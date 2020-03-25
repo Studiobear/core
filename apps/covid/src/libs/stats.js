@@ -2,69 +2,118 @@ export const fatalityRate = d => (d.Deaths / d.Confirmed) * 100
 
 export const recoveryRate = d => (d.Recovered / d.Confirmed) * 100
 
-export const calcC19Stats = d => {
+const internalizeCountryName = data => {
+  let newData = []
+  for (const prop in data) {
+    let newObj = { Name: prop, ...data[prop] }
+    newData.push(newObj)
+  }
+  return newData
+}
+
+const parseC19GlobalStats = async (d, region) => {
   let combined = {}
   let total_deaths = 0
   let total_confirmed = 0
   let total_active = 0
   let total_recovered = 0
   let last_updated = 0
-
-  d.map(item => {
-    item = item['attributes']
-    var build_item = {
-      Confirmed: item.Confirmed,
-      Active: item.Confirmed - (item.Recovered + item.Deaths),
-      Deaths: item.Deaths,
-      Recovered: item.Recovered,
-      Updated: item.Last_Update,
-      SubRegion: {
+  return Promise.all(
+    d.map(item => {
+      item = item['attributes']
+      let build_item = {
+        Name: item.Country_Region,
+        Confirmed: item.Confirmed,
+        Active: item.Confirmed - (item.Recovered + item.Deaths),
+        Deaths: item.Deaths,
+        Recovered: item.Recovered,
+        Updated: item.Last_Update,
+        SubRegion: null,
+      }
+      let build_subRegion = {
         name: item.Province_State,
         Confirmed: item.Confirmed,
         Active: item.Active,
         Deaths: item.Deaths,
         Recovered: item.Recovered,
-      },
-    }
-    if (item.Country_Region in combined) {
-      combined[item.Country_Region].Confirmed += build_item.Confirmed
-      combined[item.Country_Region].Active += build_item.Active
-      combined[item.Country_Region].Deaths += build_item.Deaths
-      combined[item.Country_Region].Recovered += build_item.Recovered
-      combined[item.Country_Region].SubRegion = {
-        [build_item.SubRegion.name]: { ...build_item.SubRegion },
-        ...combined[item.Country_Region].SubRegion,
       }
-    } else {
-      combined[item.Country_Region] = build_item
-      combined[item.Country_Region].SubRegion = {
-        [build_item.SubRegion.name]: { ...build_item.SubRegion },
+      if (item.Country_Region in combined) {
+        combined[item.Country_Region].Confirmed += build_item.Confirmed
+        combined[item.Country_Region].Active += build_item.Active
+        combined[item.Country_Region].Deaths += build_item.Deaths
+        combined[item.Country_Region].Recovered += build_item.Recovered
+        if (build_subRegion.name !== null) {
+          combined[item.Country_Region].SubRegion = {
+            [build_subRegion.name]: { ...build_subRegion },
+            ...combined[item.Country_Region].SubRegion,
+          }
+        }
+      } else {
+        combined[item.Country_Region] = build_item
+        if (build_subRegion.name !== null) {
+          combined[item.Country_Region].SubRegion = {
+            [build_subRegion.name]: { ...build_subRegion },
+            ...combined[item.Country_Region].SubRegion,
+          }
+        }
       }
-    }
-    total_deaths += item.Deaths
-    total_confirmed += item.Confirmed
-    total_active += item.Confirmed - (item.Recovered + item.Deaths)
-    total_recovered += item.Recovered
-    last_updated =
-      item.Last_Update > last_updated ? item.Last_Update : last_updated
-  })
-  let updated = new Date(last_updated)
-  return {
-    totalConfirmed: total_confirmed,
-    totalActive: total_active,
-    totalDeaths: total_deaths,
-    totalRecovered: total_recovered,
-    totalFatalityRate: fatalityRate({
-      Deaths: total_deaths,
-      Confirmed: total_confirmed,
+      total_deaths += item.Deaths
+      total_confirmed += item.Confirmed
+      total_active += item.Confirmed - (item.Recovered + item.Deaths)
+      total_recovered += item.Recovered
+      last_updated =
+        item.Last_Update > last_updated ? item.Last_Update : last_updated
     }),
-    totalRecoveryRate: recoveryRate({
-      Recovered: total_recovered,
-      Confirmed: total_confirmed,
-    }),
-    lastUpdated: `${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`,
-    data: combined,
-  }
+  )
+    .then(res => {
+      // console.log('parseC19', res, combined)
+      let updated = new Date(last_updated)
+      return {
+        totalConfirmed: total_confirmed,
+        totalActive: total_active,
+        totalDeaths: total_deaths,
+        totalRecovered: total_recovered,
+        totalFatalityRate: fatalityRate({
+          Deaths: total_deaths,
+          Confirmed: total_confirmed,
+        }),
+        totalRecoveryRate: recoveryRate({
+          Recovered: total_recovered,
+          Confirmed: total_confirmed,
+        }),
+        lastUpdated: `${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`,
+        data: combined,
+      }
+    })
+    .catch(err => {
+      console.log('parseStats err: ', err)
+      return 'Parse ERROR!'
+    })
+}
+
+export const calcC19GlobalStats = async d => {
+  const parseData = await parseC19GlobalStats(d)
+    .then(async res => {
+      let newData = await internalizeCountryName(res.data)
+      res.data = newData
+      return res
+    })
+    .catch(err => {
+      console.log('calcStats err: ', err)
+      return 'Calc ERROR!'
+    })
+  return parseData
+}
+
+export const C19Stats = async d => {
+  const stats = await calcC19GlobalStats(d)
+    .then(res => res)
+    .catch(err => {
+      console.log('C19Stats err: ', err)
+      return 'Stats ERROR!'
+    })
+
+  return stats
 }
 
 export const insertCommas = num => {
