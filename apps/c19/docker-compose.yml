@@ -1,0 +1,61 @@
+version: "3.3"
+services:
+    db:
+        container_name: c19db
+        restart: always
+        image: c19-db
+        build:
+            context: ./db
+        volumes:
+            - db:/var/lib/postgresql/data
+        env_file:
+            - ./.env
+        networks:
+            - loh
+    timescale:
+        container_name: c19-ts
+        restart: always
+        image: timescale/timescaledb:latest-pg11
+        env_file:
+            - ./.env
+        depends_on:
+            _db
+        networks:
+            - loh
+        volumes:
+            - db:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+
+    graphql:
+        container_name: c19-graphql
+        restart: always
+        image: c19-graphql
+        build:
+            context: ./graphql
+        env_file:
+            - ./.env
+        depends_on:
+            - timescale
+        networks:
+            - loh
+        ports:
+            - 5433:5433
+        command:
+            [
+                "--connection",
+                "${DATABASE_URL}",
+                "--port",
+                "5433",
+                "--schema",
+                "public",
+                "--append-plugins",
+                "postgraphile-plugin-connection-filter,custom-plugin",
+            ]
+        
+
+networks:
+    loh:
+
+volumes:
+    db:
