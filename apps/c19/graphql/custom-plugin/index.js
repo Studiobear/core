@@ -1,7 +1,7 @@
 const { makeWrapResolversPlugin } = require("graphile-utils");
 
 // Create custom wrapper for resolver createUser
-const createUserResolverWrapper = () => {
+const createLocationResolverWrapper = () => {
     return async (resolve, source, args, context, resolveInfo) => {
         // You can do something before the resolver executes
         console.info("Hello world!");
@@ -21,6 +21,6 @@ const createUserResolverWrapper = () => {
 // Register custom resolvers
 module.exports = makeWrapResolversPlugin({
     Mutation: {
-        createUser: createUserResolverWrapper()
+        createLocation: createLocationResolverWrapper()
     }
 });

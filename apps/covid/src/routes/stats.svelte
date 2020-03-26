@@ -215,7 +215,7 @@
     let temp = await resp.json()
     let records = temp['features']
     statsGlobal = await C19Stats(records)
-    //await console.log('statsGlobal', statsGlobal)
+    await console.log('statsGlobal', statsGlobal)
     total_confirmed = statsGlobal.totalConfirmed
     total_active = statsGlobal.totalActive
     total_recovered = statsGlobal.totalRecovered

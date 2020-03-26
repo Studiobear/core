@@ -12,18 +12,6 @@ services:
             - ./.env
         networks:
             - loh
-    timescale:
-        container_name: c19-ts
-        restart: always
-        image: timescale/timescaledb:latest-pg11
-        env_file:
-            - ./.env
-        depends_on:
-            _db
-        networks:
-            - loh
-        volumes:
-            - db:/var/lib/postgresql/data
         ports:
             - 5432:5432
 
@@ -35,14 +23,12 @@ services:
             context: ./graphql
         env_file:
             - ./.env
-        depends_on:
-            - timescale
         networks:
             - loh
         ports:
             - 5433:5433
         command:
-            [
+            [   
                 "--connection",
                 "${DATABASE_URL}",
                 "--port",
@@ -51,8 +37,13 @@ services:
                 "public",
                 "--append-plugins",
                 "postgraphile-plugin-connection-filter,custom-plugin",
+                "--retry-on-init-fail",
+                "--no-ignore-rbac",
+                "--no-ignore-indexes",
+                "--show-error-stack",
+                "json",
+                "--enhance-graphiql"
             ]
-        
 
 networks:
     loh:
