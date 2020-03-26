@@ -4,8 +4,9 @@
   "description": "Server for covid-19 data",
   "main": "src/index.js",
   "scripts": {
-    "dev": "NODE_ENV=production babel-watch ./src/index.js",
+    "dev": "NODE_ENV=development babel-watch ./src/index.js",
     "start": "NODE_ENV=production node ./dist/index.js",
+    "graphql": "NODE_ENV=production node ./dist/server.js",
     "generate": "yarn build && NODE_ENV=production node ./dist/index.js",
     "static:dev": "sirv start ./public -D -p 3100 --cors",
     "static": "sirv start ./public -p 3100 --cors --immutable --maxage 900000 --host 0.0.0.0",
@@ -16,8 +17,11 @@
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "dependencies": {
+    "@phony/cli": "^1.0.1",
+    "@phony/graphql": "^1.0.1",
     "axios": "^0.19.2",
     "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
     "sirv-cli": "^0.4.5"
   },
   "devDependencies": {
@@ -25,6 +29,7 @@
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "aws-sdk": "^2.647.0",
     "babel-watch": "^7.0.0",
     "prettier": "1.19.1"
   },

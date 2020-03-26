@@ -10,8 +10,7 @@ const CACountyURL =
 export const getUS_CA_County = async () =>
   axios({
     method: 'get',
-    url:
-      'https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json',
+    url: CACountyURL,
   })
     .then(async resp => resp.data)
     .catch(err => {
