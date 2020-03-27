@@ -6,6 +6,8 @@
   export let data
   export let local
   export let overview
+  let dataCountry
+  let dataRegion
 
   $: active = overview.active || 0
   $: recovered = overview.recovered || 0
@@ -15,7 +17,6 @@
   $: recoveryRate = overview.recoveryRate || 0
   $: updated = overview.updated
 
-  // $: console.log('ov', local, data)
   $: longLength = local.addressNames.long.length
   $: shortLength = local.addressNames.short.length
   $: countryLong =
@@ -36,10 +37,29 @@
       : local.addressNames.short[1] || 'CA'
   $: county = local.addressNames.short[0] || 'No County'
 
-  $: countryData = data[countryLong] || data[country] || false
+  $: {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].Name == country || data[i].Name == countryLong) {
+        dataCountry = data[i]
+        break
+      }
+    }
+  }
+
+  $: countryData = dataCountry || false
   $: subRegionData = countryData ? countryData.SubRegion || false : false
-  $: regionData = subRegionData[region] ? subRegionData[region] || false : false
-  // $: console.log('ov', countryData, subRegionData, regionData)
+
+  $: {
+    for (let [name, val] of Object.entries(subRegionData)) {
+      if (name == region || name == regionShort) {
+        dataRegion = val
+        break
+      }
+    }
+  }
+
+  $: regionData = dataRegion || false
+  $: console.log('ov', countryData, subRegionData, regionData)
 
   $: cntryActive = countryData.Active || 0
   $: cntryRecovered = countryData.Recovered || 0
