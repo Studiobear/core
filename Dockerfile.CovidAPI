@@ -5,7 +5,7 @@ WORKDIR /app
 FROM base AS development
 COPY package.json yarn.lock lerna.json /app/
 
-COPY ./apps/covid-api /app/apps/covid-api/
+COPY apps/covid-api /app/apps/covid-api/
 
 # Use app directory as current workdir
 ENV PATH /app/node_modules/.bin:$PATH
@@ -17,10 +17,10 @@ RUN yarn install --pure-lockfile
 COPY . .
 
 FROM development AS builder
-RUN mkdir -p ./apps/covid-api/public/
-RUN touch ./apps/covid-api/public/covid19_US_CA_County.json
+RUN mkdir -p apps/covid-api/public/
+RUN touch apps/covid-api/public/covid19_US_CA_County.json
 RUN yarn workspace covid-api build
-RUN cp -R ./apps/covid-api /tmp/covid-api
+RUN cp apps/covid-api /tmp/covid-api
 
 FROM base AS release
 COPY --from=builder /tmp/node_modules ./node_modules

@@ -29,7 +29,8 @@
     "check-packages": "yarn monocheck && yarn lint && yarn eslint",
     "fix-packages": "yarn monofix && yarn lint:fix && yarn eslint:fix",
     "commit": "git add . && git cz",
-    "release": "standard-version"
+    "release": "standard-version",
+    "imageVer": "export COMMIT=`git rev-parse --short HEAD` && sed -E -i'' 's/(.*_generate:).*/\\1$COMMIT/' 'docker-compose.covidapi.yml'"
   },
   "commitlint": {
     "extends": [
