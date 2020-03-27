@@ -1,6 +1,7 @@
 version: '3'
 services:
   generate:
+    image: covid-api_generate:${COMMIT}
     build:
       context: .
       dockerfile: ./Dockerfile.CovidAPI
@@ -14,7 +15,7 @@ services:
     command: yarn workspace covid-api start
     network_mode: webproxy
   serve:
-    image: covid-api_generate:latest
+    image: covid-api_generate:${COMMIT}
     env_file:
       - .env
     container_name: covidapi-serve

@@ -20,7 +20,7 @@ FROM development AS builder
 RUN mkdir -p apps/covid-api/public/
 RUN touch apps/covid-api/public/covid19_US_CA_County.json
 RUN yarn workspace covid-api build
-RUN cp -R apps/covid-api /tmp/covid-api
+RUN cp apps/covid-api /tmp/covid-api
 
 FROM base AS release
 COPY --from=builder /tmp/node_modules ./node_modules
