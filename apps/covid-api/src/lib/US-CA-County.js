@@ -28,8 +28,9 @@ export const parseUS_CA_County = async data =>
 export const writeUS_CA_County = async data =>
   writeFile(
     JSON.stringify(data, null, 2),
-    () => {
-      return console.log('US_CA_County written')
+    res => {
+      console.log('writeUS_CA_County: ', res)
+      return 'Success'
     },
     dataPath,
   )

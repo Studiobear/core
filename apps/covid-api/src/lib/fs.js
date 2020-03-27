@@ -24,8 +24,7 @@ export const writeFile = (
     if (err) {
       throw err
     }
-    filePath = ''
-    fileData = ''
-    callback()
+    callback('Success')
+    return
   })
 }

@@ -1,10 +1,23 @@
+require('dotenv').config()
 const CronJob = require('cron').CronJob
-import { getUS_CA_County, parseUS_CA_County, writeUS_CA_County } from './lib'
+import {
+  getUS_CA_County,
+  parseUS_CA_County,
+  writeUS_CA_County,
+  ftpFile,
+} from './lib'
+import { resolve } from 'path'
+
+console.log('ENV test: ', process.env.FTP_HOST)
 
 const generateUS_CA_County = async () => {
   let data = await getUS_CA_County()
+  console.log('data OK')
   let parsed = await parseUS_CA_County(data)
-  return writeUS_CA_County(parsed)
+  console.log('parsed OK', parsed)
+  let write = await writeUS_CA_County(parsed).then(res => {
+    return ftpFile()
+  })
 }
 
 const job = new CronJob('0 */15 * * * *', function() {
@@ -22,4 +35,4 @@ setInterval(function() {
 }, 30000)
 */
 
-// generateUS_CA_County()
+generateUS_CA_County()
