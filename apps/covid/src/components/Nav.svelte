@@ -11,6 +11,8 @@
   import Icon from './Icon.svelte'
   import Overlay from './Overlay.svelte'
   import { theme } from '../theme'
+  import storeUserPrefs from '../stores/userPrefs'
+
   export let segment
   export let ssr
 
@@ -213,6 +215,9 @@
   }
   $: modeIcon = {
     size: '1.25rem',
+  }
+  $: {
+    if (process.browser) console.log('UserPrefs:', $storeUserPrefs)
   }
 </script>
 

@@ -171,6 +171,12 @@ export default {
           process.env.NODE_ENV === 'development'
             ? `'${process.env.SITE_URL}'`
             : `'${process.env.PROD_URL}'`,
+        'process.env.GEOCODING_API_KEY': dev
+            ? JSON.stringify(process.env.GOOGLE_GEOCODING_API_TEST)
+            : JSON.stringify(process.env.GOOGLE_GEOCODING_API),
+        'process.env.CA_COUNTY_URL': dev
+            ? JSON.stringify(process.env.CA_COUNTY_URL_TEST)
+            : JSON.stringify(process.env.CA_COUNTY_URL),
       }),
       commonjs(),
       !dev && terser(),
