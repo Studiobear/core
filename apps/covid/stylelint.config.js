@@ -9,5 +9,4 @@ module.exports = {
     'declaration-block-trailing-semicolon': null,
     'no-descending-specificity': null,
   },
-  ignoreFiles: ['./src/components/styleSSR.svelte'],
 }

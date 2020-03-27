@@ -1,10 +1,16 @@
 <script>
   import { onMount } from 'svelte'
   import { addGlobal, styled, removeSSR } from '@studiobear/designspek'
-  import { theme } from '../theme'
-
   import { Section, Button, Box } from '@studiobear/designspek-components'
+
+  import { theme } from '../theme'
   import { Nav, SSR, Icons } from '../components'
+  import {
+    createStorageInstace,
+    setStorageItem,
+    getStorageItem,
+    getStorageKeys,
+  } from '../libs'
 
   // $: background = $theme.colors.background || '#fff'
   export let segment

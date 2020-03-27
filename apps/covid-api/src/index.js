@@ -35,4 +35,4 @@ setInterval(function() {
 }, 30000)
 */
 
-generateUS_CA_County()
+// generateUS_CA_County()
