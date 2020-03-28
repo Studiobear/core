@@ -29,7 +29,7 @@ export const writeUS_CA_County = async data =>
   writeFile(
     JSON.stringify(data, null, 2),
     res => {
-      console.log('writeUS_CA_County: ', res)
+      //console.log('writeUS_CA_County: ', res)
       return 'Success'
     },
     dataPath,

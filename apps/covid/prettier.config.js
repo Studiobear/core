@@ -3,6 +3,5 @@ module.exports = {
   tabWidth: 2,
   semi: false,
   singleQuote: true,
-  // plugins: ['prettier-plugin-svelte'],
-  ignore: './src/components/styleSSR.svelte',
+  plugins: ['prettier-plugin-svelte'],
 }

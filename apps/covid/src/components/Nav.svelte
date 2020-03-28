@@ -11,6 +11,8 @@
   import Icon from './Icon.svelte'
   import Overlay from './Overlay.svelte'
   import { theme } from '../theme'
+  import storeUserPrefs from '../stores/userPrefs'
+
   export let segment
   export let ssr
 
@@ -214,6 +216,17 @@
   $: modeIcon = {
     size: '1.25rem',
   }
+  $: mode = $storeUserPrefs.mode || $theme.mode || 'light'
+
+  const setMode = mode => {
+    if (mode === 'light') {
+      theme.dark()
+      storeUserPrefs.dark()
+    } else {
+      theme.light()
+      storeUserPrefs.light()
+    }
+  }
 </script>
 
 <svelte:head>
@@ -245,9 +258,7 @@
             <span class={navClose}>&rtri;</span>
             <span class={navBttnSpanHidden}>Menu Close</span>
           </Button>
-          <Button
-            style={modeBttn}
-            on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
+          <Button style={modeBttn} on:click={setMode(mode)}>
             {#if $theme.mode === 'light'}
               <Icon
                 name="virus-2"

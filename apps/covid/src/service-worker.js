@@ -38,7 +38,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
 
   // don't try to handle e.g. data: URIs
-  if (!url.protocol.startsWith('http')) return
+  // if (!url.protocol.startsWith('http')) return
 
   // ignore dev server requests
   if (
