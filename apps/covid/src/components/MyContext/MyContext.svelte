@@ -12,13 +12,16 @@
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
   import OverviewBoxLocal from '../OverviewBoxLocal.svelte'
-  import { insertCommas, getAddress } from '../../libs'
+  import { insertCommas, getAddress, setStorageItem } from '../../libs'
+  import { storeUserPrefs, lfUserPrefs } from '../../stores/userPrefs'
   export let theme = $$props.theme || {}
   export let ssr = $$props.ssr || {}
   export let data
   export let overview
-  let location = ''
+  let getLocation = true
   let locationType = 'default'
+  let modalVisible = false
+
   $: locationData = {
     status: 'start',
     message: '',
@@ -27,8 +30,18 @@
     data: {},
   }
 
-  let modalVisible = false
-  let getLocation = true
+  $: updateLocationData =
+    $storeUserPrefs.hasOwnProperty('location') &&
+    $storeUserPrefs.location &&
+    $storeUserPrefs.location.hasOwnProperty('message') &&
+    $storeUserPrefs.location.hasOwnProperty('data')
+
+  $: {
+    if (updateLocationData) {
+      getLocation = false
+      locationData = $storeUserPrefs.location
+    }
+  }
 
   $: overviewBox = {
     flexdir: 'column',
@@ -137,21 +150,6 @@
     }
   }
 
-  const geocodeLocation = async (lat, lng) => {
-    const API_KEY = process.env.GEOCODING_API_KEY
-    let address = { formatted: 'nodejs land' }
-    if (process.browser) {
-      //let geoCodeURL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
-      //const mode = 'no-cors'
-      //const resp = await fetch(geoCodeURL, { mode })
-      //await console.log('geocodeLocation', resp)
-      //let temp = await resp.json()
-      //address = await getAddress(temp.results)
-    }
-    locationData.status = 'received'
-    locationData.message = `You are in <br /> ${address.formatted}`
-  }
-
   const handleAddress = async e => {
     const addressStatus = e.detail.status
     const addressData = e.detail.data
@@ -159,7 +157,9 @@
     locationData.status = 'received'
     locationData.message = `You are in <br /> ${address.formatted}`
     locationData.data = address
-
+    delete locationData.lat
+    delete locationData.lng
+    if (process.browser) setStorageItem('location', locationData, lfUserPrefs)
     // console.log('handleAddress', addressStatus, addressData, locationData)
   }
 

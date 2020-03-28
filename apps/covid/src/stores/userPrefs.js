@@ -7,12 +7,18 @@ import {
 } from '../libs'
 
 const lfUserPrefs = createStorageInstance('userPrefs')
-let prefs = { mode: 'light' }
+let prefs = { mode: 'light', location: undefined }
 
-const setMode = mode => {
-  console.log('setMode: ', mode)
+const setMode = (prev, mode) => {
+  // console.log('setMode: ', mode)
   setStorageItem('mode', mode, lfUserPrefs)
-  return {...prefs, mode}
+  return { ...prev, mode }
+}
+
+const setLocation = (prev, loc) => {
+  // console.log('setLocation: ', prev, loc)
+  setStorageItem('location', loc, lfUserPrefs)
+  return { ...prev, location: loc }
 }
 
 const createUserPrefs = () => {
@@ -20,8 +26,9 @@ const createUserPrefs = () => {
 
   return {
     subscribe,
-    dark: () => update(n => setMode('dark')),
-    light: () => update(n => setMode('light')),
+    location: (loc) => update(n => setLocation(n, loc)),
+    dark: () => update(n => setMode(n, 'dark')),
+    light: () => update(n => setMode(n, 'light')),
     reset: set(prefs),
   }
 }

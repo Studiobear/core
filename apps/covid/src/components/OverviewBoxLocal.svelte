@@ -59,7 +59,7 @@
   }
 
   $: regionData = dataRegion || false
-  $: console.log('ov', countryData, subRegionData, regionData)
+  // $: console.log('ov', countryData, subRegionData, regionData)
 
   $: cntryActive = countryData.Active || 0
   $: cntryRecovered = countryData.Recovered || 0

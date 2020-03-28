@@ -7,12 +7,10 @@ export const removeStorageInstance = (name, storeName) =>
   localForage.dropInstance({ name, storeName })
 
 export const setStorageItem = async (key, item, instance) =>
-  instance
-    .setItem(key, item)
-    .catch(error => {
-      console.log(error)
-      return false
-    })
+  instance.setItem(key, item).catch(error => {
+    console.log(error)
+    return false
+  })
 
 export const getStorageItem = async (key, instance) =>
   instance
@@ -21,9 +19,7 @@ export const getStorageItem = async (key, instance) =>
     .catch(error => console.log(error))
 
 export const removeStorageItem = async (key, instance) =>
-  instance
-    .removeItem(key)
-    .catch(error => console.log(error))
+  instance.removeItem(key).catch(error => console.log(error))
 
 export const getStorageKeys = instance =>
   instance

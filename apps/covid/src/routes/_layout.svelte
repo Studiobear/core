@@ -4,7 +4,7 @@
   import { Section, Button, Box } from '@studiobear/designspek-components'
 
   import { theme } from '../theme'
-  import { lfUserPrefs } from '../stores/userPrefs'
+  import { storeUserPrefs, lfUserPrefs } from '../stores/userPrefs'
   import { getStorageKeys, getStorageItem, setStorageItem } from '../libs'
   import { Nav, SSR, Icons } from '../components'
 
@@ -19,6 +19,10 @@
         } else {
           setStorageItem('mode', 'light', lfUserPrefs)
           theme.light()
+        }
+        if (keys.includes('location')) {
+          let loc = await getStorageItem('location', lfUserPrefs)
+          await storeUserPrefs.location(loc)
         }
       })
       .catch(function(e) {
