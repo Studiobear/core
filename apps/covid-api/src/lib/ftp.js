@@ -13,6 +13,11 @@ const ftp = new FTPS({
   retryMultiplier: 1,
   autoconfirm: true,
   cwd: './public',
+  additionalLftpCommands: [
+                'set ssl-allow true',
+                'set ssl:verify-certificate no',
+                'set passive-mode yes'
+        ].join(';'),
 })
 
 export const ftpFile = () => {

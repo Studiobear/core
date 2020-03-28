@@ -1,10 +1,34 @@
 <script>
   import { onMount } from 'svelte'
   import { addGlobal, styled, removeSSR } from '@studiobear/designspek'
-  import { theme } from '../theme'
-
   import { Section, Button, Box } from '@studiobear/designspek-components'
+
+  import { theme } from '../theme'
+  import { storeUserPrefs, lfUserPrefs } from '../stores/userPrefs'
+  import { getStorageKeys, getStorageItem, setStorageItem } from '../libs'
   import { Nav, SSR, Icons } from '../components'
+
+  if (process.browser) {
+    lfUserPrefs
+      .ready()
+      .then(async () => {
+        let keys = await getStorageKeys(lfUserPrefs)
+        if (keys.includes('mode')) {
+          let mode = await getStorageItem('mode', lfUserPrefs)
+          mode === 'light' ? theme.light() : theme.dark()
+        } else {
+          setStorageItem('mode', 'light', lfUserPrefs)
+          theme.light()
+        }
+        if (keys.includes('location')) {
+          let loc = await getStorageItem('location', lfUserPrefs)
+          await storeUserPrefs.location(loc)
+        }
+      })
+      .catch(function(e) {
+        console.log(e)
+      })
+  }
 
   // $: background = $theme.colors.background || '#fff'
   export let segment
