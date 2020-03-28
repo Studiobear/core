@@ -216,8 +216,16 @@
   $: modeIcon = {
     size: '1.25rem',
   }
-  $: {
-    if (process.browser) console.log('UserPrefs:', $storeUserPrefs)
+  $: mode = $storeUserPrefs.mode || $theme.mode || 'light'
+
+  const setMode = mode => {
+    if (mode === 'light') {
+      theme.dark()
+      storeUserPrefs.dark()
+    } else {
+      theme.light()
+      storeUserPrefs.light()
+    }
   }
 </script>
 
@@ -250,9 +258,7 @@
             <span class={navClose}>&rtri;</span>
             <span class={navBttnSpanHidden}>Menu Close</span>
           </Button>
-          <Button
-            style={modeBttn}
-            on:click={() => ($theme.mode === 'light' ? theme.dark() : theme.light())}>
+          <Button style={modeBttn} on:click={setMode(mode)}>
             {#if $theme.mode === 'light'}
               <Icon
                 name="virus-2"

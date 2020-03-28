@@ -6,34 +6,27 @@ import {
   getStorageKeys,
 } from '../libs'
 
-const userPrefs = createStorageInstance('userPrefs')
-const keys =  getStorageKeys(userPrefs)
-let prefs = { mode: 'light'}
-
-if(keys.hasOwnProperty('mode')){
-  prefs.mode = getStorageItem('mode', userPrefs)
-} else {
-  prefs.mode = 'light'
-  setStorageItem('mode', 'light', userPrefs)
-}
+const lfUserPrefs = createStorageInstance('userPrefs')
+let prefs = { mode: 'light' }
 
 const setMode = mode => {
-  setStorageItem('mode', mode, userPrefs)
-  return mode
+  console.log('setMode: ', mode)
+  setStorageItem('mode', mode, lfUserPrefs)
+  return {...prefs, mode}
 }
 
-function createUserPrefs() {
+const createUserPrefs = () => {
   const { subscribe, set, update } = writable(prefs)
 
   return {
     subscribe,
-    dark: () => update(setMode),
-    light: () => update(setMode),
+    dark: () => update(n => setMode('dark')),
+    light: () => update(n => setMode('light')),
     reset: set(prefs),
   }
 }
 
 const storeUserPrefs = createUserPrefs()
 
-export { storeUserPrefs }
+export { storeUserPrefs, lfUserPrefs }
 export default storeUserPrefs
