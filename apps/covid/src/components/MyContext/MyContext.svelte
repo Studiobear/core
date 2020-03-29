@@ -7,7 +7,7 @@
     Button,
     Text,
   } from '@studiobear/designspek-components'
-  import {GetContextFab, RevGeocode} from '../util'
+  import { GetContextFab, RevGeocode } from '../util'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
   import OverviewBoxLocal from '../OverviewBoxLocal.svelte'
