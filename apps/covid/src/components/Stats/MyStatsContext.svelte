@@ -1,5 +1,4 @@
 <script>
-  import { tick } from 'svelte'
   import {
     Flex,
     Box,
@@ -10,19 +9,22 @@
   import { GetContextFab, RevGeocode } from '../util'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
-  import OverviewBoxLocal from '../OverviewBoxLocal.svelte'
+  import TablesLocal from './TablesLocal.svelte'
   import { insertCommas, getAddress, setStorageItem } from '../../libs'
   import { storeUserPrefs, lfUserPrefs } from '../../stores/userPrefs'
   export let theme = $$props.theme || {}
-  export let ssr = $$props.ssr || {}
-  export let data
-  export let overview
+
+  export let statsGlobal
+  export let error = false
+  export let loading = true
+
   let getLocation = true
   let locationType = 'default'
   let modalVisible = false
 
+  $: data = []
   $: locationData = {
-    status: 'start',
+    status: 'loading',
     message: '',
     lat: '',
     lng: '',
@@ -34,11 +36,14 @@
     $storeUserPrefs.location &&
     $storeUserPrefs.location.hasOwnProperty('message') &&
     $storeUserPrefs.location.hasOwnProperty('data')
-  // Abusing Svelte reactivity? Change state by watching UserPrefs store state.
+
   $: {
     if (updateLocationData) {
       getLocation = false
       locationData = $storeUserPrefs.location
+    } else {
+      getLocation = true
+      locationData.status = 'start'
     }
   }
 
@@ -118,7 +123,7 @@
     maxw: '80vw',
   }
 
-  $: loading = {
+  $: loadStyle = {
     animation: 'spin 6s infinite',
   }
 
@@ -225,56 +230,59 @@
       <Heading as="h6" style={nmTitle}>Use California, USA</Heading>
     </Button>
   {:else if locationData.status === 'loading'}
-    <Loading {theme} fill={theme.colors.primary} style={loading} />
+    <Loading {theme} fill={theme.colors.primary} style={loadStyle} />
     <Heading as="h6" style={nmTitle}>Use My location</Heading>
   {:else}
     <Heading as="h6" style={nmTitle}>Use My location</Heading>
   {/if}
 </Modal>
 
-<Flex style={overviewBox} {ssr}>
-  {#if getLocation && locationData.status === 'start'}
-    <Box style={overviewSingleBox} {ssr}>
-      <GetContextFab {theme} {ssr} on:message={openModal} />
-      <Heading as="h6" style={ovTitle} {ssr}>Cases Near Me</Heading>
-    </Box>
-  {:else if locationData.status === 'loading'}
-    <Box style={overviewSingleBox}>
-      <Loading {theme} fill={theme.colors.primary} style={loading} />
-      <Heading as="h6" style={nmTitle}>loading...</Heading>
-    </Box>
-  {:else if locationData.status === 'geocoding'}
-    <Box style={overviewSingleBox}>
-      <Loading {theme} fill={theme.colors.secondary} style={loading} />
-      <Heading as="h6" style={nmTitle}>getting local data...</Heading>
-      <RevGeocode
-        lat={locationData.lat}
-        lng={locationData.lng}
-        on:message={handleAddress} />
-    </Box>
-  {:else if locationData.status === 'error'}
-    <Box style={overviewSingleBox}>
-      <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
-      <GetContextFab {theme} on:message={openModal} />
-      <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
-    </Box>
-  {:else if locationData.status === 'received'}
-    <Box style={overviewSingleBox}>
-      <OverviewBoxLocal local={locationData.data} {overview} {data} {theme} />
-      <Heading as="h6" style={nmTitle}>
-        {@html locationData.message}
-      </Heading>
-      <Button
-        style={changeLocBttn}
-        on:click={() => openModal({ detail: { go: true } })}>
-        <Heading as="h6" style={changeLocTxt}>Change Location</Heading>
-      </Button>
-    </Box>
-  {:else}
-    <Box style={overviewSingleBox}>
-      <Heading as="h6" style={ovTitle}>
-        Current Location: {locationData.message}
-      </Heading>
-    </Box>
-  {/if}
-</Flex>
+{#if getLocation && locationData.status === 'start'}
+  <Box style={overviewSingleBox}>
+    <GetContextFab {theme} on:message={openModal} />
+    <Heading as="h6" style={ovTitle}>Cases Near Me</Heading>
+  </Box>
+{:else if locationData.status === 'loading'}
+  <Box style={overviewSingleBox}>
+    <Loading {theme} fill={theme.colors.primary} style={loadStyle} />
+    <Heading as="h6" style={nmTitle}>loading...</Heading>
+  </Box>
+{:else if locationData.status === 'geocoding'}
+  <Box style={overviewSingleBox}>
+    <Loading {theme} fill={theme.colors.secondary} style={loadStyle} />
+    <Heading as="h6" style={nmTitle}>getting local data...</Heading>
+    <RevGeocode
+      lat={locationData.lat}
+      lng={locationData.lng}
+      on:message={handleAddress} />
+  </Box>
+{:else if locationData.status === 'error'}
+  <Box style={overviewSingleBox}>
+    <Heading as="h6" style={nmTitle}>{locationData.message}</Heading>
+    <GetContextFab {theme} on:message={openModal} />
+    <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
+  </Box>
+{:else if locationData.status === 'received'}
+  <TablesLocal
+    local={locationData.data}
+    {statsGlobal}
+    {theme}
+    {error}
+    {loading} />
+  <Box style={overviewSingleBox}>
+    <Heading as="h6" style={nmTitle}>
+      {@html locationData.message}
+    </Heading>
+    <Button
+      style={changeLocBttn}
+      on:click={() => openModal({ detail: { go: true } })}>
+      <Heading as="h6" style={changeLocTxt}>Change Location</Heading>
+    </Button>
+  </Box>
+{:else}
+  <Box style={overviewSingleBox}>
+    <Heading as="h6" style={ovTitle}>
+      Current Location: {locationData.message}
+    </Heading>
+  </Box>
+{/if}
