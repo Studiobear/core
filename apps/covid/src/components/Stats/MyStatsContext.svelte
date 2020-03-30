@@ -24,7 +24,7 @@
 
   $: data = []
   $: locationData = {
-    status: 'start',
+    status: 'loading',
     message: '',
     lat: '',
     lng: '',
@@ -41,6 +41,9 @@
     if (updateLocationData) {
       getLocation = false
       locationData = $storeUserPrefs.location
+    } else {
+      getLocation = true
+      locationData.status = 'start'
     }
   }
 

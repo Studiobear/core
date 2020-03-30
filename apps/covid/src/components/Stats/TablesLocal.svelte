@@ -26,6 +26,7 @@
     tableBody,
   } from './styles'
   import TableRegional from './TableRegional.svelte'
+  import TableSubRegional from './TableSubRegional.svelte'
 
   export let theme = $$props.theme || {}
   export let error = false
@@ -245,3 +246,10 @@
   loading={!countryDataLoaded && !regionDataLoaded}
   countryName={countryLong}
   updated={last_updated} />
+
+<TableSubRegional
+  {regionData}
+  regionName={region}
+  countyName={county}
+  loading={!countryDataLoaded && !regionDataLoaded}
+  {theme} />

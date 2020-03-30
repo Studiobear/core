@@ -11,7 +11,7 @@
   } from '@studiobear/designspek-components'
   import sortObjectsArray from 'sort-objects-array'
 
-  import { fatalityRate, recoveryRate } from '../../libs'
+  import { fatalityRate, recoveryRate, insertCommas } from '../../libs'
   import Loading from '../Loading.svelte'
   import {
     H2,
@@ -165,23 +165,7 @@
 <Heading as="h2" style={H2}>
   {countryName ? `${countryName} Cases` : 'Loading cases...'}
 </Heading>
-<Heading as="h4" style={H4}>Legend</Heading>
-<Table style={legendBody}>
-  <THead as="thead">
-    <TR>
-      <THead {theme} style={[td, legendTh, lBlue]}>
-        More Recovered than active
-      </THead>
-      <THead {theme} style={[td, legendTh, lYellow]}>
-        Lower Avg Recoveries
-      </THead>
-      <THead {theme} style={[td, legendTh, lRed]}>Higher Avg Fatalities</THead>
-      <THead {theme} style={[td, legendTh, lGreen]}>
-        Higher Avg Recoveries OR Lower Avg Fatalities
-      </THead>
-    </TR>
-  </THead>
-</Table>
+
 <Box style={tableContainer}>
   <Table fixed style={tableGlobal}>
     <THead as="colGroup">
@@ -198,7 +182,7 @@
         <THead style={thCountry} on:click={() => sortData('region')}>
           Region Name
           <span>
-            {#if colSorted === 'country'}
+            {#if colSorted === 'region'}
               {@html sorted !== 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
             {:else}&nbsp;&nbsp;{/if}
           </span>
@@ -219,6 +203,12 @@
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
+        <THead style={th} on:click={() => sortData('deaths')}>
+          Deaths
+          {#if colSorted === 'deaths'}
+            {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+          {:else}&nbsp;&nbsp;{/if}
+        </THead>
         <THead style={th} on:click={() => sortData('fatality')}>
           Fatality Rate
           <span>
@@ -227,12 +217,7 @@
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
-        <THead style={th} on:click={() => sortData('deaths')}>
-          Deaths
-          {#if colSorted === 'deaths'}
-            {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
-          {:else}&nbsp;&nbsp;{/if}
-        </THead>
+
         <THead style={th} on:click={() => sortData('recovery')}>
           Recovery Rate
           <span>
@@ -256,21 +241,25 @@
           <TD
             {theme}
             style={[td, thGlobal, total_recovered > total_active && lPurple]}>
-            {total_active}
+            {insertCommas(total_active)}
           </TD>
-          <TD {theme} style={[td, thGlobal]}>{total_confirmed}</TD>
+          <TD {theme} style={[td, thGlobal]}>
+            {insertCommas(total_confirmed)}
+          </TD>
+          <TD {theme} style={[td, thGlobal]}>{insertCommas(total_deaths)}</TD>
           <TD {theme} style={[td, thGlobal]}>
             {total_fatality_rate.toFixed(2)}%
           </TD>
+
           <TD {theme} style={[td, thGlobal]}>
             {total_recovery_rate.toFixed(2)}%
           </TD>
           <TD
             {theme}
             style={[td, thGlobal, total_recovered > total_active && lPurple]}>
-            {total_recovered}
+            {insertCommas(total_recovered)}
           </TD>
-          <TD {theme} style={[td, thGlobal]}>{total_deaths}</TD>
+
         </TR>
       {/if}
     </THead>
@@ -295,10 +284,10 @@
               {String(JSON.stringify(sData[item]['Name'])).replace(/"/g, '')}
             </TD>
             <TD style={td}>
-              {JSON.stringify(sData[item]['Confirmed'] - (sData[item]['Deaths'] + sData[item]['Recovered']))}
+              {insertCommas(sData[item]['Confirmed'] - (sData[item]['Deaths'] + sData[item]['Recovered']))}
             </TD>
-            <TD style={td}>{JSON.stringify(sData[item]['Confirmed'])}</TD>
-            <TD style={td}>{JSON.stringify(sData[item]['Deaths'])}</TD>
+            <TD style={td}>{insertCommas(sData[item]['Confirmed'])}</TD>
+            <TD style={td}>{insertCommas(sData[item]['Deaths'])}</TD>
             <TD
               {theme}
               style={[td, fatalityRate(sData[item]) > total_fatality_rate && lRed, fatalityRate(sData[item]) < total_fatality_rate && lGreen]}>
@@ -308,15 +297,25 @@
               style={[td, recoveryRate(sData[item]) < total_recovery_rate && lYellow, recoveryRate(sData[item]) > total_recovery_rate && lGreen]}>
               {recoveryRate(sData[item]).toFixed(2)}%
             </TD>
-            <TD {theme} style={td}>
-              {JSON.stringify(sData[item]['Recovered'])}
-            </TD>
+            <TD {theme} style={td}>{insertCommas(sData[item]['Recovered'])}</TD>
           </TR>
         {/each}
       {/if}
     </TBody>
   </Table>
 </Box>
+<Table style={legendBody}>
+  <THead as="thead">
+    <TR>
+      <THead {theme} style={[td, legendTh, lRed]}>
+        Higher than Average Fatalities
+      </THead>
+      <THead {theme} style={[td, legendTh, lGreen]}>
+        Lower than Average Fatalities
+      </THead>
+    </TR>
+  </THead>
+</Table>
 {#if !loading}
   <Text style={{ txtAlign: 'center' }}>Last Updated: {updated}</Text>
 {/if}

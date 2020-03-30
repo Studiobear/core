@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte'
   import {
     Heading,
     Text,
@@ -11,7 +12,13 @@
   } from '@studiobear/designspek-components'
   import sortObjectsArray from 'sort-objects-array'
 
-  import { fatalityRate, recoveryRate } from '../../libs'
+  import {
+    fatalityRate,
+    recoveryRate,
+    calcC19CACountyStats,
+    insertCommas,
+    internalizeCountryName,
+  } from '../../libs'
   import Loading from '../Loading.svelte'
   import {
     H2,
@@ -23,11 +30,6 @@
   } from './styles'
 
   export let theme = $$props.theme || {}
-  export let error = false
-  export let loading = true
-  export let loading2 = true
-  export let statsGlobal
-  // $: console.log(statsGlobal, error, loading)
 
   const legendBody = { w: ['100%', '100%', 'auto', 'auto', 'auto'] }
   $: legendTh = {
@@ -110,17 +112,29 @@
     animation: 'spin 6s infinite',
   }
 
-  $: data = statsGlobal
   $: sorted = ''
   $: colSorted = 'active'
 
+  const CACountyURL = process.env.CA_COUNTY_URL
+  export let regionData
+  export let regionName
+  export let countyName
+
+  let countyShort = countyName.replace(' County', '')
+  let regionUpper = regionName.toUpperCase()
+
+  export let loading = true
   let total_confirmed
   let total_active
   let total_recovered
   let total_deaths
   let total_fatality_rate
   let total_recovery_rate
-  let last_updated
+  let cntyUpdated
+  let countyLoading = true
+
+  $: console.log('TableRegional:', regionData, loading)
+  $: subRegionData = []
   $: sData = []
 
   const sortData = sortBy => {
@@ -128,44 +142,53 @@
     sorted = sorted === 'desc' ? '' : 'desc'
     switch (sortBy) {
       case 'country':
-        colSorted = 'country'
-        return (sData = sortObjectsArray(data.data, 'Name', opts))
+        colSorted = 'region'
+        return (sData = sortObjectsArray(subRegionData, 'Name', opts))
         break
       case 'confirmed':
         colSorted = 'confirmed'
-        return (sData = sortObjectsArray(data.data, 'Confirmed', opts))
+        return (sData = sortObjectsArray(subRegionData, 'Confirmed', opts))
         break
       case 'recovered':
         colSorted = 'recovered'
-        return (sData = sortObjectsArray(data.data, 'Recovered', opts))
+        return (sData = sortObjectsArray(subRegionData, 'Recovered', opts))
         break
       case 'deaths':
         colSorted = 'deaths'
-        return (sData = sortObjectsArray(data.data, 'Deaths', opts))
+        return (sData = sortObjectsArray(subRegionData, 'Deaths', opts))
         break
       default:
         colSorted = 'active'
-        return (sData = sortObjectsArray(data.data, 'Active', opts))
+        return (sData = sortObjectsArray(subRegionData, 'Active', opts))
     }
   }
-  $: {
-    if (!error & !loading) {
-      total_confirmed = data.totalConfirmed
-      total_active = data.totalActive
-      total_recovered = data.totalRecovered
-      total_deaths = data.totalDeaths
-      total_fatality_rate = data.totalFatalityRate
-      total_recovery_rate = data.totalRecoveryRate
-      last_updated = data.lastUpdated
 
-      sortData('active')
-      loading2 = false
-    }
-  }
+  onMount(async function getData() {
+    const resp = await fetch(CACountyURL)
+    subRegionData = await resp.json()
+    console.log('subRegion data:', subRegionData)
+    total_confirmed = subRegionData[regionUpper].cases.total
+    total_active =
+      subRegionData[regionUpper].cases.total -
+      subRegionData[regionUpper].deaths.total
+    total_recovered = 0
+    total_deaths = subRegionData[regionUpper].deaths.total
+    total_fatality_rate =
+      (subRegionData[regionUpper].deaths.total /
+        subRegionData[regionUpper].cases.total) *
+      100
+    total_recovery_rate = 0.0
+    cntyUpdated = subRegionData.updated
+    delete subRegionData.updated
+    subRegionData = await internalizeCountryName(subRegionData)
+    await sortData('region')
+    countyLoading = false
+  })
 </script>
 
-<Heading as="h2" style={H2}>Cases By Country:</Heading>
-
+<Heading as="h2" style={H2}>
+  {regionName ? `${regionName} Cases` : 'Loading cases...'}
+</Heading>
 <Box style={tableContainer}>
   <Table fixed style={tableGlobal}>
     <THead as="colGroup">
@@ -179,15 +202,15 @@
     </THead>
     <THead as="thead" style={tableHeader}>
       <TR>
-        <THead style={thCountry} on:click={() => sortData('country')}>
-          Country Name
+        <THead style={thCountry} on:click={() => sortData('region')}>
+          County Name
           <span>
-            {#if colSorted === 'country'}
+            {#if colSorted === 'region'}
               {@html sorted !== 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
-        <THead style={th} on:click={() => sortData('active')}>
+        <THead style={th} on:click={() => sortData('confirmed')}>
           Active
           <span>
             {#if colSorted === 'active'}
@@ -202,6 +225,12 @@
               {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
             {:else}&nbsp;&nbsp;{/if}
           </span>
+        </THead>
+        <THead style={th} on:click={() => sortData('deaths')}>
+          Deaths
+          {#if colSorted === 'deaths'}
+            {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+          {:else}&nbsp;&nbsp;{/if}
         </THead>
         <THead style={th} on:click={() => sortData('fatality')}>
           Fatality Rate
@@ -227,22 +256,19 @@
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
-        <THead style={th} on:click={() => sortData('deaths')}>
-          Deaths
-          {#if colSorted === 'deaths'}
-            {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
-          {:else}&nbsp;&nbsp;{/if}
-        </THead>
       </TR>
-      {#if !error && !loading2}
+      {#if !countyLoading}
         <TR style={thGlobal}>
-          <TD {theme} style={[tdCountry, thGlobal]}>Global</TD>
+          <TD {theme} style={[tdCountry, thGlobal]}>{regionName}</TD>
           <TD
             {theme}
             style={[td, thGlobal, total_recovered > total_active && lPurple]}>
-            {total_active}
+            {insertCommas(total_active)}
           </TD>
-          <TD {theme} style={[td, thGlobal]}>{total_confirmed}</TD>
+          <TD {theme} style={[td, thGlobal]}>
+            {insertCommas(+total_confirmed)}
+          </TD>
+          <TD {theme} style={[td, thGlobal]}>{total_deaths}</TD>
           <TD {theme} style={[td, thGlobal]}>
             {total_fatality_rate.toFixed(2)}%
           </TD>
@@ -252,14 +278,13 @@
           <TD
             {theme}
             style={[td, thGlobal, total_recovered > total_active && lPurple]}>
-            {total_recovered}
+            {insertCommas(total_recovered)}
           </TD>
-          <TD {theme} style={[td, thGlobal]}>{total_deaths}</TD>
         </TR>
       {/if}
     </THead>
     <TBody style={tableBody}>
-      {#if !error && loading2}
+      {#if countyLoading}
         <TR>
           <TD {theme} style={[tableLoading, td]}>&nbsp;</TD>
           <TD {theme} style={td}>&nbsp;</TD>
@@ -270,37 +295,27 @@
           <TD {theme} style={td}>&nbsp;</TD>
         </TR>
       {/if}
-      {#if error && !loading2}
-        <TR>
-          <TD colspan="7" {theme} style={[td, tableError]}>
-            We're sorry, the data wasn't able to be loaded at this time.
-          </TD>
-        </TR>
-      {/if}
-      {#if !error && !loading}
+      {#if !countyLoading}
         {#each Object.keys(sData) as item}
-          <TR
-            {theme}
-            style={sData[item]['Recovered'] > sData[item]['Active'] && lBlue}>
-            <TD {theme} style={tdCountry}>
-              {String(JSON.stringify(sData[item]['Name'])).replace(/"/g, '')}
-            </TD>
-            <TD style={td}>{JSON.stringify(sData[item]['Active'])}</TD>
-            <TD style={td}>{JSON.stringify(sData[item]['Confirmed'])}</TD>
-            <TD
-              {theme}
-              style={[td, fatalityRate(sData[item]) > total_fatality_rate && lRed, fatalityRate(sData[item]) < total_fatality_rate && lGreen]}>
-              {fatalityRate(sData[item]).toFixed(2)}%
-            </TD>
-            <TD
-              style={[td, recoveryRate(sData[item]) < total_recovery_rate && lYellow, recoveryRate(sData[item]) > total_recovery_rate && lGreen]}>
-              {recoveryRate(sData[item]).toFixed(2)}%
-            </TD>
-            <TD {theme} style={td}>
-              {JSON.stringify(sData[item]['Recovered'])}
-            </TD>
-            <TD style={td}>{JSON.stringify(sData[item]['Deaths'])}</TD>
-          </TR>
+          {#if sData[item].Name !== 'CALIFORNIA' && sData[item].Name !== 'NA/CDC' && sData[item].Name !== 'BAY AREA'}
+            <TR>
+              <TD {theme} style={tdCountry}>
+                {String(JSON.stringify(sData[item].Name)).replace(/"/g, '')}
+              </TD>
+              <TD style={td}>
+                {insertCommas(+sData[item].cases.total - +sData[item].deaths.total)}
+              </TD>
+              <TD style={td}>{insertCommas(+sData[item].cases.total)}</TD>
+              <TD style={td}>{insertCommas(+sData[item].deaths.total)}</TD>
+              <TD
+                {theme}
+                style={[td, (+sData[item].deaths.total / +sData[item].cases.total) * 100 > total_fatality_rate && lRed, (+sData[item].deaths.total / +sData[item].cases.total) * 100 < total_fatality_rate && lGreen]}>
+                {((+sData[item].deaths.total / +sData[item].cases.total) * 100).toFixed(2)}%
+              </TD>
+              <TD style={td}>0.0%</TD>
+              <TD {theme} style={td}>0</TD>
+            </TR>
+          {/if}
         {/each}
       {/if}
     </TBody>
@@ -309,19 +324,15 @@
 <Table style={legendBody}>
   <THead as="thead">
     <TR>
-      <THead {theme} style={[td, legendTh, lBlue]}>
-        More Recovered than active
+      <THead {theme} style={[td, legendTh, lRed]}>
+        Higher than Average Fatalities
       </THead>
-      <THead {theme} style={[td, legendTh, lYellow]}>
-        Lower Avg Recoveries
-      </THead>
-      <THead {theme} style={[td, legendTh, lRed]}>Higher Avg Fatalities</THead>
       <THead {theme} style={[td, legendTh, lGreen]}>
-        Higher Avg Recoveries OR Lower Avg Fatalities
+        Lower than Average Fatalities
       </THead>
     </TR>
   </THead>
 </Table>
-{#if !error && !loading}
-  <Text style={{ txtAlign: 'center' }}>Last Updated: {last_updated}</Text>
+{#if !countyLoading}
+  <Text style={{ txtAlign: 'center' }}>Last Updated: {cntyUpdated}</Text>
 {/if}
