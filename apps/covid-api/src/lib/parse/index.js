@@ -13,6 +13,15 @@ export const insertCommas = num => {
   return num
 }
 
+export const internalizeName = data => {
+  let newData = []
+  for (const prop in data) {
+    let newObj = { Name: prop, ...data[prop] }
+    newData.push(newObj)
+  }
+  return newData
+}
+
 // numberfy: force type to number (use carefully)
 export const objDateToArray = async (obj, numberfy = false) => {
   let dateArray = []
