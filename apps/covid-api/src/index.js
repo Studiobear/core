@@ -14,8 +14,7 @@ const generateUS_CA_County = async () => {
   let data = await getUS_CA_County()
   let parsed = await parseUS_CA_County(data)
   let write = await writeUS_CA_County(parsed, dataPath).then(res => {
-    // return ftpFile()
-    return
+    return ftpFile()
   })
 }
 
@@ -41,7 +40,7 @@ const job2 = new CronJob('0 */15 * * * *', function() {
   console.log('US_CA_County_NoTime data generated at ' + d.toString())
 })
 
-// job.start()
-// job2.start()
-generateUS_CA_County()
-generateUS_CA_County_NoTime()
+job.start()
+job2.start()
+// generateUS_CA_County()
+// generateUS_CA_County_NoTime()
