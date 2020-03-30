@@ -122,12 +122,14 @@
 
   $: console.log('TableRegional:', countryData, regionData, loading)
   $: sData = []
+  $: sortedSymb = '&nbsp;▼'
 
   const sortData = sortBy => {
     let opts = sorted === 'desc' ? '' : 'desc'
     sorted = sorted === 'desc' ? '' : 'desc'
+    sortedSymb = sorted === 'desc' ? '&nbsp;▼' : '&nbsp;▲'
     switch (sortBy) {
-      case 'country':
+      case 'region':
         colSorted = 'region'
         return (sData = sortObjectsArray(regionData, 'Name', opts))
         break
@@ -183,15 +185,15 @@
           Region Name
           <span>
             {#if colSorted === 'region'}
-              {@html sorted !== 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+              {@html sorted !== 'desc' ? '&nbsp;▼' : '&nbsp;▲'}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
-        <THead style={th} on:click={() => sortData('confirmed')}>
+        <THead style={th} on:click={() => sortData('active')}>
           Active
           <span>
             {#if colSorted === 'active'}
-              {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+              {@html sortedSymb}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
@@ -199,21 +201,21 @@
           Confirmed
           <span>
             {#if colSorted === 'confirmed'}
-              {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+              {@html sortedSymb}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
         <THead style={th} on:click={() => sortData('deaths')}>
           Deaths
           {#if colSorted === 'deaths'}
-            {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+            {@html sortedSymb}
           {:else}&nbsp;&nbsp;{/if}
         </THead>
         <THead style={th} on:click={() => sortData('fatality')}>
           Fatality Rate
           <span>
             {#if colSorted === 'fatality'}
-              {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+              {@html sortedSymb}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
@@ -222,7 +224,7 @@
           Recovery Rate
           <span>
             {#if colSorted === 'recovery'}
-              {@html sorted === 'desc' ? '&nbsp;&dtrif;' : '&nbsp;&utrif;'}
+              {@html sortedSymb}
             {:else}&nbsp;&nbsp;{/if}
           </span>
         </THead>
