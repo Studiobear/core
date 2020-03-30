@@ -1,6 +1,3 @@
-export const fatalityRate = d => (d.Deaths / d.Confirmed) * 100
-export const recoveryRate = d => (d.Recovered / d.Confirmed) * 100
-
 export const calcC19Stats = d => {
   let combined = {}
   let total_deaths = 0
@@ -64,61 +61,4 @@ export const calcC19Stats = d => {
     lastUpdated: `${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`,
     data: combined,
   }
-}
-
-export const insertCommas = num => {
-  if (typeof num === 'number' && num > 999) {
-    let num_parts = num.toString().split('.')
-    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    return num_parts.join('.')
-  }
-  return num
-}
-
-const objDateToArray = async obj => {
-  let dateArray = []
-  const dateRegex = /(\d)+(\/){1}(\d)+(\/){1}(\d)+/
-  for (let [key, value] of Object.entries(obj)) {
-    if (dateRegex.test(key)) dateArray.push({ [key]: value })
-  }
-  return dateArray
-}
-
-const parseC19CACountyStats = async (d, region) => {
-  let combined = {}
-  return Promise.all(
-    d.map(async item => {
-      let itemData = {}
-      let itemCategory = {}
-      let dateItems = await objDateToArray(item)
-      let category = {
-        total: item.TOTALS,
-        time: dateItems,
-      }
-      itemCategory = { [item.CATEGORY]: category }
-      if (item.c2p_pubdate)
-        combined = { updated: item.c2p_pubdate, ...combined }
-      if (combined.hasOwnProperty(item.GEOGRAPHY)) {
-        itemData = {
-          [item.GEOGRAPHY]: { ...combined[item.GEOGRAPHY], ...itemCategory },
-        }
-      } else {
-        itemData = { [item.GEOGRAPHY]: itemCategory }
-      }
-      // console.log('calcCountyItem: ', itemData)
-      combined = { ...combined, ...itemData }
-    }),
-  ).then(res => {
-    // console.log('parseC19', res, combined)
-    return combined
-  })
-}
-export const calcC19CACountyStats = async (d, region) => {
-  const parseData = await parseC19CACountyStats(d, region)
-    .then(res => res)
-    .catch(err => {
-      console.log('calcStats err: ', err)
-      return 'ERROR!'
-    })
-  return parseData
 }
