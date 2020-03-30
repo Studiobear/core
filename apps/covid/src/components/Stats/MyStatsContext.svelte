@@ -9,7 +9,7 @@
   import { GetContextFab, RevGeocode } from '../util'
   import Modal from '../Modal.svelte'
   import Loading from '../Loading.svelte'
-  import TableRegional from './TableRegional.svelte'
+  import TablesLocal from './TablesLocal.svelte'
   import { insertCommas, getAddress, setStorageItem } from '../../libs'
   import { storeUserPrefs, lfUserPrefs } from '../../stores/userPrefs'
   export let theme = $$props.theme || {}
@@ -260,7 +260,7 @@
     <Heading as="h6" style={nmTitle}>Try again, maybe?</Heading>
   </Box>
 {:else if locationData.status === 'received'}
-  <TableRegional
+  <TablesLocal
     local={locationData.data}
     {statsGlobal}
     {theme}

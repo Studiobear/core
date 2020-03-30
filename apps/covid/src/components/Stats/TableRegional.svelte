@@ -11,11 +11,7 @@
   } from '@studiobear/designspek-components'
   import sortObjectsArray from 'sort-objects-array'
 
-  import {
-    fatalityRate,
-    recoveryRate,
-    internalizeCountryName,
-  } from '../../libs'
+  import { fatalityRate, recoveryRate } from '../../libs'
   import Loading from '../Loading.svelte'
   import {
     H2,
@@ -27,80 +23,6 @@
   } from './styles'
 
   export let theme = $$props.theme || {}
-  export let error = false
-  export let loading = true
-  export let loading2 = true
-  export let local
-  export let statsGlobal
-  let dataCountry
-  let dataRegion
-  $: console.log('TableRegional:', statsGlobal, local, error, loading)
-
-  $: data = statsGlobal
-  $: longLength = local.addressNames.long.length
-  $: shortLength = local.addressNames.short.length
-  $: countryLong =
-    longLength === 2
-      ? local.addressNames.long[1]
-      : local.addressNames.long[2] || 'United States'
-  $: country =
-    shortLength === 2
-      ? local.addressNames.short[1]
-      : local.addressNames.short[2] || 'US'
-  $: region =
-    longLength === 2
-      ? local.addressNames.long[0]
-      : local.addressNames.long[1] || 'California'
-  $: regionShort =
-    shortLength === 2
-      ? local.addressNames.short[0]
-      : local.addressNames.short[1] || 'CA'
-  $: county = local.addressNames.short[0] || 'No County'
-
-  $: countryDataLoaded = false
-  let getCountryData = data => {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].Name == country || data[i].Name == countryLong) {
-        dataCountry = data[i]
-        countryDataLoaded = true
-        break
-      }
-    }
-  }
-  $: {
-    console.log('TR status', error, loading, data)
-    if (!error && !loading && data) {
-      getCountryData(data.data)
-    }
-  }
-
-  $: console.log(
-    'TableRegional Names:',
-    country,
-    countryLong,
-    region,
-    regionShort,
-    county,
-  )
-
-  $: countryData = dataCountry || false
-  $: rawRegionData = countryData ? countryData.SubRegion || false : false
-
-  $: regionData = []
-
-  $: regionDataLoaded = false
-  let getRegionData = data => {
-    regionData = internalizeCountryName(data)
-    console.log('regionData:', regionData)
-    regionDataLoaded = true
-    return
-  }
-
-  $: {
-    if (countryDataLoaded && regionData) {
-      getRegionData(rawRegionData)
-    }
-  }
 
   const legendBody = { w: ['100%', '100%', 'auto', 'auto', 'auto'] }
   $: legendTh = {
@@ -186,13 +108,19 @@
   $: sorted = ''
   $: colSorted = 'active'
 
+  export let countryData
+  export let regionData
+  export let countryName
+  export let loading = true
+  export let updated = ''
   let total_confirmed
   let total_active
   let total_recovered
   let total_deaths
   let total_fatality_rate
   let total_recovery_rate
-  let last_updated
+
+  $: console.log('TableRegional:', countryData, regionData, loading)
   $: sData = []
 
   const sortData = sortBy => {
@@ -220,24 +148,23 @@
         return (sData = sortObjectsArray(regionData, 'Active', opts))
     }
   }
+
   $: {
-    if (countryDataLoaded && regionDataLoaded) {
+    if (!loading) {
       total_confirmed = countryData.Confirmed
       total_active = countryData.Active
       total_recovered = countryData.Recovered
       total_deaths = countryData.Deaths
       total_fatality_rate = fatalityRate(countryData)
       total_recovery_rate = recoveryRate(countryData)
-      let updated = new Date(countryData.Updated)
-      last_updated = `${updated.toLocaleDateString()} ${updated.toLocaleTimeString()}`
-
       sortData('confirmed')
-      loading2 = false
     }
   }
 </script>
 
-<Heading as="h2" style={H2}>{countryLong} Cases</Heading>
+<Heading as="h2" style={H2}>
+  {countryName ? `${countryName} Cases` : 'Loading cases...'}
+</Heading>
 <Heading as="h4" style={H4}>Legend</Heading>
 <Table style={legendBody}>
   <THead as="thead">
@@ -323,9 +250,9 @@
           </span>
         </THead>
       </TR>
-      {#if !error && !loading2}
+      {#if !loading}
         <TR style={thGlobal}>
-          <TD {theme} style={[tdCountry, thGlobal]}>{country}</TD>
+          <TD {theme} style={[tdCountry, thGlobal]}>{countryName}</TD>
           <TD
             {theme}
             style={[td, thGlobal, total_recovered > total_active && lPurple]}>
@@ -348,7 +275,7 @@
       {/if}
     </THead>
     <TBody style={tableBody}>
-      {#if !error && loading2}
+      {#if loading}
         <TR>
           <TD {theme} style={[tableLoading, td]}>&nbsp;</TD>
           <TD {theme} style={td}>&nbsp;</TD>
@@ -359,14 +286,7 @@
           <TD {theme} style={td}>&nbsp;</TD>
         </TR>
       {/if}
-      {#if error && !loading2}
-        <TR>
-          <TD colspan="7" {theme} style={[td, tableError]}>
-            We're sorry, the data wasn't able to be loaded at this time.
-          </TD>
-        </TR>
-      {/if}
-      {#if !error && !loading}
+      {#if !loading}
         {#each Object.keys(sData) as item}
           <TR
             {theme}
@@ -397,6 +317,6 @@
     </TBody>
   </Table>
 </Box>
-{#if !error && !loading}
-  <Text style={{ txtAlign: 'center' }}>Last Updated: {last_updated}</Text>
+{#if !loading}
+  <Text style={{ txtAlign: 'center' }}>Last Updated: {updated}</Text>
 {/if}
