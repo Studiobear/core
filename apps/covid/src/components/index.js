@@ -8,8 +8,10 @@ import Card from './Card.svelte'
 import CardHead from './CardHead.svelte'
 import CardBody from './CardBody.svelte'
 import Overlay from './Overlay.svelte'
+import Loading from './Loading.svelte'
 
 export * from './MyContext'
+export * from './Stats'
 export {
   Nav,
   SSR,
@@ -21,4 +23,5 @@ export {
   CardHead,
   CardBody,
   Overlay,
+  Loading,
 }

@@ -2411,17 +2411,17 @@
   dependencies:
     type-detect "4.0.8"
 
-"@studiobear/designspek-components@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.3.tgz#b72e13007e1acf42bc78020e8ab796ba6edb228c"
-  integrity sha512-d5qf5j19RZZExtPmKSqwsLdr26aJGPXWjMrSdFXnEfBsvMiDZrkQQ/0QJP2GdSn/ss1Xt3n78xv7+KGgc5pgdg==
+"@studiobear/designspek-components@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.8.tgz#c55fb672c44d33f1fde54863840bc4b8b988dfbe"
+  integrity sha512-hH60CoBy3NWoU1OqkKrZxqmXvOUMxpkLtx0WFaA6kUqB65hoIC0/E+XnNBAy6pXggW99c9tGgYWYBVvuwGlJOQ==
   dependencies:
-    "@studiobear/designspek" "^0.3.1"
+    "@studiobear/designspek" "^0.3.8"
 
-"@studiobear/designspek@^0.3.1", "@studiobear/designspek@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.3.tgz#29bc624926b88c3c0c8ae4de2f72361a90d6ce0d"
-  integrity sha512-POwMKc1eJPSwP8CAcBFOVsEEh2EC0KD8mIG5axF0deEB0Uf0lbBoWwinVx8EwC2LZ4dqOUCPThRXn+BBTEIpDA==
+"@studiobear/designspek@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.8.tgz#daadefbd18bb800956e277816cea3c8e7ecc9e40"
+  integrity sha512-Xt5khnEDM5L/YvCregxC5OyDzSt2TOCkzvnnbdEbjKYrkDzDR6yGBJpD3k3awLbi8gE+LgdyJnx85h5LfQrNZA==
   dependencies:
     svelte "^3.20.1"
 
