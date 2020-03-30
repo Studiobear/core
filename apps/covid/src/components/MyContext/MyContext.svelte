@@ -34,7 +34,7 @@
     $storeUserPrefs.location &&
     $storeUserPrefs.location.hasOwnProperty('message') &&
     $storeUserPrefs.location.hasOwnProperty('data')
-
+  // Abusing Svelte reactivity? Change state by watching UserPrefs store state.
   $: {
     if (updateLocationData) {
       getLocation = false

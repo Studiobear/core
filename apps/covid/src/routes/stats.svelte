@@ -6,7 +6,7 @@
   import { theme } from '../theme'
 
   import { C19Stats } from '../libs'
-  import { Loading, TableGlobal } from '../components'
+  import { Loading, TableGlobal, MyStatsContext } from '../components'
 
   $: data = []
   let statsGlobal
@@ -58,4 +58,7 @@
 </Flex>
 <Flex style={flexStyle}>
   <TableGlobal {statsGlobal} theme={$theme} {error} {loading} />
+</Flex>
+<Flex style={flexStyle}>
+  <MyStatsContext {statsGlobal} theme={$theme} {error} {loading} />
 </Flex>

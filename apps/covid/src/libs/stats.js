@@ -2,7 +2,7 @@ export const fatalityRate = d => (d.Deaths / d.Confirmed) * 100
 
 export const recoveryRate = d => (d.Recovered / d.Confirmed) * 100
 
-const internalizeCountryName = data => {
+export const internalizeCountryName = data => {
   let newData = []
   for (const prop in data) {
     let newObj = { Name: prop, ...data[prop] }
