@@ -5,6 +5,7 @@ import {
   parseUS_CA_County,
   parseUS_CA_County_NoTime,
   writeUS_CA_County,
+  parseUS_CA_County_Indv,
   ftpFile,
 } from './lib'
 import { resolve } from 'path'
@@ -22,9 +23,9 @@ const dataPathNoTime = './public/covid19_US_CA_County_NoTime.json'
 const generateUS_CA_County_NoTime = async () => {
   let data = await getUS_CA_County()
   let parsed = await parseUS_CA_County_NoTime(data)
+  parseUS_CA_County_Indv(data)
   let write = await writeUS_CA_County(parsed, dataPathNoTime).then(res => {
-    // return ftpFile()
-    return
+    return ftpFile()
   })
 }
 
@@ -44,3 +45,4 @@ job.start()
 job2.start()
 // generateUS_CA_County()
 // generateUS_CA_County_NoTime()
+// generateUS_CA_County_Indv()

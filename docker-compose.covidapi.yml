@@ -9,29 +9,12 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - static:/app/apps/covid-api/public
+      - ./apps/covid-api/public:/app/apps/covid-api/public
     working_dir: /app
     restart: always
     command: yarn workspace covid-api start
-    network_mode: webproxy
-  serve:
-    image: covid-api_generate:${COMMIT}
-    env_file:
-      - .env
-    container_name: covidapi-serve
-    tty: true
-    stdin_open: true
-    volumes:
-      - static:/app/apps/covid-api/public
-    working_dir: /app
-    restart: always
-    command: yarn workspace covid-api static
-    expose:
-      - 3100
     network_mode: webproxy
 networks:
   default:
     external:
       name: webproxy
-volumes:
-   static:
