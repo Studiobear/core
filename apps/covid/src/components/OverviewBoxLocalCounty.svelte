@@ -10,6 +10,8 @@
 
   let cntyShort = county.replace(' County', '')
   let regUpper = region.toUpperCase()
+  let regLower = region.toLowerCase()
+  const cntyUrl = cntyShort.replace(/[\. ,\/\\]+/g, '-').toLowerCase()
 
   $: cntyActive = 0
   $: cntyRecovered = 0
@@ -22,6 +24,11 @@
   //  'https://files.sfchronicle.com/project-feeds/covid19_us_cases_ca_by_county_.json'
 
   const CACountyURL = process.env.CA_COUNTY_URL
+  const CA_COUNTY_URL_V2 = process.env.CA_COUNTY_URL_V2
+  const API_URL = process.env.API_URL
+  const API_CA_COUNTY_FILE = process.env.API_CA_COUNTY_FILE
+
+  const API_CA_COUNTY_URL = `${API_URL}${API_CA_COUNTY_FILE}`
 
   $: overviewBox = {
     w: '100%',
@@ -110,33 +117,17 @@
   }
 
   onMount(async function getData() {
-    const resp = await fetch(CACountyURL)
-    let temp = await resp.json()
+    const respCnty = await fetch(`${API_CA_COUNTY_URL}${cntyUrl}.json`)
+    let tempCnty = await respCnty.json()
+    // console.log('V2 CA CNTY: ', tempCnty)
 
     if (region === 'California') {
       available = true
-      regStats = temp
     }
 
-    cntyConfirmed = regStats[county].cases.total || 0
-    cntyDeaths = regStats[county].deaths.total || 0
+    cntyConfirmed = tempCnty.cases.total || 0
+    cntyDeaths = tempCnty.deaths.total || 0
     cntyFatalityRate = (cntyDeaths / cntyConfirmed) * 100 || 0
-    /*
-    // let temp = {}
-    let records = temp['features']
-    if (records) statsGlobal = calcC19Stats(records)
-
-    overview = {
-      confirmed: statsGlobal.totalConfirmed,
-      active: statsGlobal.totalActive,
-      recovered: statsGlobal.totalRecovered,
-      deaths: statsGlobal.totalDeaths,
-      fatalityRate: statsGlobal.totalFatalityRate,
-      recoveryRate: statsGlobal.totalRecoveryRate,
-      updated: statsGlobal.lastUpdated,
-    }
-    data = statsGlobal.data
-    */
   })
 </script>
 

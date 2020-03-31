@@ -41,8 +41,8 @@ const job2 = new CronJob('0 */15 * * * *', function() {
   console.log('US_CA_County_NoTime data generated at ' + d.toString())
 })
 
-job.start()
-job2.start()
-// generateUS_CA_County()
-// generateUS_CA_County_NoTime()
+// job.start()
+// job2.start()
+generateUS_CA_County()
+generateUS_CA_County_NoTime()
 // generateUS_CA_County_Indv()
