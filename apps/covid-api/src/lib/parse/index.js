@@ -16,7 +16,7 @@ export const insertCommas = num => {
 export const internalizeName = data => {
   let newData = []
   for (const prop in data) {
-    let newObj = { Name: prop, ...data[prop] }
+    let newObj = { name: prop, ...data[prop] }
     newData.push(newObj)
   }
   return newData
