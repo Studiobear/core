@@ -32,8 +32,27 @@ export const parseUS_CA_County_NoTime = async data =>
     })
 
 export const parseUS_CA_County_Indv = async data =>
-  calcC19CACountyStats(data, 'CALIFORNIA', { numberfy: true, time: false })
-    .then(async resp => resp)
+  calcC19CACountyStatsV2(data, 'CALIFORNIA', { numberfy: true, time: true })
+    .then(async resp => {
+      const tmpData = resp.data
+      if (tmpData.length > 0) {
+        tmpData.map(c => {
+          const cntyName = c.name
+          const cntyNameShort = cntyName.replace(' County', '')
+          const cntyUrl = cntyNameShort
+            .replace(/[\. ,\/\\]+/g, '-')
+            .toLowerCase()
+          const countyData = {
+            name: cntyNameShort,
+            cases: c.cases,
+            deaths: c.deaths,
+            updated: resp.updated,
+          }
+          const filePath = `./public/covid19_US_CA_County_${cntyUrl}.json`
+          writeUS_CA_County(countyData, filePath)
+        })
+      }
+    })
     .catch(err => {
       throw new Error(`getUS_CA_County: ${err}`)
     })

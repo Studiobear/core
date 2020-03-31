@@ -15,8 +15,8 @@ const parseC19CACountyStats = async (d, region, opts) => {
 
       if (opts.time) {
         dateItems = await objDateToArray(item, opts.numberfy)
-        ;(category.total = opts.numberfy ? +item.TOTALS : item.TOTALS),
-          (category.time = dateItems)
+        category.total = opts.numberfy ? +item.TOTALS : item.TOTALS
+        category.time = dateItems
       } else {
         category = opts.numberfy ? +item.TOTALS : item.TOTALS
       }
