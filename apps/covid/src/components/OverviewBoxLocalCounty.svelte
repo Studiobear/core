@@ -117,38 +117,17 @@
   }
 
   onMount(async function getData() {
-    const resp = await fetch(CACountyURL)
-    const respCA = await fetch(`${API_CA_COUNTY_URL}${regLower}.json`)
     const respCnty = await fetch(`${API_CA_COUNTY_URL}${cntyUrl}.json`)
-    let temp = await resp.json()
-    let tempCA = await respCA.json()
     let tempCnty = await respCnty.json()
-    console.log('V2 CA CNTY: ', tempCA, tempCnty)
+    // console.log('V2 CA CNTY: ', tempCnty)
 
     if (region === 'California') {
       available = true
-      regStats = temp
     }
 
-    cntyConfirmed = regStats[county].cases.total || 0
-    cntyDeaths = regStats[county].deaths.total || 0
+    cntyConfirmed = tempCnty.cases.total || 0
+    cntyDeaths = tempCnty.deaths.total || 0
     cntyFatalityRate = (cntyDeaths / cntyConfirmed) * 100 || 0
-    /*
-    // let temp = {}
-    let records = temp['features']
-    if (records) statsGlobal = calcC19Stats(records)
-
-    overview = {
-      confirmed: statsGlobal.totalConfirmed,
-      active: statsGlobal.totalActive,
-      recovered: statsGlobal.totalRecovered,
-      deaths: statsGlobal.totalDeaths,
-      fatalityRate: statsGlobal.totalFatalityRate,
-      recoveryRate: statsGlobal.totalRecoveryRate,
-      updated: statsGlobal.lastUpdated,
-    }
-    data = statsGlobal.data
-    */
   })
 </script>
 

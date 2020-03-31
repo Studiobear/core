@@ -1,7 +1,8 @@
 <script>
+  import { onMount } from 'svelte'
   import { Flex, Box, Heading, Text } from '@studiobear/designspek-components'
   import OverviewBoxLocalCounty from './OverviewBoxLocalCounty.svelte'
-  import { insertCommas } from '../libs'
+  import { insertCommas, capitalize } from '../libs'
   export let theme = $$props.theme || {}
   export let data
   export let local
@@ -36,6 +37,8 @@
       ? local.addressNames.short[0]
       : local.addressNames.short[1] || 'CA'
   $: county = local.addressNames.short[0] || 'No County'
+  $: regUpper = region.toUpperCase()
+  $: regLower = region.toLowerCase()
 
   $: {
     for (let i = 0; i < data.length; i++) {
@@ -162,6 +165,25 @@
     color: theme.colors.text,
     fontSize: '1.5rem',
   }
+
+  const API_URL = process.env.API_URL
+  const API_CA_COUNTY_FILE = process.env.API_CA_COUNTY_FILE
+
+  const API_CA_COUNTY_URL = `${API_URL}${API_CA_COUNTY_FILE}`
+  onMount(async function getData() {
+    const respCA = await fetch(`${API_CA_COUNTY_URL}${regLower}.json`)
+    let tempCA = await respCA.json()
+    // console.log('V2 CA CNTY: ', tempCA, regionData)
+    let regName = capitalize(tempCA.name)
+    if (regName === region) {
+      regConfirmed = tempCA.cases.total || 0
+      regDeaths = tempCA.deaths.total || 0
+      regRecovered = 0
+      regActive = regConfirmed - (regDeaths + regRecovered) || 0
+      regFatalityRate = (regDeaths / regConfirmed) * 100 || 0
+      regRecoveryRate = (regRecovered / regConfirmed) * 100 || 0
+    }
+  })
 </script>
 
 <Flex style={overviewBox}>
