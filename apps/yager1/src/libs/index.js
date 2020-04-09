@@ -1,5 +1,3 @@
-export * from './stats'
-export * from './geocode'
 export * from './storage'
 
 export const capitalize = s =>

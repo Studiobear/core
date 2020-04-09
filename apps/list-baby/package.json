@@ -18,7 +18,7 @@
     "jest:watch": "yarn jest --watch src",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "run-p --race jest cy:run"
+    "test": "run-p --race jest"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
