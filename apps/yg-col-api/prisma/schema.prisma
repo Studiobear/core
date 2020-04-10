@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://irayeage_yagerdbcollections:WyMj9r1(?Txj!9jE@az1-ss29.a2hosting.com:5432/irayeage_collections?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
