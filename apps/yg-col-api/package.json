@@ -16,13 +16,14 @@
     "test": "echo 'SUCCESS'",
     "test:bkp": "yarn build && ava",
     "test:watch": "yarn type-watch & yarn watch & yarn test --watch -u",
-    "prisma:mig-save": "prisma migrate save --experimental",
-    "prisma:mig-up": "prisma migrate up --experimental",
-    "prisma:mig": "yarn prisma:mig-save && yarn prisma:mig-up"
+    "prisma:mig-save": "npx @prisma/cli@alpha migrate save --experimental --name",
+    "prisma:mig-up": "npx @prisma/cli@alpha migrate up --auto-approve --experimental",
+    "prisma:gen": "npx @prisma/cli@alpha generate"
   },
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^2.0.0-beta.2",
     "axios": "^0.19.2",
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
