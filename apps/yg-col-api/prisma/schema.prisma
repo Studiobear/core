@@ -1,0 +1,81 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://irayeage_yagerdbcollections:WyMj9r1(?Txj!9jE@az1-ss29.a2hosting.com:5432/irayeage_collections?schema=public"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          Int          @default(autoincrement()) @id
+  name        String?
+  email       String       @unique
+  profile     Profile?
+  collections Collection[]
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Profile {
+  id          Int     @default(autoincrement()) @id
+  phone       Phone[]
+  companyName String?
+  website     String?
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Phone {
+  id        Int        @default(autoincrement()) @id
+  type      MobileType @default(WORK)
+  profileId Int?
+}
+
+enum MobileType {
+  WORK
+  PERSONAL
+  MOBILE
+  COMPANY
+}
+
+model Work {
+  id           Int        @default(autoincrement()) @id
+  catalogId    Int
+  title        String
+  medium       String?
+  dimensions   String?
+  date         DateTime?
+  type         Type       @default(PAINTING)
+  category     Category[]
+  published    Boolean
+  createdAt    DateTime   @default(now())
+  collectionId Int?
+}
+
+enum Type {
+  PAINTING
+  SCULPTURE
+  MIXED
+}
+
+enum Category {
+  FLORAL
+  ABSTRACT
+  INDIAN
+  LANDSCAPE
+  PORTRAIT
+}
+
+model Collection {
+  id        Int      @default(autoincrement()) @id
+  name      String
+  works     Work[]
+  createdAt DateTime @default(now())
+  userId    Int?
+}
