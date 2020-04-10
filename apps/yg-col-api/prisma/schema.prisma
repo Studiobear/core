@@ -12,7 +12,7 @@ model User {
   name        String?
   email       String       @unique
   profile     Profile?
-  collections Collection[]
+  collections Collection[] @relation(references: [id])
   role        Role         @default(USER)
   createdAt   DateTime     @default(now())
 }
@@ -32,12 +32,13 @@ model Profile {
 }
 
 model Phone {
-  id        Int        @default(autoincrement()) @id
-  type      MobileType @default(WORK)
-  profileId Int?
+  id        Int       @default(autoincrement()) @id
+  type      PhoneType @default(WORK)
+  profileId Int
+  profile   Profile   @relation(fields: [profileId], references: [id])
 }
 
-enum MobileType {
+enum PhoneType {
   WORK
   PERSONAL
   MOBILE
@@ -55,7 +56,8 @@ model Work {
   category     Category[]
   published    Boolean
   createdAt    DateTime   @default(now())
-  collectionId Int?
+  collectionId Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
 }
 
 enum Type {
@@ -77,5 +79,15 @@ model Collection {
   name      String
   works     Work[]
   createdAt DateTime @default(now())
-  userId    Int?
+  users     User[]   @relation(references: [id])
+}
+
+model SpatialRefSy {
+  srid      Int     @id
+  authName  String? @map("auth_name")
+  authSrid  Int?    @map("auth_srid")
+  proj4text String?
+  srtext    String?
+
+  @@map("spatial_ref_sys")
 }
