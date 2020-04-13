@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true
+  },
+  "include": ["apps/yg-col-api"],
+  "exclude": ["node_modules"]
+}
