@@ -1,0 +1,113 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          Int          @default(autoincrement()) @id
+  name        String?
+  email       String       @unique
+  profile     Profile?
+  password    String?
+  collections Collection[] @relation(references: [id])
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Profile {
+  id          Int       @default(autoincrement()) @id
+  phone       Phone[]
+  companyName String?
+  website     String?
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  updatedAt   DateTime?
+}
+
+model Phone {
+  id        Int       @default(autoincrement()) @id
+  type      PhoneType @default(WORK)
+  number    String
+  profileId Int
+  profile   Profile   @relation(fields: [profileId], references: [id])
+}
+
+enum PhoneType {
+  WORK
+  PERSONAL
+  MOBILE
+  COMPANY
+}
+
+model Work {
+  id           Int        @default(autoincrement()) @id
+  catalogId    Int
+  title        String
+  medium       String?
+  dimensions   String?
+  date         DateTime?
+  type         Type       @default(PAINTING)
+  price        Float?
+  image        Image[]
+  category     Category
+  published    Boolean
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime?
+  collectionId Int
+  collection   Collection @relation(fields: [collectionId], references: [id])
+}
+
+enum Type {
+  PAINTING
+  SCULPTURE
+  MIXED
+}
+
+enum Category {
+  FLORAL
+  ABSTRACT
+  INDIAN
+  LANDSCAPE
+  PORTRAIT
+}
+
+model Image {
+  id        Int       @default(autoincrement()) @id
+  name      String
+  url       String
+  width     Int?
+  height    Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  workId    Int
+  work      Work      @relation(fields: [workId], references: [id])
+}
+
+model Collection {
+  id        Int       @default(autoincrement()) @id
+  name      String
+  works     Work[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  users     User[]    @relation(references: [id])
+}
+
+model SpatialRefSy {
+  srid      Int     @id
+  authName  String? @map("auth_name")
+  authSrid  Int?    @map("auth_srid")
+  proj4text String?
+  srtext    String?
+
+  @@map("spatial_ref_sys")
+}
