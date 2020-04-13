@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs'
 import { verify, sign } from 'jsonwebtoken'
-import { Context } from './types'
+import { Context } from '../context'
 
 export const APP_SECRET = process.env.APP_SECRET || ''
 

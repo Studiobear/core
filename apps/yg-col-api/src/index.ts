@@ -1,53 +1,29 @@
-require('dotenv').config()
-import { PrismaClient } from '@prisma/client'
+import 'dotenv/config'
+import express from 'express'
+import createApolloServer from './server'
+import { schema } from './schema'
+import { logger } from './util'
 
-const prisma = new PrismaClient()
+const GRAPHQL_ENDPOINT = '/graphql'
+const PORT = process.env.PORT
+const NODE_ENV = process.env.NODE_ENV
 
-const main = async () => {
-  /*
-  await prisma.user.create({
-    data: {
-      name: 'Barry Low',
-      email: 'barry@studiobear.co',
-      profile: {
-        create: {
-          companyName: 'Studiobear Design',
-          phone: { create: { type: 'WORK', number: '7079274658' } },
-        },
-      },
-    },
-  })
+export const app = express()
 
-  await prisma.collection.create({
-    data: {
-      name: 'Default',
-      works: {
-        create: [
-          {
-            title: 'Floral Still Life with Fruit',
-            medium: 'Oil and Acrylic on Canvas',
-            dimensions: '36 x 36 inches',
-            catalogId: 20001,
-            published: true,
-            price: 6500,
-            category: 'FLORAL',
-          },
-        ],
-      },
-    },
-  })
-  */
+app.post(GRAPHQL_ENDPOINT)
 
-  const allUsers = await prisma.user.findMany()
-  const allCollections = await prisma.collection.findMany()
-  const allWorks = await prisma.work.findMany()
-  console.log(allUsers, allCollections, allWorks)
-}
+export const server = createApolloServer(app, schema, {
+  graphqlEndpoint: GRAPHQL_ENDPOINT,
+  context: (req): {} => ({
+    ...req,
+    token: req.headers ? req.headers : undefined,
+    user: req.user ? req.user : undefined,
+    userId: req.headers && req.headers.userid ? req.headers.userid : undefined,
+  }),
+})
 
-main()
-  .catch(e => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.disconnect()
-  })
+server.listen({ port: PORT }, () => {
+  logger.info(
+    `GraphQL Server is running on http://localhost:${PORT}${GRAPHQL_ENDPOINT} in "${NODE_ENV}" mode\n`,
+  )
+})

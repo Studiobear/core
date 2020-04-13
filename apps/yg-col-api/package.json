@@ -18,12 +18,14 @@
     "test:watch": "yarn type-watch & yarn watch & yarn test --watch -u",
     "prisma:mig-save": "npx @prisma/cli@2.0.0-beta.2 migrate save --experimental --name",
     "prisma:mig-up": "npx @prisma/cli@2.0.0-beta.2 migrate up --auto-approve --experimental",
-    "prisma:gen": "npx @prisma/cli@2.0.0-beta.2 generate"
+    "prisma:gen": "npx @prisma/cli@2.0.0-beta.2 generate",
+    "generate:nexus": "babel src/schema.ts --out-dir dist"
   },
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "dependencies": {
     "@nexus/schema": "^0.13.1",
+    "@nexus/typescript-language-service": "^0.0.0",
     "@prisma/client": "^2.0.0-beta.2",
     "apollo-server": "^2.12.0",
     "apollo-server-express": "^2.12.0",
@@ -33,12 +35,14 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ftps": "^1.1.1",
-    "graphql": "^15.0.0",
+    "graphql": "^14.5.0",
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.2.3",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "nexus-prisma": "^0.12.0",
+    "nexus": "0.12.0",
+    "nexus-plugin-prisma": "^0.7.0",
+    "nexus-prisma": "0.12.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
