@@ -1,5 +1,6 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema, objectType } from '@nexus/schema'
+import { getUserId } from './util'
 
 const User = objectType({
   name: 'User',
@@ -26,7 +27,22 @@ const Profile = objectType({
 const Query = objectType({
   name: 'Query',
   definition(t) {
-    t.crud.profile()
+    t.crud.profile(),
+      t.field('me', {
+        type: 'User',
+        nullable: true,
+        resolve: (parent, args, ctx) => {
+          const userId = getUserId(ctx)
+          if (!userId) {
+            throw new Error('Invalid userId')
+          }
+          return ctx.prisma.user.findOne({
+            where: {
+              id: parseInt(userId),
+            },
+          })
+        },
+      })
   },
 })
 
