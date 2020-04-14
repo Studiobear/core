@@ -1,44 +1,9 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
-import { makeSchema, objectType } from '@nexus/schema'
-
-const User = objectType({
-  name: 'User',
-  definition(t) {
-    t.model.id()
-    t.model.name()
-    t.model.email()
-    t.model.role()
-    t.model.profile()
-  },
-})
-
-const Profile = objectType({
-  name: 'Profile',
-  definition(t) {
-    t.model.id()
-    t.model.companyName()
-    t.model.website()
-    t.model.user()
-    t.model.userId()
-  },
-})
-
-const Query = objectType({
-  name: 'Query',
-  definition(t) {
-    t.crud.profile()
-  },
-})
-
-const Mutation = objectType({
-  name: 'Mutation',
-  definition(t) {
-    t.crud.createOneUser()
-  },
-})
+import { makeSchema } from '@nexus/schema'
+import * as types from './types'
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Profile, User],
+  types,
   plugins: [
     nexusPrismaPlugin({
       // Fixes the Cannot find NexusPrisma issue

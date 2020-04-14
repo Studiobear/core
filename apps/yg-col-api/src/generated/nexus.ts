@@ -177,6 +177,7 @@ export interface NexusGenFieldTypes {
   }
   Query: {
     // field return type
+    me: NexusGenRootTypes['User'] | null // User
     profile: NexusGenRootTypes['Profile'] | null // Profile
   }
   User: {
