@@ -10,7 +10,7 @@ blocks:
       when: branch != 'master' AND branch != 'develop'
     task:
       secrets:
-        - name: covid-env
+        - name: yg-api-env
       jobs:
         - name: Build Core Apps
           commands:
@@ -19,7 +19,7 @@ blocks:
             - cache restore monorepo-ci-$SEMAPHORE_GIT_BRANCH-$(checksum package.json)
             - yarn install
             - yarn build
-            - cache store yg-api-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) apps/yg-col-api/dist
+            - cache store yg-api-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) apps/yg-col-api/
 promotions:
   - name: Deploy Production YG-API
     pipeline_file: studiobear-yg-api-deploy-prod.yml

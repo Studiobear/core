@@ -4,8 +4,7 @@
   "description": "Collections API for Yager Galerie",
   "main": "src/index",
   "scripts": {
-    "dev": "printf '\\33c\\e[3J' & NODE_ENV=development yarn type-watch & yarn watch",
-    "watch": "babel-watch src --out-dir dist --extensions '.ts,.js'",
+    "dev": "tsc-watch --onSuccess 'node -r dotenv/config ./dist/index.js'",
     "start": "NODE_ENV=production node ./dist/index.js",
     "type-watch": "tsc-watch  -p tsconfig.json --noEmit",
     "type-check": "tsc  -p tsconfig.json --noEmit",
@@ -63,7 +62,6 @@
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "ava": "^3.5.2",
-    "babel-watch": "^7.0.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
