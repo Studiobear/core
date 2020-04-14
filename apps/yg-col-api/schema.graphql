@@ -96,6 +96,7 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
+  me: User
   profile(where: ProfileWhereUniqueInput!): Profile
 }
 

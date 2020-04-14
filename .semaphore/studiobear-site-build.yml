@@ -19,14 +19,9 @@ blocks:
             - cache restore monorepo-ci-$SEMAPHORE_GIT_BRANCH-$(checksum package.json)
             - yarn install
             - yarn build
-            - yarn workspace covid export
-            - cache store monorepo-covid-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) apps/covid/__sapper__/export
+            - cache store yg-api-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) apps/yg-col-api/dist
 promotions:
-  - name: Deploy Production Covid
-    pipeline_file: studiobear-covid-deploy-prod.yml
+  - name: Deploy Production YG-API
+    pipeline_file: studiobear-yg-api-deploy-prod.yml
     auto_promote:
       when: result = 'passed' and branch = 'master'
-  - name: Deploy Stage Covid
-    pipeline_file: studiobear-covid-deploy-stage.yml
-    auto_promote:
-      when: result = 'passed' and branch = 'develop'
