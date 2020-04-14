@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  generate:
+    image: yg-api_generate:${COMMIT}
+    init: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: covidapi-generate
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./apps/yg-col-api:/app
+    working_dir: /app
+    restart: always
+    command: ls
+    network_mode: webproxy
+networks:
+  default:
+    external:
+      name: webproxy

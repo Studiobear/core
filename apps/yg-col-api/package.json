@@ -18,7 +18,8 @@
     "prisma:mig-save": "npx @prisma/cli@2.0.0-beta.2 migrate save --experimental --name",
     "prisma:mig-up": "npx @prisma/cli@2.0.0-beta.2 migrate up --auto-approve --experimental",
     "prisma:gen": "npx @prisma/cli@2.0.0-beta.2 generate",
-    "generate:nexus": "babel src/schema.ts --out-dir dist"
+    "generate:nexus": "babel src/schema.ts --out-dir dist",
+    "imageVer": "export COMMIT=`git rev-parse --short HEAD` && sed -E -i'' \"s/(.*_generate:).*/\\1$COMMIT/\" 'docker-compose.yml'"
   },
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
