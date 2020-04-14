@@ -5,7 +5,7 @@
   "main": "src/index",
   "scripts": {
     "dev": "printf '\\33c\\e[3J' & NODE_ENV=development yarn type-watch & yarn watch",
-    "watch": "babel-watch src --out-dir dist --extensions '.ts,.js' --watch",
+    "watch": "babel-watch src --out-dir dist --extensions '.ts,.js'",
     "start": "NODE_ENV=production node ./dist/index.js",
     "type-watch": "tsc-watch  -p tsconfig.json --noEmit",
     "type-check": "tsc  -p tsconfig.json --noEmit",
