@@ -26,7 +26,7 @@ blocks:
             - yarn check-packages && yarn test
             - cache store monorepo-ci-$SEMAPHORE_GIT_BRANCH-$(checksum package.json) .
 promotions:
-  - name: Build Studiobear Site
-    pipeline_file: studiobear-site-build.yml
-    auto_promote:
-      when: result = 'passed'
+#  - name: Build Studiobear Site
+#    pipeline_file: studiobear-site-build.yml
+#    auto_promote:
+#      when: result = 'passed'
