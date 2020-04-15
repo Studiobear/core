@@ -1,20 +1,20 @@
 version: '3.7'
 services:
   generate:
-    image: yg-api_generate:${COMMIT}
-    init: true
+    image: yg-api_generate:7c23aae
     build:
-      context: .
-      dockerfile: ./Dockerfile
-    container_name: covidapi-generate
+      context: ../../
+      dockerfile: ./apps/yg-col-api/Dockerfile
+    env_file: .env
+    container_name: ygcolapi
     tty: true
     stdin_open: true
     volumes:
-      - ./apps/yg-col-api:/app
-    working_dir: /app
+      - /app
+    working_dir: /app/yg-col-api
     restart: always
-    command: ls
     network_mode: webproxy
+    command: yarn start
 networks:
   default:
     external:
