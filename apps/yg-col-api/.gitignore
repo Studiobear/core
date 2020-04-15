@@ -3,3 +3,4 @@ dist
 public
 .env
 prisma/migrations/
+build

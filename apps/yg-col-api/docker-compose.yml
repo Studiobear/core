@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  generate:
+    image: yg-api_generate:7c23aae
+    build:
+      context: ../../
+      dockerfile: ./apps/yg-col-api/Dockerfile
+    env_file: .env
+    container_name: ygcolapi
+    tty: true
+    stdin_open: true
+    volumes:
+      - /app
+    working_dir: /app/yg-col-api
+    restart: always
+    network_mode: webproxy
+    command: yarn start
+networks:
+  default:
+    external:
+      name: webproxy

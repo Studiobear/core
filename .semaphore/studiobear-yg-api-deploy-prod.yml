@@ -4,13 +4,13 @@ blocks:
   - name: Deploy YG-API to Studiobear Hosting
     task:
       secrets:
-        - name: netlify-auth-covid
+        - name: yg-api-env
       jobs:
         - name: Deploy Production YG-API
           commands:
             - nvm use 10
             - cache restore yg-api-$SEMAPHORE_GIT_BRANCH-$(checksum package.json)
-            - lftp -v
+            - lftp -c $LFTP_URL
 agent:
   machine:
     type: e1-standard-2
