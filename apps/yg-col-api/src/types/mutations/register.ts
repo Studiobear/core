@@ -2,9 +2,9 @@ import { slugify } from '../../util'
 import { hashedPassword, createToken } from '../../util/auth'
 
 export const register = async (
-  username: string,
-  password: string,
-  email: string,
+  username: any,
+  password: any,
+  email: any,
   createUser: any,
 ) => {
   const hashed = await hashedPassword(password)

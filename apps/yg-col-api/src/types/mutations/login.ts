@@ -1,10 +1,6 @@
 import { validatePassword, createToken } from '../../util/auth'
 
-export const login = async (
-  username: string,
-  password: string,
-  userContext: any,
-) => {
+export const login = async (username: any, password: any, userContext: any) => {
   const user = await userContext({ username })
 
   if (!user || !user.password) {

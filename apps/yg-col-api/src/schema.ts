@@ -15,7 +15,6 @@ export const schema = makeSchema({
     typegen: __dirname + '/../src/generated/nexus.ts',
   },
   shouldGenerateArtifacts: true,
-  shouldExitAfterGenerateArtifacts: true,
   typegenAutoConfig: {
     contextType: 'Context.Context',
     sources: [
