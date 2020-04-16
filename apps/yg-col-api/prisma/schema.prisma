@@ -9,7 +9,7 @@ generator client {
 
 model User {
   id          Int          @default(autoincrement()) @id
-  username    String
+  username    String       @unique
   display     String?
   email       String       @unique
   profile     Profile?
@@ -18,6 +18,8 @@ model User {
   role        Role         @default(USER)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?
+
+  @@index([username, email])
 }
 
 enum Role {
@@ -55,7 +57,7 @@ enum PhoneType {
 
 model Work {
   id          Int          @default(autoincrement()) @id
-  catalogId   Int
+  catalogId   Int          @unique
   title       String
   medium      String?
   dimensions  String?
@@ -73,7 +75,7 @@ model Work {
 model WorkOrder {
   id           Int        @default(autoincrement()) @id
   order        Int
-  collectionId Int
+  collectionId Int        @unique
   collection   Collection @relation(fields: [collectionId], references: [id])
   workId       Int
   work         Work       @relation(fields: [workId], references: [id])
@@ -107,7 +109,7 @@ model Image {
 
 model Collection {
   id        Int       @default(autoincrement()) @id
-  name      String
+  name      String    @unique
   works     Work[]    @relation(references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime?

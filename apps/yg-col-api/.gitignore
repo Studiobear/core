@@ -3,4 +3,5 @@ dist
 public
 .env
 prisma/migrations/
+prisma/seed.ts
 build
