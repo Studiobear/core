@@ -127,6 +127,11 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  AuthPayload: {
+    // root type
+    token: string // String!
+    user: NexusGenRootTypes['User'] // User!
+  }
   Mutation: {}
   Profile: prisma.Profile
   Query: {}
@@ -163,6 +168,11 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  AuthPayload: {
+    // field return type
+    token: string // String!
+    user: NexusGenRootTypes['User'] // User!
+  }
   Mutation: {
     // field return type
     createOneUser: NexusGenRootTypes['User'] // User!
@@ -209,7 +219,12 @@ export interface NexusGenAbstractResolveReturnTypes {}
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = 'Mutation' | 'Profile' | 'Query' | 'User'
+export type NexusGenObjectNames =
+  | 'AuthPayload'
+  | 'Mutation'
+  | 'Profile'
+  | 'Query'
+  | 'User'
 
 export type NexusGenInputNames =
   | 'CollectionCreateManyWithoutUsersInput'

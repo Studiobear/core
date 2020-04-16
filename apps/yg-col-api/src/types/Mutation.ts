@@ -1,7 +1,8 @@
-import { objectType } from '@nexus/schema'
+import { mutationType, stringArg } from '@nexus/schema'
 
-export const Mutation = objectType({
-  name: 'Mutation',
+import { register, login } from './mutations'
+
+export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser()
   },

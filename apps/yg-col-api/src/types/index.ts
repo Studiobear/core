@@ -1,3 +1,4 @@
+export * from './AuthPayload'
 export * from './User'
 export * from './Profile'
 export * from './Query'
