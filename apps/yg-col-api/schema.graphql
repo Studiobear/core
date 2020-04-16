@@ -53,8 +53,8 @@ input ImageWhereUniqueInput {
 
 type Mutation {
   createOneUser(data: UserCreateInput!): User!
-  login(password: String!, username: String!): AuthPayload!
-  register(email: String, password: String!, username: String!): AuthPayload!
+  login(password: String, username: String): AuthPayload!
+  register(email: String, password: String, username: String): AuthPayload!
 }
 
 input PhoneCreateManyWithoutProfileInput {
