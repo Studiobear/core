@@ -4,7 +4,7 @@
   "description": "Collections API for Yager Galerie",
   "main": "src/index",
   "scripts": {
-    "dev": "yarn prisma:gen && yarn nexus:gen && tsc-watch --onSuccess 'node -r dotenv/config ./dist/index.js'",
+    "dev": "yarn prisma:gen && yarn nexus:gen && tsc-watch --onSuccess 'node -r dotenv/config ./dist/index.js --generate'",
     "start": "NODE_ENV=production node ./dist/index.js",
     "type-watch": "tsc-watch  -p tsconfig.json --noEmit",
     "type-check": "tsc  -p tsconfig.json --noEmit",

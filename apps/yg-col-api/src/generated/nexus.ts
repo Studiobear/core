@@ -3,8 +3,10 @@
  * Do not make changes to this file directly
  */
 
-import * as Context from '../context'
-import * as prisma from '@prisma/client'
+import * as Context from "../context"
+import * as prisma from "@prisma/client"
+
+
 
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
@@ -18,104 +20,174 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  CollectionCreateManyWithoutUsersInput: {
-    // input type
-    connect?: NexusGenInputs['CollectionWhereUniqueInput'][] | null // [CollectionWhereUniqueInput!]
-    create?: NexusGenInputs['CollectionCreateWithoutUsersInput'][] | null // [CollectionCreateWithoutUsersInput!]
+  CollectionCreateManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['CollectionWhereUniqueInput'][] | null; // [CollectionWhereUniqueInput!]
+    create?: NexusGenInputs['CollectionCreateWithoutUsersInput'][] | null; // [CollectionCreateWithoutUsersInput!]
   }
-  CollectionCreateWithoutUsersInput: {
-    // input type
-    createdAt?: any | null // DateTime
-    name: string // String!
-    updatedAt?: any | null // DateTime
-    works?: NexusGenInputs['WorkCreateManyWithoutCollectionInput'] | null // WorkCreateManyWithoutCollectionInput
+  CollectionCreateManyWithoutWorksInput: { // input type
+    connect?: NexusGenInputs['CollectionWhereUniqueInput'][] | null; // [CollectionWhereUniqueInput!]
+    create?: NexusGenInputs['CollectionCreateWithoutWorksInput'][] | null; // [CollectionCreateWithoutWorksInput!]
   }
-  CollectionWhereUniqueInput: {
-    // input type
-    id?: number | null // Int
+  CollectionCreateOneWithoutWorkOrderInput: { // input type
+    connect?: NexusGenInputs['CollectionWhereUniqueInput'] | null; // CollectionWhereUniqueInput
+    create?: NexusGenInputs['CollectionCreateWithoutWorkOrderInput'] | null; // CollectionCreateWithoutWorkOrderInput
   }
-  ImageCreateManyWithoutWorkInput: {
-    // input type
-    connect?: NexusGenInputs['ImageWhereUniqueInput'][] | null // [ImageWhereUniqueInput!]
-    create?: NexusGenInputs['ImageCreateWithoutWorkInput'][] | null // [ImageCreateWithoutWorkInput!]
+  CollectionCreateWithoutUsersInput: { // input type
+    createdAt?: any | null; // DateTime
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    workOrder?: NexusGenInputs['WorkOrderCreateManyWithoutCollectionInput'] | null; // WorkOrderCreateManyWithoutCollectionInput
+    works?: NexusGenInputs['WorkCreateManyWithoutCollectionsInput'] | null; // WorkCreateManyWithoutCollectionsInput
   }
-  ImageCreateWithoutWorkInput: {
-    // input type
-    createdAt?: any | null // DateTime
-    height?: number | null // Int
-    name: string // String!
-    updatedAt?: any | null // DateTime
-    url: string // String!
-    width?: number | null // Int
+  CollectionCreateWithoutWorkOrderInput: { // input type
+    createdAt?: any | null; // DateTime
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserCreateManyWithoutCollectionsInput'] | null; // UserCreateManyWithoutCollectionsInput
+    works?: NexusGenInputs['WorkCreateManyWithoutCollectionsInput'] | null; // WorkCreateManyWithoutCollectionsInput
   }
-  ImageWhereUniqueInput: {
-    // input type
-    id?: number | null // Int
+  CollectionCreateWithoutWorksInput: { // input type
+    createdAt?: any | null; // DateTime
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserCreateManyWithoutCollectionsInput'] | null; // UserCreateManyWithoutCollectionsInput
+    workOrder?: NexusGenInputs['WorkOrderCreateManyWithoutCollectionInput'] | null; // WorkOrderCreateManyWithoutCollectionInput
   }
-  PhoneCreateManyWithoutProfileInput: {
-    // input type
-    connect?: NexusGenInputs['PhoneWhereUniqueInput'][] | null // [PhoneWhereUniqueInput!]
-    create?: NexusGenInputs['PhoneCreateWithoutProfileInput'][] | null // [PhoneCreateWithoutProfileInput!]
+  CollectionWhereUniqueInput: { // input type
+    id?: number | null; // Int
+    name?: string | null; // String
   }
-  PhoneCreateWithoutProfileInput: {
-    // input type
-    number: string // String!
-    type?: NexusGenEnums['PhoneType'] | null // PhoneType
+  ImageCreateManyWithoutWorkInput: { // input type
+    connect?: NexusGenInputs['ImageWhereUniqueInput'][] | null; // [ImageWhereUniqueInput!]
+    create?: NexusGenInputs['ImageCreateWithoutWorkInput'][] | null; // [ImageCreateWithoutWorkInput!]
   }
-  PhoneWhereUniqueInput: {
-    // input type
-    id?: number | null // Int
+  ImageCreateWithoutWorkInput: { // input type
+    createdAt?: any | null; // DateTime
+    height?: number | null; // Int
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+    url: string; // String!
+    width?: number | null; // Int
   }
-  ProfileCreateOneWithoutUserInput: {
-    // input type
-    connect?: NexusGenInputs['ProfileWhereUniqueInput'] | null // ProfileWhereUniqueInput
-    create?: NexusGenInputs['ProfileCreateWithoutUserInput'] | null // ProfileCreateWithoutUserInput
+  ImageWhereUniqueInput: { // input type
+    id?: number | null; // Int
   }
-  ProfileCreateWithoutUserInput: {
-    // input type
-    companyName?: string | null // String
-    phone?: NexusGenInputs['PhoneCreateManyWithoutProfileInput'] | null // PhoneCreateManyWithoutProfileInput
-    updatedAt?: any | null // DateTime
-    website?: string | null // String
+  PhoneCreateManyWithoutProfileInput: { // input type
+    connect?: NexusGenInputs['PhoneWhereUniqueInput'][] | null; // [PhoneWhereUniqueInput!]
+    create?: NexusGenInputs['PhoneCreateWithoutProfileInput'][] | null; // [PhoneCreateWithoutProfileInput!]
   }
-  ProfileWhereUniqueInput: {
-    // input type
-    id?: number | null // Int
+  PhoneCreateWithoutProfileInput: { // input type
+    number: string; // String!
+    type?: NexusGenEnums['PhoneType'] | null; // PhoneType
   }
-  UserCreateInput: {
-    // input type
-    collections?: NexusGenInputs['CollectionCreateManyWithoutUsersInput'] | null // CollectionCreateManyWithoutUsersInput
-    createdAt?: any | null // DateTime
-    email: string // String!
-    name?: string | null // String
-    password?: string | null // String
-    profile?: NexusGenInputs['ProfileCreateOneWithoutUserInput'] | null // ProfileCreateOneWithoutUserInput
-    role?: NexusGenEnums['Role'] | null // Role
-    updatedAt?: any | null // DateTime
+  PhoneWhereUniqueInput: { // input type
+    id?: number | null; // Int
   }
-  WorkCreateManyWithoutCollectionInput: {
-    // input type
-    connect?: NexusGenInputs['WorkWhereUniqueInput'][] | null // [WorkWhereUniqueInput!]
-    create?: NexusGenInputs['WorkCreateWithoutCollectionInput'][] | null // [WorkCreateWithoutCollectionInput!]
+  ProfileCreateOneWithoutUserInput: { // input type
+    connect?: NexusGenInputs['ProfileWhereUniqueInput'] | null; // ProfileWhereUniqueInput
+    create?: NexusGenInputs['ProfileCreateWithoutUserInput'] | null; // ProfileCreateWithoutUserInput
   }
-  WorkCreateWithoutCollectionInput: {
-    // input type
-    catalogId: number // Int!
-    category: NexusGenEnums['Category'] // Category!
-    createdAt?: any | null // DateTime
-    date?: any | null // DateTime
-    dimensions?: string | null // String
-    image?: NexusGenInputs['ImageCreateManyWithoutWorkInput'] | null // ImageCreateManyWithoutWorkInput
-    medium?: string | null // String
-    price?: number | null // Float
-    published: boolean // Boolean!
-    title: string // String!
-    type?: NexusGenEnums['Type'] | null // Type
-    updatedAt?: any | null // DateTime
+  ProfileCreateWithoutUserInput: { // input type
+    companyName?: string | null; // String
+    companyRole?: string | null; // String
+    phone?: NexusGenInputs['PhoneCreateManyWithoutProfileInput'] | null; // PhoneCreateManyWithoutProfileInput
+    updatedAt?: any | null; // DateTime
+    website?: string | null; // String
   }
-  WorkWhereUniqueInput: {
-    // input type
-    id?: number | null // Int
+  ProfileWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  UserCreateInput: { // input type
+    collections?: NexusGenInputs['CollectionCreateManyWithoutUsersInput'] | null; // CollectionCreateManyWithoutUsersInput
+    createdAt?: any | null; // DateTime
+    display?: string | null; // String
+    email: string; // String!
+    password: string; // String!
+    profile?: NexusGenInputs['ProfileCreateOneWithoutUserInput'] | null; // ProfileCreateOneWithoutUserInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    updatedAt?: any | null; // DateTime
+    username: string; // String!
+  }
+  UserCreateManyWithoutCollectionsInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutCollectionsInput'][] | null; // [UserCreateWithoutCollectionsInput!]
+  }
+  UserCreateWithoutCollectionsInput: { // input type
+    createdAt?: any | null; // DateTime
+    display?: string | null; // String
+    email: string; // String!
+    password: string; // String!
+    profile?: NexusGenInputs['ProfileCreateOneWithoutUserInput'] | null; // ProfileCreateOneWithoutUserInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    updatedAt?: any | null; // DateTime
+    username: string; // String!
+  }
+  UserWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: number | null; // Int
+    username?: string | null; // String
+  }
+  WorkCreateManyWithoutCollectionsInput: { // input type
+    connect?: NexusGenInputs['WorkWhereUniqueInput'][] | null; // [WorkWhereUniqueInput!]
+    create?: NexusGenInputs['WorkCreateWithoutCollectionsInput'][] | null; // [WorkCreateWithoutCollectionsInput!]
+  }
+  WorkCreateOneWithoutWorkOrderInput: { // input type
+    connect?: NexusGenInputs['WorkWhereUniqueInput'] | null; // WorkWhereUniqueInput
+    create?: NexusGenInputs['WorkCreateWithoutWorkOrderInput'] | null; // WorkCreateWithoutWorkOrderInput
+  }
+  WorkCreateWithoutCollectionsInput: { // input type
+    catalogId: number; // Int!
+    category: NexusGenEnums['Category']; // Category!
+    createdAt?: any | null; // DateTime
+    date?: any | null; // DateTime
+    dimensions?: string | null; // String
+    image?: NexusGenInputs['ImageCreateManyWithoutWorkInput'] | null; // ImageCreateManyWithoutWorkInput
+    medium?: string | null; // String
+    price?: number | null; // Float
+    published: boolean; // Boolean!
+    title: string; // String!
+    type?: NexusGenEnums['Type'] | null; // Type
+    updatedAt?: any | null; // DateTime
+    workOrder?: NexusGenInputs['WorkOrderCreateManyWithoutWorkInput'] | null; // WorkOrderCreateManyWithoutWorkInput
+  }
+  WorkCreateWithoutWorkOrderInput: { // input type
+    catalogId: number; // Int!
+    category: NexusGenEnums['Category']; // Category!
+    collections?: NexusGenInputs['CollectionCreateManyWithoutWorksInput'] | null; // CollectionCreateManyWithoutWorksInput
+    createdAt?: any | null; // DateTime
+    date?: any | null; // DateTime
+    dimensions?: string | null; // String
+    image?: NexusGenInputs['ImageCreateManyWithoutWorkInput'] | null; // ImageCreateManyWithoutWorkInput
+    medium?: string | null; // String
+    price?: number | null; // Float
+    published: boolean; // Boolean!
+    title: string; // String!
+    type?: NexusGenEnums['Type'] | null; // Type
+    updatedAt?: any | null; // DateTime
+  }
+  WorkOrderCreateManyWithoutCollectionInput: { // input type
+    connect?: NexusGenInputs['WorkOrderWhereUniqueInput'][] | null; // [WorkOrderWhereUniqueInput!]
+    create?: NexusGenInputs['WorkOrderCreateWithoutCollectionInput'][] | null; // [WorkOrderCreateWithoutCollectionInput!]
+  }
+  WorkOrderCreateManyWithoutWorkInput: { // input type
+    connect?: NexusGenInputs['WorkOrderWhereUniqueInput'][] | null; // [WorkOrderWhereUniqueInput!]
+    create?: NexusGenInputs['WorkOrderCreateWithoutWorkInput'][] | null; // [WorkOrderCreateWithoutWorkInput!]
+  }
+  WorkOrderCreateWithoutCollectionInput: { // input type
+    order: number; // Int!
+    work: NexusGenInputs['WorkCreateOneWithoutWorkOrderInput']; // WorkCreateOneWithoutWorkOrderInput!
+  }
+  WorkOrderCreateWithoutWorkInput: { // input type
+    collection: NexusGenInputs['CollectionCreateOneWithoutWorkOrderInput']; // CollectionCreateOneWithoutWorkOrderInput!
+    order: number; // Int!
+  }
+  WorkOrderWhereUniqueInput: { // input type
+    collectionId?: number | null; // Int
+    id?: number | null; // Int
+  }
+  WorkWhereUniqueInput: { // input type
+    catalogId?: number | null; // Int
+    id?: number | null; // Int
   }
 }
 
@@ -127,186 +199,156 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
-  AuthPayload: {
-    // root type
-    token: string // String!
-    user: NexusGenRootTypes['User'] // User!
+  AuthPayload: { // root type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
   }
-  Mutation: {}
-  Profile: prisma.Profile
-  Query: {}
-  User: prisma.User
-  String: string
-  Int: number
-  Float: number
-  Boolean: boolean
-  ID: string
-  DateTime: any
+  Mutation: {};
+  Profile: prisma.Profile;
+  Query: {};
+  User: prisma.User;
+  String: string;
+  Int: number;
+  Float: number;
+  Boolean: boolean;
+  ID: string;
+  DateTime: any;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  CollectionCreateManyWithoutUsersInput: NexusGenInputs['CollectionCreateManyWithoutUsersInput']
-  CollectionCreateWithoutUsersInput: NexusGenInputs['CollectionCreateWithoutUsersInput']
-  CollectionWhereUniqueInput: NexusGenInputs['CollectionWhereUniqueInput']
-  ImageCreateManyWithoutWorkInput: NexusGenInputs['ImageCreateManyWithoutWorkInput']
-  ImageCreateWithoutWorkInput: NexusGenInputs['ImageCreateWithoutWorkInput']
-  ImageWhereUniqueInput: NexusGenInputs['ImageWhereUniqueInput']
-  PhoneCreateManyWithoutProfileInput: NexusGenInputs['PhoneCreateManyWithoutProfileInput']
-  PhoneCreateWithoutProfileInput: NexusGenInputs['PhoneCreateWithoutProfileInput']
-  PhoneWhereUniqueInput: NexusGenInputs['PhoneWhereUniqueInput']
-  ProfileCreateOneWithoutUserInput: NexusGenInputs['ProfileCreateOneWithoutUserInput']
-  ProfileCreateWithoutUserInput: NexusGenInputs['ProfileCreateWithoutUserInput']
-  ProfileWhereUniqueInput: NexusGenInputs['ProfileWhereUniqueInput']
-  UserCreateInput: NexusGenInputs['UserCreateInput']
-  WorkCreateManyWithoutCollectionInput: NexusGenInputs['WorkCreateManyWithoutCollectionInput']
-  WorkCreateWithoutCollectionInput: NexusGenInputs['WorkCreateWithoutCollectionInput']
-  WorkWhereUniqueInput: NexusGenInputs['WorkWhereUniqueInput']
-  Category: NexusGenEnums['Category']
-  PhoneType: NexusGenEnums['PhoneType']
-  Role: NexusGenEnums['Role']
-  Type: NexusGenEnums['Type']
+  CollectionCreateManyWithoutUsersInput: NexusGenInputs['CollectionCreateManyWithoutUsersInput'];
+  CollectionCreateManyWithoutWorksInput: NexusGenInputs['CollectionCreateManyWithoutWorksInput'];
+  CollectionCreateOneWithoutWorkOrderInput: NexusGenInputs['CollectionCreateOneWithoutWorkOrderInput'];
+  CollectionCreateWithoutUsersInput: NexusGenInputs['CollectionCreateWithoutUsersInput'];
+  CollectionCreateWithoutWorkOrderInput: NexusGenInputs['CollectionCreateWithoutWorkOrderInput'];
+  CollectionCreateWithoutWorksInput: NexusGenInputs['CollectionCreateWithoutWorksInput'];
+  CollectionWhereUniqueInput: NexusGenInputs['CollectionWhereUniqueInput'];
+  ImageCreateManyWithoutWorkInput: NexusGenInputs['ImageCreateManyWithoutWorkInput'];
+  ImageCreateWithoutWorkInput: NexusGenInputs['ImageCreateWithoutWorkInput'];
+  ImageWhereUniqueInput: NexusGenInputs['ImageWhereUniqueInput'];
+  PhoneCreateManyWithoutProfileInput: NexusGenInputs['PhoneCreateManyWithoutProfileInput'];
+  PhoneCreateWithoutProfileInput: NexusGenInputs['PhoneCreateWithoutProfileInput'];
+  PhoneWhereUniqueInput: NexusGenInputs['PhoneWhereUniqueInput'];
+  ProfileCreateOneWithoutUserInput: NexusGenInputs['ProfileCreateOneWithoutUserInput'];
+  ProfileCreateWithoutUserInput: NexusGenInputs['ProfileCreateWithoutUserInput'];
+  ProfileWhereUniqueInput: NexusGenInputs['ProfileWhereUniqueInput'];
+  UserCreateInput: NexusGenInputs['UserCreateInput'];
+  UserCreateManyWithoutCollectionsInput: NexusGenInputs['UserCreateManyWithoutCollectionsInput'];
+  UserCreateWithoutCollectionsInput: NexusGenInputs['UserCreateWithoutCollectionsInput'];
+  UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  WorkCreateManyWithoutCollectionsInput: NexusGenInputs['WorkCreateManyWithoutCollectionsInput'];
+  WorkCreateOneWithoutWorkOrderInput: NexusGenInputs['WorkCreateOneWithoutWorkOrderInput'];
+  WorkCreateWithoutCollectionsInput: NexusGenInputs['WorkCreateWithoutCollectionsInput'];
+  WorkCreateWithoutWorkOrderInput: NexusGenInputs['WorkCreateWithoutWorkOrderInput'];
+  WorkOrderCreateManyWithoutCollectionInput: NexusGenInputs['WorkOrderCreateManyWithoutCollectionInput'];
+  WorkOrderCreateManyWithoutWorkInput: NexusGenInputs['WorkOrderCreateManyWithoutWorkInput'];
+  WorkOrderCreateWithoutCollectionInput: NexusGenInputs['WorkOrderCreateWithoutCollectionInput'];
+  WorkOrderCreateWithoutWorkInput: NexusGenInputs['WorkOrderCreateWithoutWorkInput'];
+  WorkOrderWhereUniqueInput: NexusGenInputs['WorkOrderWhereUniqueInput'];
+  WorkWhereUniqueInput: NexusGenInputs['WorkWhereUniqueInput'];
+  Category: NexusGenEnums['Category'];
+  PhoneType: NexusGenEnums['PhoneType'];
+  Role: NexusGenEnums['Role'];
+  Type: NexusGenEnums['Type'];
 }
 
 export interface NexusGenFieldTypes {
-  AuthPayload: {
-    // field return type
-    token: string // String!
-    user: NexusGenRootTypes['User'] // User!
+  AuthPayload: { // field return type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
   }
-  Mutation: {
-    // field return type
-    createOneUser: NexusGenRootTypes['User'] // User!
-    login: NexusGenRootTypes['AuthPayload'] // AuthPayload!
-    register: NexusGenRootTypes['AuthPayload'] // AuthPayload!
+  Mutation: { // field return type
+    createOneUser: NexusGenRootTypes['User']; // User!
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    register: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
-  Profile: {
-    // field return type
-    companyName: string | null // String
-    id: number // Int!
-    user: NexusGenRootTypes['User'] // User!
-    userId: number // Int!
-    website: string | null // String
+  Profile: { // field return type
+    companyName: string | null; // String
+    id: number; // Int!
+    user: NexusGenRootTypes['User']; // User!
+    userId: number; // Int!
+    website: string | null; // String
   }
-  Query: {
-    // field return type
-    me: NexusGenRootTypes['User'] | null // User
-    profile: NexusGenRootTypes['Profile'] | null // Profile
+  Query: { // field return type
+    me: NexusGenRootTypes['User'] | null; // User
+    profile: NexusGenRootTypes['Profile'] | null; // Profile
   }
-  User: {
-    // field return type
-    email: string // String!
-    id: number // Int!
-    name: string | null // String
-    profile: NexusGenRootTypes['Profile'] | null // Profile
-    role: NexusGenEnums['Role'] // Role!
+  User: { // field return type
+    display: string | null; // String
+    email: string; // String!
+    id: number; // Int!
+    profile: NexusGenRootTypes['Profile'] | null; // Profile
+    role: NexusGenEnums['Role']; // Role!
+    username: string; // String!
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createOneUser: {
-      // args
-      data: NexusGenInputs['UserCreateInput'] // UserCreateInput!
+    createOneUser: { // args
+      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
     }
-    login: {
-      // args
-      password?: string | null // String
-      username?: string | null // String
+    login: { // args
+      password?: string | null; // String
+      username?: string | null; // String
     }
-    register: {
-      // args
-      email?: string | null // String
-      password?: string | null // String
-      username?: string | null // String
+    register: { // args
+      email?: string | null; // String
+      name?: string | null; // String
+      password?: string | null; // String
     }
   }
   Query: {
-    profile: {
-      // args
-      where: NexusGenInputs['ProfileWhereUniqueInput'] // ProfileWhereUniqueInput!
+    profile: { // args
+      where: NexusGenInputs['ProfileWhereUniqueInput']; // ProfileWhereUniqueInput!
     }
   }
 }
 
-export interface NexusGenAbstractResolveReturnTypes {}
+export interface NexusGenAbstractResolveReturnTypes {
+}
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames =
-  | 'AuthPayload'
-  | 'Mutation'
-  | 'Profile'
-  | 'Query'
-  | 'User'
+export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Profile" | "Query" | "User";
 
-export type NexusGenInputNames =
-  | 'CollectionCreateManyWithoutUsersInput'
-  | 'CollectionCreateWithoutUsersInput'
-  | 'CollectionWhereUniqueInput'
-  | 'ImageCreateManyWithoutWorkInput'
-  | 'ImageCreateWithoutWorkInput'
-  | 'ImageWhereUniqueInput'
-  | 'PhoneCreateManyWithoutProfileInput'
-  | 'PhoneCreateWithoutProfileInput'
-  | 'PhoneWhereUniqueInput'
-  | 'ProfileCreateOneWithoutUserInput'
-  | 'ProfileCreateWithoutUserInput'
-  | 'ProfileWhereUniqueInput'
-  | 'UserCreateInput'
-  | 'WorkCreateManyWithoutCollectionInput'
-  | 'WorkCreateWithoutCollectionInput'
-  | 'WorkWhereUniqueInput'
+export type NexusGenInputNames = "CollectionCreateManyWithoutUsersInput" | "CollectionCreateManyWithoutWorksInput" | "CollectionCreateOneWithoutWorkOrderInput" | "CollectionCreateWithoutUsersInput" | "CollectionCreateWithoutWorkOrderInput" | "CollectionCreateWithoutWorksInput" | "CollectionWhereUniqueInput" | "ImageCreateManyWithoutWorkInput" | "ImageCreateWithoutWorkInput" | "ImageWhereUniqueInput" | "PhoneCreateManyWithoutProfileInput" | "PhoneCreateWithoutProfileInput" | "PhoneWhereUniqueInput" | "ProfileCreateOneWithoutUserInput" | "ProfileCreateWithoutUserInput" | "ProfileWhereUniqueInput" | "UserCreateInput" | "UserCreateManyWithoutCollectionsInput" | "UserCreateWithoutCollectionsInput" | "UserWhereUniqueInput" | "WorkCreateManyWithoutCollectionsInput" | "WorkCreateOneWithoutWorkOrderInput" | "WorkCreateWithoutCollectionsInput" | "WorkCreateWithoutWorkOrderInput" | "WorkOrderCreateManyWithoutCollectionInput" | "WorkOrderCreateManyWithoutWorkInput" | "WorkOrderCreateWithoutCollectionInput" | "WorkOrderCreateWithoutWorkInput" | "WorkOrderWhereUniqueInput" | "WorkWhereUniqueInput";
 
-export type NexusGenEnumNames = 'Category' | 'PhoneType' | 'Role' | 'Type'
+export type NexusGenEnumNames = "Category" | "PhoneType" | "Role" | "Type";
 
-export type NexusGenInterfaceNames = never
+export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames =
-  | 'Boolean'
-  | 'DateTime'
-  | 'Float'
-  | 'ID'
-  | 'Int'
-  | 'String'
+export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
 
-export type NexusGenUnionNames = never
+export type NexusGenUnionNames = never;
 
 export interface NexusGenTypes {
-  context: Context.Context
-  inputTypes: NexusGenInputs
-  rootTypes: NexusGenRootTypes
-  argTypes: NexusGenArgTypes
-  fieldTypes: NexusGenFieldTypes
-  allTypes: NexusGenAllTypes
-  inheritedFields: NexusGenInheritedFields
-  objectNames: NexusGenObjectNames
-  inputNames: NexusGenInputNames
-  enumNames: NexusGenEnumNames
-  interfaceNames: NexusGenInterfaceNames
-  scalarNames: NexusGenScalarNames
-  unionNames: NexusGenUnionNames
-  allInputTypes:
-    | NexusGenTypes['inputNames']
-    | NexusGenTypes['enumNames']
-    | NexusGenTypes['scalarNames']
-  allOutputTypes:
-    | NexusGenTypes['objectNames']
-    | NexusGenTypes['enumNames']
-    | NexusGenTypes['unionNames']
-    | NexusGenTypes['interfaceNames']
-    | NexusGenTypes['scalarNames']
-  allNamedTypes:
-    | NexusGenTypes['allInputTypes']
-    | NexusGenTypes['allOutputTypes']
-  abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames']
-  abstractResolveReturn: NexusGenAbstractResolveReturnTypes
+  context: Context.Context;
+  inputTypes: NexusGenInputs;
+  rootTypes: NexusGenRootTypes;
+  argTypes: NexusGenArgTypes;
+  fieldTypes: NexusGenFieldTypes;
+  allTypes: NexusGenAllTypes;
+  inheritedFields: NexusGenInheritedFields;
+  objectNames: NexusGenObjectNames;
+  inputNames: NexusGenInputNames;
+  enumNames: NexusGenEnumNames;
+  interfaceNames: NexusGenInterfaceNames;
+  scalarNames: NexusGenScalarNames;
+  unionNames: NexusGenUnionNames;
+  allInputTypes: NexusGenTypes['inputNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['scalarNames'];
+  allOutputTypes: NexusGenTypes['objectNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['unionNames'] | NexusGenTypes['interfaceNames'] | NexusGenTypes['scalarNames'];
+  allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes']
+  abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
+  abstractResolveReturn: NexusGenAbstractResolveReturnTypes;
 }
 
+
 declare global {
-  interface NexusGenPluginTypeConfig<TypeName extends string> {}
-  interface NexusGenPluginFieldConfig<
-    TypeName extends string,
-    FieldName extends string
-  > {}
-  interface NexusGenPluginSchemaConfig {}
+  interface NexusGenPluginTypeConfig<TypeName extends string> {
+  }
+  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+  }
+  interface NexusGenPluginSchemaConfig {
+  }
 }

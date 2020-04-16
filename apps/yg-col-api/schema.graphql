@@ -20,15 +20,43 @@ input CollectionCreateManyWithoutUsersInput {
   create: [CollectionCreateWithoutUsersInput!]
 }
 
+input CollectionCreateManyWithoutWorksInput {
+  connect: [CollectionWhereUniqueInput!]
+  create: [CollectionCreateWithoutWorksInput!]
+}
+
+input CollectionCreateOneWithoutWorkOrderInput {
+  connect: CollectionWhereUniqueInput
+  create: CollectionCreateWithoutWorkOrderInput
+}
+
 input CollectionCreateWithoutUsersInput {
   createdAt: DateTime
   name: String!
   updatedAt: DateTime
-  works: WorkCreateManyWithoutCollectionInput
+  workOrder: WorkOrderCreateManyWithoutCollectionInput
+  works: WorkCreateManyWithoutCollectionsInput
+}
+
+input CollectionCreateWithoutWorkOrderInput {
+  createdAt: DateTime
+  name: String!
+  updatedAt: DateTime
+  users: UserCreateManyWithoutCollectionsInput
+  works: WorkCreateManyWithoutCollectionsInput
+}
+
+input CollectionCreateWithoutWorksInput {
+  createdAt: DateTime
+  name: String!
+  updatedAt: DateTime
+  users: UserCreateManyWithoutCollectionsInput
+  workOrder: WorkOrderCreateManyWithoutCollectionInput
 }
 
 input CollectionWhereUniqueInput {
   id: Int
+  name: String
 }
 
 scalar DateTime
@@ -54,7 +82,7 @@ input ImageWhereUniqueInput {
 type Mutation {
   createOneUser(data: UserCreateInput!): User!
   login(password: String, username: String): AuthPayload!
-  register(email: String, password: String, username: String): AuthPayload!
+  register(email: String, name: String, password: String): AuthPayload!
 }
 
 input PhoneCreateManyWithoutProfileInput {
@@ -93,6 +121,7 @@ input ProfileCreateOneWithoutUserInput {
 
 input ProfileCreateWithoutUserInput {
   companyName: String
+  companyRole: String
   phone: PhoneCreateManyWithoutProfileInput
   updatedAt: DateTime
   website: String
@@ -109,6 +138,8 @@ type Query {
 
 enum Role {
   ADMIN
+  MANAGER
+  SUPER
   USER
 }
 
@@ -119,30 +150,59 @@ enum Type {
 }
 
 type User {
+  display: String
   email: String!
   id: Int!
-  name: String
   profile: Profile
   role: Role!
+  username: String!
 }
 
 input UserCreateInput {
   collections: CollectionCreateManyWithoutUsersInput
   createdAt: DateTime
+  display: String
   email: String!
-  name: String
-  password: String
+  password: String!
   profile: ProfileCreateOneWithoutUserInput
   role: Role
   updatedAt: DateTime
+  username: String!
 }
 
-input WorkCreateManyWithoutCollectionInput {
+input UserCreateManyWithoutCollectionsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutCollectionsInput!]
+}
+
+input UserCreateWithoutCollectionsInput {
+  createdAt: DateTime
+  display: String
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  role: Role
+  updatedAt: DateTime
+  username: String!
+}
+
+input UserWhereUniqueInput {
+  email: String
+  id: Int
+  username: String
+}
+
+input WorkCreateManyWithoutCollectionsInput {
   connect: [WorkWhereUniqueInput!]
-  create: [WorkCreateWithoutCollectionInput!]
+  create: [WorkCreateWithoutCollectionsInput!]
 }
 
-input WorkCreateWithoutCollectionInput {
+input WorkCreateOneWithoutWorkOrderInput {
+  connect: WorkWhereUniqueInput
+  create: WorkCreateWithoutWorkOrderInput
+}
+
+input WorkCreateWithoutCollectionsInput {
   catalogId: Int!
   category: Category!
   createdAt: DateTime
@@ -155,8 +215,51 @@ input WorkCreateWithoutCollectionInput {
   title: String!
   type: Type
   updatedAt: DateTime
+  workOrder: WorkOrderCreateManyWithoutWorkInput
+}
+
+input WorkCreateWithoutWorkOrderInput {
+  catalogId: Int!
+  category: Category!
+  collections: CollectionCreateManyWithoutWorksInput
+  createdAt: DateTime
+  date: DateTime
+  dimensions: String
+  image: ImageCreateManyWithoutWorkInput
+  medium: String
+  price: Float
+  published: Boolean!
+  title: String!
+  type: Type
+  updatedAt: DateTime
+}
+
+input WorkOrderCreateManyWithoutCollectionInput {
+  connect: [WorkOrderWhereUniqueInput!]
+  create: [WorkOrderCreateWithoutCollectionInput!]
+}
+
+input WorkOrderCreateManyWithoutWorkInput {
+  connect: [WorkOrderWhereUniqueInput!]
+  create: [WorkOrderCreateWithoutWorkInput!]
+}
+
+input WorkOrderCreateWithoutCollectionInput {
+  order: Int!
+  work: WorkCreateOneWithoutWorkOrderInput!
+}
+
+input WorkOrderCreateWithoutWorkInput {
+  collection: CollectionCreateOneWithoutWorkOrderInput!
+  order: Int!
+}
+
+input WorkOrderWhereUniqueInput {
+  collectionId: Int
+  id: Int
 }
 
 input WorkWhereUniqueInput {
+  catalogId: Int
   id: Int
 }

@@ -8,12 +8,12 @@ export const Mutation = mutationType({
       t.field('register', {
         type: 'AuthPayload',
         args: {
-          username: stringArg(),
+          name: stringArg(),
           password: stringArg(),
           email: stringArg(),
         },
-        resolve: (_, { username, password, email }, ctx) =>
-          register(username, password, email, ctx.prisma.createUser),
+        resolve: (_, { name, password, email }, ctx) =>
+          register(name, password, email, ctx.prisma.createUser),
       })
 
     t.field('login', {

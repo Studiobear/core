@@ -3,6 +3,14 @@ import { makeSchema } from '@nexus/schema'
 import * as types from './types'
 import './context'
 
+declare var process: {
+  argv: any
+}
+
+const args: string[] = process.argv
+const generate =
+  args !== undefined ? Boolean(args.includes('--generate')) : false
+
 export const schema = makeSchema({
   types,
   plugins: [
@@ -14,7 +22,7 @@ export const schema = makeSchema({
     schema: __dirname + '/../schema.graphql',
     typegen: __dirname + '/../src/generated/nexus.ts',
   },
-  shouldGenerateArtifacts: true,
+  shouldGenerateArtifacts: generate,
   typegenAutoConfig: {
     contextType: 'Context.Context',
     sources: [
