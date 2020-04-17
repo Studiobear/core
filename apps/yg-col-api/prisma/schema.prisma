@@ -65,7 +65,7 @@ model Work {
   type        Type         @default(PAINTING)
   price       Float?
   image       Image[]
-  category    Category
+  category    Category     @default(FLORAL)
   published   Boolean
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?

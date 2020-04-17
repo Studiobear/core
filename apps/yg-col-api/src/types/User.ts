@@ -9,5 +9,6 @@ export const User = objectType({
     t.model.email()
     t.model.role()
     t.model.profile()
+    t.model.collections()
   },
 })

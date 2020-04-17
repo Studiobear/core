@@ -7,6 +7,11 @@ type AuthPayload {
   user: User!
 }
 
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 enum Category {
   ABSTRACT
   FLORAL
@@ -15,43 +20,31 @@ enum Category {
   PORTRAIT
 }
 
-input CollectionCreateManyWithoutUsersInput {
-  connect: [CollectionWhereUniqueInput!]
-  create: [CollectionCreateWithoutUsersInput!]
-}
-
-input CollectionCreateManyWithoutWorksInput {
-  connect: [CollectionWhereUniqueInput!]
-  create: [CollectionCreateWithoutWorksInput!]
-}
-
-input CollectionCreateOneWithoutWorkOrderInput {
-  connect: CollectionWhereUniqueInput
-  create: CollectionCreateWithoutWorkOrderInput
-}
-
-input CollectionCreateWithoutUsersInput {
-  createdAt: DateTime
+type Collection {
+  id: Int!
   name: String!
-  updatedAt: DateTime
-  workOrder: WorkOrderCreateManyWithoutCollectionInput
-  works: WorkCreateManyWithoutCollectionsInput
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int, where: UserWhereInput): [User!]!
+  workOrder(after: WorkOrderWhereUniqueInput, before: WorkOrderWhereUniqueInput, first: Int, last: Int, skip: Int): [WorkOrder!]!
+  works(after: WorkWhereUniqueInput, before: WorkWhereUniqueInput, first: Int, last: Int, skip: Int): [Work!]!
 }
 
-input CollectionCreateWithoutWorkOrderInput {
-  createdAt: DateTime
-  name: String!
-  updatedAt: DateTime
-  users: UserCreateManyWithoutCollectionsInput
-  works: WorkCreateManyWithoutCollectionsInput
+input CollectionFilter {
+  every: CollectionWhereInput
+  none: CollectionWhereInput
+  some: CollectionWhereInput
 }
 
-input CollectionCreateWithoutWorksInput {
-  createdAt: DateTime
-  name: String!
-  updatedAt: DateTime
-  users: UserCreateManyWithoutCollectionsInput
-  workOrder: WorkOrderCreateManyWithoutCollectionInput
+input CollectionWhereInput {
+  AND: [CollectionWhereInput!]
+  createdAt: DateTimeFilter
+  id: IntFilter
+  name: StringFilter
+  NOT: [CollectionWhereInput!]
+  OR: [CollectionWhereInput!]
+  updatedAt: NullableDateTimeFilter
+  users: UserFilter
+  workOrder: WorkOrderFilter
+  works: WorkFilter
 }
 
 input CollectionWhereUniqueInput {
@@ -61,38 +54,122 @@ input CollectionWhereUniqueInput {
 
 scalar DateTime
 
-input ImageCreateManyWithoutWorkInput {
-  connect: [ImageWhereUniqueInput!]
-  create: [ImageCreateWithoutWorkInput!]
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
 }
 
-input ImageCreateWithoutWorkInput {
-  createdAt: DateTime
+type Image {
   height: Int
+  id: Int!
   name: String!
-  updatedAt: DateTime
   url: String!
   width: Int
+  workId: Int!
 }
 
-input ImageWhereUniqueInput {
-  id: Int
+input ImageFilter {
+  every: ImageWhereInput
+  none: ImageWhereInput
+  some: ImageWhereInput
+}
+
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  createdAt: DateTimeFilter
+  height: NullableIntFilter
+  id: IntFilter
+  name: StringFilter
+  NOT: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  updatedAt: NullableDateTimeFilter
+  url: StringFilter
+  width: NullableIntFilter
+  work: WorkWhereInput
+  workId: IntFilter
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
 }
 
 type Mutation {
-  createOneUser(data: UserCreateInput!): User!
   login(password: String, username: String): AuthPayload!
   register(email: String, name: String, password: String): AuthPayload!
 }
 
-input PhoneCreateManyWithoutProfileInput {
-  connect: [PhoneWhereUniqueInput!]
-  create: [PhoneCreateWithoutProfileInput!]
+input NullableDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
 }
 
-input PhoneCreateWithoutProfileInput {
+input NullableFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
+input NullableIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+input NullableStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Phone {
+  id: Int!
   number: String!
-  type: PhoneType
+  profile: Profile!
+  profileId: Int!
+  type: PhoneType!
+}
+
+input PhoneFilter {
+  every: PhoneWhereInput
+  none: PhoneWhereInput
+  some: PhoneWhereInput
 }
 
 enum PhoneType {
@@ -102,8 +179,15 @@ enum PhoneType {
   WORK
 }
 
-input PhoneWhereUniqueInput {
-  id: Int
+input PhoneWhereInput {
+  AND: [PhoneWhereInput!]
+  id: IntFilter
+  NOT: [PhoneWhereInput!]
+  number: StringFilter
+  OR: [PhoneWhereInput!]
+  profile: ProfileWhereInput
+  profileId: IntFilter
+  type: PhoneType
 }
 
 type Profile {
@@ -114,26 +198,23 @@ type Profile {
   website: String
 }
 
-input ProfileCreateOneWithoutUserInput {
-  connect: ProfileWhereUniqueInput
-  create: ProfileCreateWithoutUserInput
-}
-
-input ProfileCreateWithoutUserInput {
-  companyName: String
-  companyRole: String
-  phone: PhoneCreateManyWithoutProfileInput
-  updatedAt: DateTime
-  website: String
-}
-
-input ProfileWhereUniqueInput {
-  id: Int
+input ProfileWhereInput {
+  AND: [ProfileWhereInput!]
+  companyName: NullableStringFilter
+  companyRole: NullableStringFilter
+  id: IntFilter
+  NOT: [ProfileWhereInput!]
+  OR: [ProfileWhereInput!]
+  phone: PhoneFilter
+  updatedAt: NullableDateTimeFilter
+  user: UserWhereInput
+  userId: IntFilter
+  website: NullableStringFilter
 }
 
 type Query {
   me: User
-  profile(where: ProfileWhereUniqueInput!): Profile
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int): [User!]!
 }
 
 enum Role {
@@ -143,6 +224,20 @@ enum Role {
   USER
 }
 
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
 enum Type {
   MIXED
   PAINTING
@@ -150,6 +245,7 @@ enum Type {
 }
 
 type User {
+  collections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, skip: Int): [Collection!]!
   display: String
   email: String!
   id: Int!
@@ -158,32 +254,26 @@ type User {
   username: String!
 }
 
-input UserCreateInput {
-  collections: CollectionCreateManyWithoutUsersInput
-  createdAt: DateTime
-  display: String
-  email: String!
-  password: String!
-  profile: ProfileCreateOneWithoutUserInput
-  role: Role
-  updatedAt: DateTime
-  username: String!
+input UserFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
 }
 
-input UserCreateManyWithoutCollectionsInput {
-  connect: [UserWhereUniqueInput!]
-  create: [UserCreateWithoutCollectionsInput!]
-}
-
-input UserCreateWithoutCollectionsInput {
-  createdAt: DateTime
-  display: String
-  email: String!
-  password: String!
-  profile: ProfileCreateOneWithoutUserInput
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  collections: CollectionFilter
+  createdAt: DateTimeFilter
+  display: NullableStringFilter
+  email: StringFilter
+  id: IntFilter
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  password: StringFilter
+  profile: ProfileWhereInput
   role: Role
-  updatedAt: DateTime
-  username: String!
+  updatedAt: NullableDateTimeFilter
+  username: StringFilter
 }
 
 input UserWhereUniqueInput {
@@ -192,71 +282,76 @@ input UserWhereUniqueInput {
   username: String
 }
 
-input WorkCreateManyWithoutCollectionsInput {
-  connect: [WorkWhereUniqueInput!]
-  create: [WorkCreateWithoutCollectionsInput!]
-}
-
-input WorkCreateOneWithoutWorkOrderInput {
-  connect: WorkWhereUniqueInput
-  create: WorkCreateWithoutWorkOrderInput
-}
-
-input WorkCreateWithoutCollectionsInput {
+type Work {
   catalogId: Int!
   category: Category!
-  createdAt: DateTime
+  collections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, skip: Int): [Collection!]!
   date: DateTime
   dimensions: String
-  image: ImageCreateManyWithoutWorkInput
+  id: Int!
   medium: String
   price: Float
-  published: Boolean!
   title: String!
-  type: Type
-  updatedAt: DateTime
-  workOrder: WorkOrderCreateManyWithoutWorkInput
+  type: Type!
+  workOrder(after: WorkOrderWhereUniqueInput, before: WorkOrderWhereUniqueInput, first: Int, last: Int, skip: Int): [WorkOrder!]!
 }
 
-input WorkCreateWithoutWorkOrderInput {
-  catalogId: Int!
-  category: Category!
-  collections: CollectionCreateManyWithoutWorksInput
-  createdAt: DateTime
-  date: DateTime
-  dimensions: String
-  image: ImageCreateManyWithoutWorkInput
-  medium: String
-  price: Float
-  published: Boolean!
-  title: String!
-  type: Type
-  updatedAt: DateTime
+input WorkFilter {
+  every: WorkWhereInput
+  none: WorkWhereInput
+  some: WorkWhereInput
 }
 
-input WorkOrderCreateManyWithoutCollectionInput {
-  connect: [WorkOrderWhereUniqueInput!]
-  create: [WorkOrderCreateWithoutCollectionInput!]
-}
-
-input WorkOrderCreateManyWithoutWorkInput {
-  connect: [WorkOrderWhereUniqueInput!]
-  create: [WorkOrderCreateWithoutWorkInput!]
-}
-
-input WorkOrderCreateWithoutCollectionInput {
+type WorkOrder {
+  collection: Collection!
+  collectionId: Int!
   order: Int!
-  work: WorkCreateOneWithoutWorkOrderInput!
+  work: Work!
+  workId: Int!
 }
 
-input WorkOrderCreateWithoutWorkInput {
-  collection: CollectionCreateOneWithoutWorkOrderInput!
-  order: Int!
+input WorkOrderFilter {
+  every: WorkOrderWhereInput
+  none: WorkOrderWhereInput
+  some: WorkOrderWhereInput
+}
+
+input WorkOrderWhereInput {
+  AND: [WorkOrderWhereInput!]
+  collection: CollectionWhereInput
+  collectionId: IntFilter
+  id: IntFilter
+  NOT: [WorkOrderWhereInput!]
+  OR: [WorkOrderWhereInput!]
+  order: IntFilter
+  work: WorkWhereInput
+  workId: IntFilter
 }
 
 input WorkOrderWhereUniqueInput {
   collectionId: Int
   id: Int
+}
+
+input WorkWhereInput {
+  AND: [WorkWhereInput!]
+  catalogId: IntFilter
+  category: Category
+  collections: CollectionFilter
+  createdAt: DateTimeFilter
+  date: NullableDateTimeFilter
+  dimensions: NullableStringFilter
+  id: IntFilter
+  image: ImageFilter
+  medium: NullableStringFilter
+  NOT: [WorkWhereInput!]
+  OR: [WorkWhereInput!]
+  price: NullableFloatFilter
+  published: BooleanFilter
+  title: StringFilter
+  type: Type
+  updatedAt: NullableDateTimeFilter
+  workOrder: WorkOrderFilter
 }
 
 input WorkWhereUniqueInput {
