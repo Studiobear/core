@@ -1,7 +1,7 @@
 import { validatePassword, createToken } from '../../util/auth'
 
 export const login = async (username: any, password: any, userContext: any) => {
-  const user = await userContext({ username })
+  const user = await userContext.findOne({ where: { username: username } })
 
   if (!user || !user.password) {
     throw new Error(`No user found for username: ${username}`)

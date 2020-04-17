@@ -3,7 +3,7 @@ import { makeSchema } from '@nexus/schema'
 import * as types from './types'
 import './context'
 
-declare var process: {
+declare let process: {
   argv: any
 }
 

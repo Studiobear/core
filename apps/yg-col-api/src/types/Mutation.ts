@@ -19,8 +19,10 @@ export const Mutation = mutationType({
     t.field('login', {
       type: 'AuthPayload',
       args: { username: stringArg(), password: stringArg() },
-      resolve: (_, { username, password }, ctx) =>
-        login(username, password, ctx.prisma.user),
+      resolve: (_, { username, password }, ctx) => {
+        console.log('login', username, password)
+        return login(username, password, ctx.prisma.user)
+      },
     })
   },
 })
