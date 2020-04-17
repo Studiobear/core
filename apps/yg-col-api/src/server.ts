@@ -13,12 +13,6 @@ export default function createApolloServer(
     graphqlEndpoint = '',
     graphqlMiddlewares = [],
     dataSources = () => ({}),
-    context = (req: any) => ({ ...req }),
-    // Subscriptions
-    subscriptionsEndpoint = '',
-    wsMiddlewares = [],
-    // Mocks
-    mocks = {},
     // Apollo Engine
     engineKey = '',
     // HTTP options

@@ -1,4 +1,3 @@
-import { slugify } from '../../util'
 import { hashedPassword, createToken } from '../../util/auth'
 
 export const register = async (

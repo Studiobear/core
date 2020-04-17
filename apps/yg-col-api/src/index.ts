@@ -14,7 +14,6 @@ app.post(GRAPHQL_ENDPOINT)
 export const server = createApolloServer(app, schema, {
   graphqlEndpoint: GRAPHQL_ENDPOINT,
   apolloServerOptions: { formatError },
-  context: (req): {} => req,
 })
 
 server.listen({ port: PORT }, () => {

@@ -1,5 +1,4 @@
-import { rule, shield, and, or, not } from 'graphql-shield'
-import { getUserId } from './auth'
+import { rule, shield, and, not } from 'graphql-shield'
 
 const rules = {
   isAuth: rule({ cache: 'contextual' })((parent, args, context) => {
