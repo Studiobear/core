@@ -8,12 +8,13 @@ export const register = async (
   createUser: any,
 ) => {
   const hashed = await hashedPassword(password)
-
-  const user = await createUser({
-    username: email,
-    password: hashed,
-    email,
-    display: name,
+  const user = await createUser.create({
+    data: {
+      username: email,
+      password: hashed,
+      email,
+      display: name,
+    },
   })
 
   const token = await createToken(user.id)

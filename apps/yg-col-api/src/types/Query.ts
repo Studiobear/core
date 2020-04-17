@@ -1,5 +1,5 @@
 import { objectType } from 'nexus'
-import { getUserId } from '../util'
+import { getUser } from './queries'
 
 export const Query = objectType({
   name: 'Query',
@@ -8,17 +8,7 @@ export const Query = objectType({
       t.field('me', {
         type: 'User',
         nullable: true,
-        resolve: (parent, args, ctx) => {
-          const userId = getUserId(ctx)
-          if (!userId) {
-            throw new Error('Invalid userId')
-          }
-          return ctx.prisma.user.findOne({
-            where: {
-              id: parseInt(userId),
-            },
-          })
-        },
+        resolve: (parent, args, ctx) => getUser(ctx),
       })
   },
 })

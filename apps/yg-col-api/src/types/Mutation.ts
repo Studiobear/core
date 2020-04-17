@@ -4,17 +4,16 @@ import { register, login } from './mutations'
 
 export const Mutation = mutationType({
   definition(t) {
-    t.crud.createOneUser(),
-      t.field('register', {
-        type: 'AuthPayload',
-        args: {
-          name: stringArg(),
-          password: stringArg(),
-          email: stringArg(),
-        },
-        resolve: (_, { name, password, email }, ctx) =>
-          register(name, password, email, ctx.prisma.createUser),
-      })
+    t.field('register', {
+      type: 'AuthPayload',
+      args: {
+        name: stringArg(),
+        password: stringArg(),
+        email: stringArg(),
+      },
+      resolve: (_, { name, password, email }, ctx) =>
+        register(name, password, email, ctx.prisma.user),
+    })
 
     t.field('login', {
       type: 'AuthPayload',
