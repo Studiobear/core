@@ -1,19 +1,28 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema } from '@nexus/schema'
 import * as types from './types'
+import './context'
+
+declare let process: {
+  argv: any
+}
+
+const args: string[] = process.argv
+const generate =
+  args !== undefined ? Boolean(args.includes('--generate')) : false
 
 export const schema = makeSchema({
   types,
   plugins: [
     nexusPrismaPlugin({
-      // Fixes the Cannot find NexusPrisma issue
-      outputs: { typegen: __dirname + '/generated/index.ts' },
+      outputs: { typegen: __dirname + '/../src/generated/index.ts' },
     }),
   ],
   outputs: {
     schema: __dirname + '/../schema.graphql',
-    typegen: __dirname + '/generated/nexus.ts',
+    typegen: __dirname + '/../src/generated/nexus.ts',
   },
+  shouldGenerateArtifacts: generate,
   typegenAutoConfig: {
     contextType: 'Context.Context',
     sources: [
@@ -22,7 +31,7 @@ export const schema = makeSchema({
         alias: 'prisma',
       },
       {
-        source: require.resolve('./context'),
+        source: __dirname + '/../src/context.ts',
         alias: 'Context',
       },
     ],

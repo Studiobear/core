@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
-  "exclude": ["node_modules", "dist", "public"],
   "include": ["src"],
+  "exclude": ["node_modules", "dist", "public"],
   "compilerOptions": {
     "skipLibCheck": true,
     "resolveJsonModule": true,

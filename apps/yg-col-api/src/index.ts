@@ -1,7 +1,7 @@
 import express from 'express'
 import createApolloServer from './server'
 import { schema } from './schema'
-import { logger } from './util'
+import { logger, formatError } from './util'
 
 const GRAPHQL_ENDPOINT = '/graphql'
 const PORT = process.env.PORT
@@ -13,12 +13,7 @@ app.post(GRAPHQL_ENDPOINT)
 
 export const server = createApolloServer(app, schema, {
   graphqlEndpoint: GRAPHQL_ENDPOINT,
-  context: (req): {} => ({
-    ...req,
-    token: req.headers ? req.headers : undefined,
-    user: req.user ? req.user : undefined,
-    userId: req.headers && req.headers.userid ? req.headers.userid : undefined,
-  }),
+  apolloServerOptions: { formatError },
 })
 
 server.listen({ port: PORT }, () => {
