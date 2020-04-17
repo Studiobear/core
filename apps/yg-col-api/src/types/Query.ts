@@ -1,24 +1,18 @@
 import { objectType } from 'nexus'
-import { getUserId } from '../util'
+import { getUser } from './queries'
 
 export const Query = objectType({
   name: 'Query',
   definition(t) {
-    t.crud.profile(),
-      t.field('me', {
-        type: 'User',
-        nullable: true,
-        resolve: (parent, args, ctx) => {
-          const userId = getUserId(ctx)
-          if (!userId) {
-            throw new Error('Invalid userId')
-          }
-          return ctx.prisma.user.findOne({
-            where: {
-              id: parseInt(userId),
-            },
-          })
-        },
-      })
+    t.field('me', {
+      type: 'User',
+      nullable: true,
+      resolve: (parent, args, ctx) => getUser(ctx),
+    })
+    t.crud.users()
+    t.crud.collection()
+    t.crud.collections()
+    t.crud.work()
+    t.crud.works()
   },
 })

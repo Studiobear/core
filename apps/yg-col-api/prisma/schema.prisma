@@ -9,25 +9,31 @@ generator client {
 
 model User {
   id          Int          @default(autoincrement()) @id
-  name        String?
+  username    String       @unique
+  display     String?
   email       String       @unique
   profile     Profile?
-  password    String?
+  password    String
   collections Collection[] @relation(references: [id])
   role        Role         @default(USER)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?
+
+  @@index([username, email])
 }
 
 enum Role {
+  SUPER
   USER
   ADMIN
+  MANAGER
 }
 
 model Profile {
   id          Int       @default(autoincrement()) @id
   phone       Phone[]
   companyName String?
+  companyRole String?
   website     String?
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
@@ -50,21 +56,29 @@ enum PhoneType {
 }
 
 model Work {
+  id          Int          @default(autoincrement()) @id
+  catalogId   Int          @unique
+  title       String
+  medium      String?
+  dimensions  String?
+  date        DateTime?
+  type        Type         @default(PAINTING)
+  price       Float?
+  image       Image[]
+  category    Category     @default(FLORAL)
+  published   Boolean
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?
+  collections Collection[] @relation(references: [id])
+}
+
+model WorkOrder {
   id           Int        @default(autoincrement()) @id
-  catalogId    Int
-  title        String
-  medium       String?
-  dimensions   String?
-  date         DateTime?
-  type         Type       @default(PAINTING)
-  price        Float?
-  image        Image[]
-  category     Category
-  published    Boolean
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime?
-  collectionId Int
+  order        Int
+  collectionId Int        @unique
   collection   Collection @relation(fields: [collectionId], references: [id])
+  workId       Int
+  work         Work       @relation(fields: [workId], references: [id])
 }
 
 enum Type {
@@ -95,8 +109,8 @@ model Image {
 
 model Collection {
   id        Int       @default(autoincrement()) @id
-  name      String
-  works     Work[]
+  name      String    @unique
+  works     Work[]    @relation(references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime?
   users     User[]    @relation(references: [id])

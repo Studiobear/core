@@ -23,8 +23,8 @@ export const createToken = async (userId: string) => {
   return sign({ userId: userId }, secret)
 }
 
-export const hashedPassword = async (password: string) => {
-  const hash = await new Promise((resolve, reject) => {
+export const hashedPassword = async (password: string): Promise<string> => {
+  const hash: string = await new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
       if (err) reject(err)
       resolve(hash)
