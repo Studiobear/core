@@ -213,8 +213,12 @@ input ProfileWhereInput {
 }
 
 type Query {
+  collection(where: CollectionWhereUniqueInput!): Collection
+  collections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, skip: Int): [Collection!]!
   me: User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int): [User!]!
+  work(where: WorkWhereUniqueInput!): Work
+  works(after: WorkWhereUniqueInput, before: WorkWhereUniqueInput, first: Int, last: Int, skip: Int): [Work!]!
 }
 
 enum Role {

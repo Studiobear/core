@@ -8,7 +8,7 @@
     "start": "NODE_ENV=production node ./dist/index.js",
     "type-watch": "tsc-watch  -p tsconfig.json --noEmit",
     "type-check": "tsc  -p tsconfig.json --noEmit",
-    "build": "yarn clean && yarn prisma:gen && yarn nexus:gen && tsc -p tsconfig.json",
+    "build": "yarn clean && yarn prisma:gen && yarn nexus:gen && tsc -p tsconfig.json && yarn lint:fix",
     "clean": "rm -rf ./dist/* & rm schema.graphql & rm -rf ./src/generated/*",
     "lint": "yarn type-check && eslint src --ext .js,.ts",
     "lint:fix": "yarn type-check && eslint src --ext .js,.ts --quiet --fix ",
