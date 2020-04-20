@@ -1116,6 +1116,7 @@ export interface NexusGenFieldTypes {
     allUsers: NexusGenRootTypes['User'][]; // [User!]!
     allWorks: NexusGenRootTypes['Work'][]; // [Work!]!
     collection: NexusGenRootTypes['Collection'] | null; // Collection
+    empty: boolean | null; // Boolean
     me: NexusGenRootTypes['User'] | null; // User
     work: NexusGenRootTypes['Work'] | null; // Work
     worksByCollection: NexusGenRootTypes['Collection']; // Collection!

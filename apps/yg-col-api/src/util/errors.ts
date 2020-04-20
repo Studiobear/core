@@ -23,14 +23,12 @@ export const formatError = (error: any) => {
   // party services like Sentry or Stackdriver
   console.log('formatError: ', error)
 
-  /*
   const originalError = searchOriginalError(error)
   if (!originalError) {
     logger.error(JSON.stringify(inspect(error)))
   } else {
     return originalError
   }
-  */
   return JSON.stringify(error)
 }
 
