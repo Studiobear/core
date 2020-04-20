@@ -273,8 +273,8 @@ interface NexusPrismaInputs {
   ordering: 'id' | 'type' | 'number' | 'profileId' | 'profile'
 }
     works: {
-  filtering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'workOrder' | 'AND' | 'OR' | 'NOT'
-  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
+  filtering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'workOrder' | 'AND' | 'OR' | 'NOT'
+  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
 }
     workOrders: {
   filtering: 'id' | 'order' | 'collectionId' | 'workId' | 'AND' | 'OR' | 'NOT' | 'collection' | 'work'
@@ -331,8 +331,8 @@ interface NexusPrismaInputs {
 
   },  Collection: {
     works: {
-  filtering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'workOrder' | 'AND' | 'OR' | 'NOT'
-  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
+  filtering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'workOrder' | 'AND' | 'OR' | 'NOT'
+  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
 }
     users: {
   filtering: 'id' | 'username' | 'display' | 'email' | 'password' | 'collections' | 'role' | 'createdAt' | 'updatedAt' | 'AND' | 'OR' | 'NOT' | 'profile'
@@ -455,7 +455,10 @@ interface NexusPrismaTypes {
     title: 'String'
     medium: 'String'
     dimensions: 'String'
-    date: 'DateTime'
+    width: 'Float'
+    height: 'Float'
+    framed: 'Boolean'
+    date: 'String'
     type: 'Type'
     price: 'Float'
     image: 'Image'

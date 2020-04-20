@@ -21,11 +21,11 @@ export const permissions = shield(
   {
     Query: {
       me: rules.isAuth,
-      users: and(rules.isAuth, rules.isAdmin),
+      allUsers: and(rules.isAuth, rules.isAdmin),
       collection: rules.isAuth,
-      collections: rules.isAuth,
+      allCollections: rules.isAuth,
       work: rules.isAuth,
-      works: rules.isAuth,
+      allWorks: rules.isAuth,
     },
     Mutation: {
       register: and(rules.isAuth, rules.isAdmin),

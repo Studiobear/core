@@ -23,5 +23,10 @@ export const Mutation = mutationType({
         return login(username, password, ctx.prisma.user)
       },
     })
+
+    t.crud.upsertOneCollection({ computedInputs: {} })
+    t.crud.upsertOneWork({})
+    t.crud.deleteOneCollection()
+    t.crud.deleteOneWork()
   },
 })

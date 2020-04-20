@@ -5,8 +5,6 @@ export const WorkOrder = objectType({
   definition(t) {
     t.model.order()
     t.model.collectionId()
-    t.model.collection()
     t.model.workId()
-    t.model.work()
   },
 })
