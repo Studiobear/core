@@ -1,5 +1,5 @@
 import { nexusPrismaPlugin } from 'nexus-prisma'
-import { makeSchema } from '@nexus/schema'
+import { makeSchema, connectionPlugin } from '@nexus/schema'
 import * as types from './types'
 import './context'
 
@@ -16,6 +16,13 @@ export const schema = makeSchema({
   plugins: [
     nexusPrismaPlugin({
       outputs: { typegen: __dirname + '/../src/generated/index.ts' },
+    }),
+    connectionPlugin({
+      nexusFieldName: 'connection',
+      extendConnection: {
+        totalCount: { type: 'Int' },
+      },
+      includeNodesField: true,
     }),
   ],
   outputs: {
