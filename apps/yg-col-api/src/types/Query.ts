@@ -5,6 +5,7 @@ import { paginateResults } from '../util'
 export const Query = objectType({
   name: 'Query',
   definition(t) {
+    t.field('empty', { type: 'Boolean', nullable: true, resolve: () => false })
     t.field('me', {
       type: 'User',
       nullable: true,

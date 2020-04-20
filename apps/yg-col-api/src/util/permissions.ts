@@ -1,4 +1,4 @@
-import { rule, shield, and, not } from 'graphql-shield'
+import { rule, shield, and, not, allow } from 'graphql-shield'
 
 const rules = {
   isAuth: rule({ cache: 'contextual' })((parent, args, context) => {
@@ -20,6 +20,7 @@ const rules = {
 export const permissions = shield(
   {
     Query: {
+      empty: allow,
       me: rules.isAuth,
       allUsers: and(rules.isAuth, rules.isAdmin),
       collection: rules.isAuth,

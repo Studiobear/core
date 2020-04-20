@@ -1,9 +1,9 @@
 import { getUserId } from '../../util'
 
-export const getUser = (ctx: any) => {
-  const userId = getUserId(ctx)
+export const getUser = async (ctx: any) => {
+  const userId = await getUserId(ctx)
   if (!userId) {
-    throw new Error('Invalid userId')
+    return {}
   }
   return ctx.prisma.user.findOne({
     where: {
