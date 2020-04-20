@@ -10,23 +10,28 @@ const searchOriginalError = (error: any) => {
   }
   if (error.errors) {
     logger.info('Errors')
-    logger.error(JSON.parse(JSON.stringify(inspect(error.errors))))
+    logger.error(JSON.stringify(inspect(error.errors)))
     return error.errors.map(searchOriginalError)[0]
   }
   logger.info('searchOriginalErrors')
-  logger.error(JSON.parse(JSON.stringify(inspect(error))))
+  logger.error(JSON.stringify(inspect(error)))
   return error
 }
 
 export const formatError = (error: any) => {
   // This can be used to send errors to third
   // party services like Sentry or Stackdriver
+  console.log('formatError: ', error)
+
+  /*
   const originalError = searchOriginalError(error)
   if (!originalError) {
-    logger.error(JSON.parse(JSON.stringify(inspect(error))))
+    logger.error(JSON.stringify(inspect(error)))
   } else {
     return originalError
   }
+  */
+  return JSON.stringify(error)
 }
 
 export class AuthenticationError extends Error {

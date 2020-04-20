@@ -76,3 +76,37 @@ export function slugify(string: string): string {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
 }
+
+interface PaginateInput {
+  after: string | null | undefined
+  pageSize: number | null
+  results: any
+  getCursor?: (item?: any) => null
+}
+
+export const paginateResults = ({
+  after,
+  pageSize = 20,
+  results,
+  getCursor = () => null,
+}: PaginateInput) => {
+  if (pageSize !== null && pageSize < 1) return []
+
+  if (!after) return results.slice(0, pageSize)
+  const cursorIndex = results.findIndex((item: any) => {
+    // if an item has a `cursor` on it, use that, otherwise try to generate one
+    let itemCursor = item.cursor ? item.cursor : getCursor(item)
+
+    // if there's still not a cursor, return false by default
+    return itemCursor ? after === itemCursor : false
+  })
+
+  return cursorIndex >= 0
+    ? cursorIndex === results.length - 1 // don't let us overflow
+      ? []
+      : results.slice(
+          cursorIndex + 1,
+          Math.min(results.length, cursorIndex + 1 + pageSize),
+        )
+    : results.slice(0, pageSize)
+}

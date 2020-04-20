@@ -61,7 +61,10 @@ model Work {
   title       String
   medium      String?
   dimensions  String?
-  date        DateTime?
+  width       Float?
+  height      Float?
+  framed      Boolean?
+  date        String?
   type        Type         @default(PAINTING)
   price       Float?
   image       Image[]
@@ -75,10 +78,12 @@ model Work {
 model WorkOrder {
   id           Int        @default(autoincrement()) @id
   order        Int
-  collectionId Int        @unique
+  collectionId Int
   collection   Collection @relation(fields: [collectionId], references: [id])
   workId       Int
   work         Work       @relation(fields: [workId], references: [id])
+
+  @@index([collectionId, workId])
 }
 
 enum Type {

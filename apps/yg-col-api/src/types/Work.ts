@@ -18,11 +18,23 @@ export const Work = objectType({
     t.model.title()
     t.model.medium()
     t.model.dimensions()
+    t.model.width()
+    t.model.height()
+    t.model.framed()
     t.model.date()
     t.model.type()
     t.model.price()
     t.model.category()
-    t.model.collections()
-    t.model.workOrder()
+    t.model.collections({ filtering: true })
+    t.model.workOrder({ ordering: true })
+  },
+})
+
+export const WorkConnection = objectType({
+  name: 'WorkConnection',
+  definition: t => {
+    t.string('cursor', { nullable: true })
+    t.boolean('hasMore')
+    t.field('works', { type: 'Work', list: [false] })
   },
 })
