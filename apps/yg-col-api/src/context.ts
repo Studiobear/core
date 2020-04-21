@@ -17,7 +17,7 @@ export const createContext = async (req?: any) => {
   const token = r && r.headers ? r.headers : undefined
   const user = await getUser({ req: r, prisma })
     .then((res: any) => res)
-    .catch((err: any) => undefined)
+    .catch(() => undefined)
   const userId = user && user.id ? user.id : undefined
   console.log(token, user, userId, r, req.res, prisma)
   return { token, user, userId, req: r, res: req.res, prisma }

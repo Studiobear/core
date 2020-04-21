@@ -17,6 +17,7 @@
   },
   "scripts": {
     "colapi": "yarn workspace yg-col-api",
+    "col": "yarn workspace yg-col",
     "build": "lerna run build",
     "watch": "lerna run dev",
     "clean": "lerna run clean",

@@ -2819,17 +2819,17 @@
   dependencies:
     type-detect "4.0.8"
 
-"@studiobear/designspek-components@^0.3.8":
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.3.8.tgz#c55fb672c44d33f1fde54863840bc4b8b988dfbe"
-  integrity sha512-hH60CoBy3NWoU1OqkKrZxqmXvOUMxpkLtx0WFaA6kUqB65hoIC0/E+XnNBAy6pXggW99c9tGgYWYBVvuwGlJOQ==
+"@studiobear/designspek-components@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek-components/-/designspek-components-0.4.0.tgz#e1576a38b2eeefb2ad269477bb8b6019a29ec884"
+  integrity sha512-r+G546OX+bOWsKbH/TJSoQdQGOPnCTP4/uHqV3n9dlxnnIvfv+Ks72xDM1pVqCAv5Y5pVtQ44IxMvANIf95AxA==
   dependencies:
-    "@studiobear/designspek" "^0.3.8"
+    "@studiobear/designspek" "^0.4.0"
 
-"@studiobear/designspek@^0.3.8":
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.3.8.tgz#daadefbd18bb800956e277816cea3c8e7ecc9e40"
-  integrity sha512-Xt5khnEDM5L/YvCregxC5OyDzSt2TOCkzvnnbdEbjKYrkDzDR6yGBJpD3k3awLbi8gE+LgdyJnx85h5LfQrNZA==
+"@studiobear/designspek@^0.4.0", "@studiobear/designspek@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@studiobear/designspek/-/designspek-0.4.1.tgz#1027b9677fe6b9a8b5ab0f1d92c64567352063ce"
+  integrity sha512-K3XG5NIqt+VjEjpVmH6DaF3KkDkU7PSUBZ4FG46bYVGNBEKe/st3qPtDc07SU6TgPTXDguZrcR3KyB5vaRBXFQ==
   dependencies:
     svelte "^3.20.1"
 
@@ -14250,16 +14250,16 @@ rollup-plugin-sizes@^0.4.2:
     lodash.sumby "^4.6.0"
     module-details-from-path "^1.0.3"
 
-rollup-plugin-svelte-hot@^0.4.0:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-hot/-/rollup-plugin-svelte-hot-0.4.2.tgz#e876144876ef41547acb684184113bb7f3373000"
-  integrity sha512-bMsDK8L3Df2whwT3FakuSdi9dEbeEYhizcUnZoEGips0q54eHSfkrWcB01n1BD2bg8IPD0F9yp+5qJoMYL8bEA==
+rollup-plugin-svelte-hot@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-hot/-/rollup-plugin-svelte-hot-0.5.0.tgz#1306dfc93aeb414e1a589e72984694882a6909d7"
+  integrity sha512-DW6kjVr5Ng2L9vpH1eSgf84hXaVQ3ybndksx1DHbrBVB81WTWSCYX/+nklr9SZ/N9sZeU/4ZR2Y/OeCTCQvQZg==
   dependencies:
     require-relative "^0.8.7"
     rollup-plugin-hot "^0.0.9-0"
     rollup-pluginutils "^2.8.2"
-    sourcemap-codec "^1.4.4"
-    svelte-hmr "^0.5.0"
+    sourcemap-codec "^1.4.8"
+    svelte-hmr "^0.6.0"
   optionalDependencies:
     nollup ">=0.8.4"
 
@@ -14863,7 +14863,7 @@ source-map@^0.7.3:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
 
-sourcemap-codec@^1.4.1, sourcemap-codec@^1.4.4, sourcemap-codec@^1.4.6:
+sourcemap-codec@^1.4.1, sourcemap-codec@^1.4.4, sourcemap-codec@^1.4.6, sourcemap-codec@^1.4.8:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz#ea804bd94857402e6992d05a38ef1ae35a9ab4c4"
   integrity sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==
@@ -15361,10 +15361,10 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-svelte-hmr@^0.5.0:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.5.1.tgz#4f19a8c2635c6b71014784afcc5a6ae90f818caa"
-  integrity sha512-zX1yK3o+IZhjGcUwpde1ykA0CCbjfQATuiDnqUomaZg0wOT21Ioiz9XaQSxOkSMF5r5QYu3nd+ZK+8ML71T4/w==
+svelte-hmr@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.6.0.tgz#649fdbdae874a60ab9d71637c74557758f679345"
+  integrity sha512-hYSc7leY88jPgB1bsO6jLLB3LWBCvHN7aQZQQw/9El9UXmik3fwc6piZOLlzlfDdMW53MUQYd8B+C1P8wtitbA==
 
 svelte-image@^0.1.9:
   version "0.1.9"
