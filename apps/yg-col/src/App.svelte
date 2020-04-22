@@ -12,7 +12,7 @@
     Button,
   } from '@studiobear/designspek-components'
 
-  import { Header, User } from './components/index'
+  import { Header, Footer } from './components/index'
 
   $: addGlobal($theme)
 
@@ -97,4 +97,5 @@
       </Grid>
     </Section>
   </Grid>
+  <Footer />
 </Box>
