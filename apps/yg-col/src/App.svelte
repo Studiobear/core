@@ -71,7 +71,7 @@
       {:then preloaded}
         <p>Preloaded user....</p>
       {:catch error}
-        <p>Error preloading user: {error}</p>
+        <p>Error preloading books: {error}</p>
       {/await}
     </Section>
   </Grid>
