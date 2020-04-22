@@ -4,6 +4,7 @@ import { applyMiddleware as applyGraphQLMiddleware } from 'graphql-middleware'
 import { createContext } from './context'
 import { permissions } from './util'
 import { Express } from 'express'
+import cors from 'cors'
 
 export default function createApolloServer(
   app: Express,
@@ -38,6 +39,17 @@ export default function createApolloServer(
 
   // Apollo Server
   const server = new ApolloServer(options)
+
+  var whitelist = ['http://localhost:5000', process.env.CLIENT_URL]
+  var corsOptions = {
+    origin: (origin: string, callback: any) => {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+  }
 
   // Express middleware
   server.applyMiddleware({

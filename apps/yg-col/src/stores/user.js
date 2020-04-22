@@ -4,15 +4,15 @@ import {
   setStorageItem,
   getStorageItem,
   getStorageKeys,
-} from '../libs'
+} from '../libs/storage'
 
 const lfUser = createStorageInstance('user')
-let prefs = { auth: undefined }
+let prefs = { token: undefined }
 
 const setAuth = (prev, tok) => {
   // console.log('setLocation: ', prev, loc)
-  setStorageItem('auth', tok, lfUser)
-  return { ...prev, auth: tok }
+  setStorageItem('token', tok, lfUser)
+  return { ...prev, token: tok }
 }
 
 const createUser = () => {

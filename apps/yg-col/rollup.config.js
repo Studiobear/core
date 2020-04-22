@@ -1,3 +1,4 @@
+require('dotenv').config()
 import svelte from 'rollup-plugin-svelte-hot'
 import image from 'svelte-image'
 import copy from 'rollup-plugin-copy'
@@ -32,6 +33,7 @@ export default {
     replace({
       'process.browser': true,
       'process.env.NODE_ENV': JSON.stringify(dev),
+      'process.env.GRAPHQL_URL': JSON.stringify(process.env.GRAPHQL_URL),
     }),
     svelte({
       // enable run-time checks when not in production
