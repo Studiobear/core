@@ -2,7 +2,7 @@
   import { client } from './libs'
   import { GET_ME } from './graphql'
 
-  export async function preload() {
+  export const preload = async () => {
     return {
       cache: await client.query({ query: GET_ME }),
     }
@@ -68,9 +68,9 @@
       <Login theme={$theme} />
       {#await preloading}
         <p>Preloading user....</p>
-      {:then preloaded}
+      {:then [object Object]}
         <p>Preloaded user....</p>
-      {:catch error}
+      {:catch [object Object]}
         <p>Error preloading books: {error}</p>
       {/await}
     </Section>

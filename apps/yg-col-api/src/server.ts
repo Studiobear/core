@@ -42,6 +42,7 @@ export default function createApolloServer(
   // Express middleware
   server.applyMiddleware({
     app,
+    cors,
     path: graphqlEndpoint,
     // gui: {
     //   endpoint: graphqlEndpoint,
