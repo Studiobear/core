@@ -87,8 +87,7 @@ export const main = {
       antialias: true,
       reset: true,
       m: 0,
-      bg: 'background',
-      bgCol: 'background',
+      bg: 'secondary',
       w: '100vw',
     },
     h1: {
@@ -186,6 +185,31 @@ export const main = {
     },
     li: {
       color: 'text',
+    },
+    label: {
+      fontFamily: 'body',
+      color: 'background',
+      fontSize: '14',
+      txtTran: 'uppercase',
+      txtAlign: 'center',
+    },
+    input: { fontFamily: 'body', w: '100%', pb: '.5rem', txtAlign: 'center' },
+    button: { fontFamily: 'body' },
+    fieldset: {
+      brd: '1px solid',
+      brdCol: 'secondary',
+      p: '2rem',
+      txtAlign: 'center',
+    },
+    legend: {
+      fontFamily: 'body',
+      color: 'primary',
+      fontSize: '2em',
+      lineHeight: '1.8em',
+      txtAlign: 'center',
+      position: 'relative',
+      px: '1rem',
+      m: 0,
     },
   },
 }

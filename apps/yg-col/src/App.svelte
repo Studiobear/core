@@ -1,23 +1,7 @@
-<script context="module">
-  import { setContext } from 'svelte'
-  import { theme } from './theme'
-
-  let mode = 'light'
-
-  export function changeMode() {
-    if (mode === 'light') {
-      mode = 'dark'
-      theme.dark()
-    } else {
-      mode = 'light'
-      theme.light()
-    }
-  }
-</script>
-
 <script>
   import { addGlobal } from '@studiobear/designspek'
-  // import { theme } from './theme'
+  import Form from '@svelteschool/svelte-forms'
+  import { theme } from './theme'
   import {
     Section,
     Grid,
@@ -25,9 +9,10 @@
     Box,
     Heading,
     Text,
+    Button,
   } from '@studiobear/designspek-components'
 
-  import { Header, Sidebar, User } from './components/index'
+  import { Header, User } from './components/index'
 
   $: addGlobal($theme)
 
@@ -35,59 +20,81 @@
   $: secondary = $theme.colors.secondary
   $: background = $theme.colors.background
   $: main = {
-    bg: background,
+    bg: primary,
   }
 
   $: grid = {
     textalign: 'center',
+    pb: '4rem',
   }
 
-  $: headerStyle = {
-    color: background,
+  $: h1Style = {
+    color: primary,
     lineHeight: '1.8em',
-    txtalign: 'center',
+    txtAlign: 'center',
     position: 'relative',
+    m: 0,
   }
-  $: headerStyle1 = {
-    color: '#ddd',
+  $: h2Style = {
+    color: secondary,
+    fontSize: '2em',
+    lineHeight: '1.8em',
+    txtAlign: 'center',
+    position: 'relative',
+    m: 0,
+  }
+
+  let contentGrid = {
+    justc: 'center',
+    alignc: 'center',
+    minh: ['20em', '30em', '40em'],
   }
 
   $: content = {
+    d: 'flex',
+    flexdir: 'column',
     textalign: 'center',
-    p: '4em',
-    mt: '180px',
+    p: '1em 2em 3em',
+    mt: '16rem',
     minw: ['10em', '15em', '20em'],
     maxw: '100%',
-    bg: primary,
+    bg: background,
   }
+
+  $: bttnLogin = {
+    p: '.5rem 2rem',
+    w: '50%',
+    mt: '1rem',
+  }
+
+  let values
 </script>
 
-<Box {...$$props} theme={$theme} style={main}>
+<Box style={main}>
   <Grid container gridgap={0} style={grid}>
     <Header theme={$theme} />
     <Section as="main">
-      <Grid
-        container
-        style={{ justc: 'center', alignc: 'center', minh: ['20em', '30em', '40em'] }}>
-        <Box style={content}>
-          <Heading as="h1" style={headerStyle}>
-            To Do? To Remember? To Share?
-            <br />
-            <span style="font-size: 66px; padding-left: 0.6em;">
-              Make it Duly Listed
-              <span
-                style="font-size: 30px; line-height: 1.8em; position: relative;
-                top: -28px;">
-                **
-              </span>
-            </span>
+      <Grid container style={contentGrid}>
+        <Flex style={content}>
+          <Heading as="h1" style={h1Style}>
+            Y&auml;ger Galerie Collections
           </Heading>
-          <Text style={{ txtalign: 'center', color: $theme.colors.muted }}>
-            **Created by an individual who hates lists
-          </Text>
-        </Box>
+          <Form bind:values>
+            <fieldset>
+              <legend>LOGIN</legend>
+              <label for="inputUser">Username</label>
+              <input
+                placeholder="Username"
+                type="text"
+                name="inputUser"
+                size="" />
+              <label for="inputPass">Password</label>
+              <input placeholder="Password" type="password" name="inputPass" />
+              <Button style={bttnLogin}>Login</Button>
+            </fieldset>
+          </Form>
+        </Flex>
       </Grid>
     </Section>
-    <Sidebar />
   </Grid>
 </Box>

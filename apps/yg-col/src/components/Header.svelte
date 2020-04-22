@@ -38,7 +38,12 @@
     transition: '1s',
   }
   $: brandIY = {
-    minw: topSmall ? '330px' : '400px',
+    minw: [
+      topSmall ? '150px' : '220px',
+      topSmall ? '170px' : '250px',
+      topSmall ? '250px' : '300px',
+      topSmall ? '330px' : '400px',
+    ],
     h: '100%',
     p: '.5rem',
     pos: 'absolute',
@@ -51,10 +56,16 @@
     minw: '314px',
   }
   $: brandYG = {
-    minw: topSmall ? '90px' : '134px',
+    minw: [
+      topSmall ? '80px' : '100px',
+      topSmall ? '90px' : '110px',
+      topSmall ? '90px' : '120px',
+      topSmall ? '90px' : '134px',
+    ],
     h: '100%',
     p: '.5rem',
     transition: '1s',
+    mr: '2rem',
   }
   $: iyBrand = styled(
     {
