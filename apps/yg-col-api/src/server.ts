@@ -16,7 +16,6 @@ export default function createApolloServer(
     // Apollo Engine
     engineKey = '',
     // HTTP options
-    cors = false,
     timeout = 120000,
     // Extra options for Apollo Server
     apolloServerOptions = {},
@@ -25,6 +24,7 @@ export default function createApolloServer(
   // Apollo server options
   const options = {
     ...apolloServerOptions,
+    cors: false,
     schema: applyGraphQLMiddleware(schema, permissions, ...graphqlMiddlewares),
     tracing: true,
     cacheControl: true,
@@ -42,7 +42,7 @@ export default function createApolloServer(
   // Express middleware
   server.applyMiddleware({
     app,
-    cors,
+    cors: false,
     path: graphqlEndpoint,
     // gui: {
     //   endpoint: graphqlEndpoint,
