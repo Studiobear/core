@@ -5,7 +5,7 @@ export const GET_ME = gql`
     me {
       username
       email
-      displayName
+      display
       collections {
         name
         works {
