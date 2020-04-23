@@ -1,7 +1,6 @@
 <script context="module">
   import { client } from './libs'
   import { GET_ME } from './graphql'
-
   export const preload = async () => {
     return {
       cache: await client.query({ query: GET_ME }),
@@ -13,21 +12,16 @@
   import { addGlobal } from '@studiobear/designspek'
   import { setClient, getClient, restore, query } from 'svelte-apollo'
   import { Section, Grid, Box } from '@studiobear/designspek-components'
-
   import { getStorageKeys, getStorageItem } from './libs'
   import { theme } from './theme'
   import { storeUser, lfUser } from './stores'
-
   import { Header, Footer, Login } from './components/index'
-
-  const preloading = preload()
+  const preloading = preload().catch(err => console.log('preload err', err))
   setClient(client)
   const gqlClient = getClient()
-
   export let cache
   if (cache && cache.hasOwnProperty('data'))
     restore(gqlClient, GET_ME, cache.data)
-
   if (process.browser) {
     lfUser
       .ready()
@@ -42,21 +36,17 @@
         console.log('local storage error:', e)
       })
   }
-
   $: addGlobal($theme)
-
   $: primary = $theme.colors.primary
   $: secondary = $theme.colors.secondary
   $: background = $theme.colors.background
   $: main = {
     bg: primary,
   }
-
   $: grid = {
     textalign: 'center',
     pb: '4rem',
   }
-
   const me = query(gqlClient, { query: GET_ME })
   $: console.log('App: ', $storeUser, me)
 </script>
@@ -68,10 +58,8 @@
       <Login theme={$theme} />
       {#await preloading}
         <p>Preloading user....</p>
-      {:then [object Object]}
+      {:then value}
         <p>Preloaded user....</p>
-      {:catch [object Object]}
-        <p>Error preloading books: {error}</p>
       {/await}
     </Section>
   </Grid>
