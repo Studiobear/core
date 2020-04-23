@@ -16,7 +16,8 @@
     "jest:watch": "yarn jest --watch src",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "echo SUCCESS"
+    "test": "echo SUCCESS",
+    "kill": "kill $(lsof -ti:5000)"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -15,7 +15,7 @@
   import { getStorageKeys, getStorageItem } from './libs'
   import { theme } from './theme'
   import { storeUser, lfUser } from './stores'
-  import { Header, Footer, Login } from './components/index'
+  import { Header, Footer, Login, Loading } from './components'
   const preloading = preload().catch(err => console.log('preload err', err))
   setClient(client)
   const gqlClient = getClient()
@@ -36,6 +36,9 @@
         console.log('local storage error:', e)
       })
   }
+
+  $: authed = $storeUser.token || false
+
   $: addGlobal($theme)
   $: primary = $theme.colors.primary
   $: secondary = $theme.colors.secondary
@@ -55,12 +58,11 @@
   <Grid container gridgap={0} style={grid}>
     <Header theme={$theme} />
     <Section as="main">
-      <Login theme={$theme} />
-      {#await preloading}
-        <p>Preloading user....</p>
-      {:then value}
-        <p>Preloaded user....</p>
-      {/await}
+      {#if authed}
+        <Box>Logged In</Box>
+      {:else}
+        <Login theme={$theme} />
+      {/if}
     </Section>
   </Grid>
   <Footer />
