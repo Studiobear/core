@@ -6,12 +6,21 @@
   $: secondary = $theme.colors.secondary
   $: background = $theme.colors.background
 */
-  $: footer = { color: $theme.colors.background }
+  $: footer = {
+    color: $theme.colors.background,
+    area: 'sidebar',
+    d: 'flex',
+    flexdir: 'column',
+    justc: 'center',
+    align: 'stretch',
+    bl: '1px solid',
+    brdCol: $theme.colors.secondary,
+    mt: '4rem',
+    px: '2.5rem',
+  }
   $: flex = {
-    bg: $theme.colors.secondary,
-    justc: 'space-around',
-    alignc: 'center',
-    minh: '4em',
+    justc: 'flex-end',
+    align: 'stretch',
   }
 </script>
 

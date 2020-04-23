@@ -15,7 +15,7 @@
   import { getStorageKeys, getStorageItem } from './libs'
   import { theme } from './theme'
   import { storeUser, lfUser } from './stores'
-  import { Header, Footer, Login, Loading } from './components'
+  import { Header, Footer, Login, LoggedIn, Loading } from './components'
   const preloading = preload().catch(err => console.log('preload err', err))
   setClient(client)
   const gqlClient = getClient()
@@ -51,7 +51,7 @@
     pb: '4rem',
   }
   const me = query(gqlClient, { query: GET_ME })
-  $: console.log('App: ', $storeUser, me)
+  $: console.log('App: ', $storeUser, $me)
 </script>
 
 <Box style={main}>
@@ -59,7 +59,11 @@
     <Header theme={$theme} />
     <Section as="main">
       {#if authed}
-        <Box>Logged In</Box>
+        {#await $me}
+          <Loading theme={$theme} />
+        {:then result}
+          <LoggedIn theme={$theme} user={result} />
+        {/await}
       {:else}
         <Login theme={$theme} />
       {/if}
