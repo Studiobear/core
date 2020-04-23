@@ -1,6 +1,5 @@
-import { objectType, stringArg, intArg, arg } from '@nexus/schema'
+import { objectType, intArg, arg } from '@nexus/schema'
 import { getUser } from './queries'
-import { paginateResults } from '../util'
 
 export const Query = objectType({
   name: 'Query',
