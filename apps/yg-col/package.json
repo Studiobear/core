@@ -8,7 +8,7 @@
     "dev": "rollup -c -w",
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
-    "start": "sirv public",
+    "start": "sirv -c -s --port 54543 public",
     "clean": "rm -rf ./public/build",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
