@@ -16,7 +16,7 @@ export default function createApolloServer(
     // Apollo Engine
     engineKey = '',
     // HTTP options
-    cors = true,
+    cors = false,
     timeout = 120000,
     // Extra options for Apollo Server
     apolloServerOptions = {},
