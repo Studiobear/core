@@ -13,7 +13,8 @@
   export let user = $$props.user || {}
   export let loading = $$props.loading || false
 
-  $: collection = get(user, 'data.me.collections', null)
+  $: userInfo = get(user, 'data.me', null)
+  $: collection = get(userInfo, 'collections', null)
   $: works = get(collection[0], 'works', null)
 
   $: primary = theme.colors.primary
@@ -85,5 +86,5 @@
       </Grid>
     {/if}
   </Flex>
-  <Sidebar {theme} />
+  <Sidebar {theme} user={userInfo} />
 </Grid>
