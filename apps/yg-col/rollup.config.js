@@ -41,9 +41,7 @@ export default {
       // we'll extract any component CSS out into
       // a separate file - better for performance
       ...(!hot && {
-        css: css => {
-          css.write('public/build/bundle.css')
-        },
+        css: css => false,
       }),
       hot: hot && {
         // Optimistic will try to recover from runtime

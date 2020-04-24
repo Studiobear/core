@@ -8,7 +8,8 @@
     "dev": "rollup -c -w",
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
-    "start": "sirv -c -s --port 54543 public",
+    "start": "sirv public",
+    "start:prod": "sirv -c -s --port 54543 public",
     "clean": "rm -rf ./public/build",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
@@ -16,7 +17,8 @@
     "jest:watch": "yarn jest --watch src",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "echo SUCCESS"
+    "test": "echo SUCCESS",
+    "kill": "kill $(lsof -ti:5000)"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -53,6 +55,7 @@
     "graphql-tag": "^2.10.3",
     "jest": "^25.1.0",
     "jest-transform-svelte": "^2.1.1",
+    "lodash": "^4.17.15",
     "nollup": "^0.10.6",
     "prettier": "1.19.1",
     "prettier-plugin-svelte": "^0.7.0",
