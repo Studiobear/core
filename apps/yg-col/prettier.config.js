@@ -3,5 +3,7 @@ module.exports = {
   tabWidth: 2,
   semi: false,
   singleQuote: true,
-  plugins: ['prettier-plugin-svelte'],
+  // Svelte
+  svelteStrictMode: false,
+  svelteBracketNewLine: true,
 }

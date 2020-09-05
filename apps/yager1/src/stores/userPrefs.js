@@ -26,9 +26,9 @@ const createUserPrefs = () => {
 
   return {
     subscribe,
-    location: loc => update(n => setLocation(n, loc)),
-    dark: () => update(n => setMode(n, 'dark')),
-    light: () => update(n => setMode(n, 'light')),
+    location: (loc) => update((n) => setLocation(n, loc)),
+    dark: () => update((n) => setMode(n, 'dark')),
+    light: () => update((n) => setMode(n, 'light')),
     reset: set(prefs),
   }
 }

@@ -25,7 +25,7 @@
           await storeUserPrefs.location(loc)
         }
       })
-      .catch(function(e) {
+      .catch(function (e) {
         console.log(e)
       })
   }
