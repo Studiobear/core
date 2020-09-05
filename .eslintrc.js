@@ -1,13 +1,18 @@
+const eslintSveltePreprocess = require('eslint-svelte3-preprocess')
+const svelteConfig = require('./svelte.config')
+
 module.exports = {
   env: {
+    node: true,
     browser: true,
     es6: true,
   },
   parserOptions: {
+    createDefaultProgram: true,
     ecmaVersion: 2019,
     sourceType: 'module',
   },
-  plugins: ['prettier', 'svelte3'],
+  plugins: ['svelte3', 'prettier'],
   extends: ['plugin:prettier/recommended'],
   overrides: [
     {
@@ -17,5 +22,8 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+  },
+  settings: {
+    'svelte3/preprocess': eslintSveltePreprocess(svelteConfig.preprocess),
   },
 }

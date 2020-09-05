@@ -20,7 +20,7 @@ const createUser = () => {
 
   return {
     subscribe,
-    auth: tok => update(n => setAuth(n, tok)),
+    auth: (tok) => update((n) => setAuth(n, tok)),
     reset: set(prefs),
   }
 }

@@ -282,7 +282,7 @@ function createTheme() {
 
   return {
     subscribe,
-    dark: () => update(t => dark),
+    dark: () => update((t) => dark),
     reset: () => set(basic),
   }
 }

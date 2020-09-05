@@ -218,7 +218,7 @@
   }
   $: mode = $storeUserPrefs.mode || $theme.mode || 'light'
 
-  const setMode = mode => {
+  const setMode = (mode) => {
     if (mode === 'light') {
       theme.dark()
       storeUserPrefs.dark()

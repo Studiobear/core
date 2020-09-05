@@ -75,15 +75,10 @@
         style={{ justc: 'center', alignc: 'center', minh: ['20em', '30em', '40em'] }}>
         <Box style={content}>
           <Heading as="h1" style={headerStyle}>
-            To Do? To Remember? To Share?
-            <br />
+            To Do? To Remember? To Share? <br />
             <span style="font-size: 66px; padding-left: 0.6em;">
-              Make it Duly Listed
-              <span
-                style="font-size: 30px; line-height: 1.8em; position: relative;
-                top: -28px;">
-                **
-              </span>
+              Make it Duly Listed <span style="font-size: 30px; line-height: 1.8em; position: relative;
+                top: -28px;"> ** </span>
             </span>
           </Heading>
           <Text style={{ txtalign: 'center', color: $theme.colors.muted }}>

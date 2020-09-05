@@ -32,7 +32,7 @@ export const Work = objectType({
 
 export const WorkConnection = objectType({
   name: 'WorkConnection',
-  definition: t => {
+  definition: (t) => {
     t.string('cursor', { nullable: true })
     t.boolean('hasMore')
     t.field('works', { type: 'Work', list: [false] })

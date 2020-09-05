@@ -1,9 +1,11 @@
 <script context="module">
   import { client } from './libs'
   import { GET_ME } from './graphql'
+
   export const preload = async () => {
+    let cacheQuery = await client.query({ query: GET_ME })
     return {
-      cache: await client.query({ query: GET_ME }),
+      cache: cacheQuery,
     }
   }
 </script>
@@ -59,7 +61,7 @@
     <Header theme={$theme} />
     <Section as="main">
       {#if authed}
-        {#await $me}
+        {#await me}
           <Loading theme={$theme} />
         {:then result}
           <LoggedIn theme={$theme} user={result} />
