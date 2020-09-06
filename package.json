@@ -19,6 +19,7 @@
     "colapi": "yarn workspace yg-col-api",
     "col": "yarn workspace yg-col",
     "sb": "yarn workspace studiobear-site",
+    "sb2": "yarn workspace site2",
     "build": "lerna run build",
     "watch": "lerna run dev",
     "clean": "lerna run clean",
