@@ -16,6 +16,7 @@ const dev = mode === 'development'
 const legacy = !!process.env.SAPPER_LEGACY_BUILD
 
 const onwarn = (warning, onwarn) =>
+  (warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
   (warning.code === 'CIRCULAR_DEPENDENCY' &&
     /[/\\]@sapper[/\\]/.test(warning.message)) ||
   onwarn(warning)
@@ -84,6 +85,7 @@ export default {
         }),
     ],
     // context: "window",
+    preserveEntrySignatures: false,
     onwarn,
   },
 
@@ -95,7 +97,7 @@ export default {
         'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.SITE_URL':
-          process.env.NODE_ENV === 'development'
+          mode === 'development'
             ? `'${process.env.SITE_URL}'`
             : `'${process.env.PROD_URL}'`,
       }),
@@ -126,7 +128,7 @@ export default {
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.SITE_URL':
-          process.env.NODE_ENV === 'development'
+          mode === 'development'
             ? `'${process.env.SITE_URL}'`
             : `'${process.env.PROD_URL}'`,
       }),

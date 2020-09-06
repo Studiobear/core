@@ -1,29 +1,30 @@
+<script context="module">
+  export const preload = async () => {
+    const prestyled = { primary: '#446' }
+    return { prestyled }
+  }
+</script>
+
 <script>
   import { styled } from '@studiobear/designspek'
+  import { Button } from '@studiobear/designspek-components'
   import { theme } from '../theme'
 
-  import { Nav, Button, Box } from '../components'
+  import { Nav, Box } from '../components'
 
   export let segment
   export let mode = 'basic'
-</script>
+  export let prestyled
 
-<style>
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 2em;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-</style>
+  $: ssrStyle = prestyled ? prestyled : { primary: '#889' }
+  $: console.log('ssrStyle: ', ssrStyle)
+</script>
 
 <Nav {segment} />
 
 <main use:styled={[$$props, $theme]}>
   <Button
-    bg={'colors.primary'}
+    style={{ bg: ssrStyle.primary }}
     p="space.xs"
     color={'colors.secondary'}
     on:click={() => {
@@ -32,5 +33,5 @@
     }}>
     click to invert me!
   </Button>
-  <slot />
+  <slot {ssrStyle} />
 </main>

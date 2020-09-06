@@ -4,6 +4,10 @@
   import { Counter } from '@studiobear/designspek-components'
 
   import { Box, Heading } from '../components'
+
+  export let ssrStyle
+
+  $: console.log('ssrStyle index: ', ssrStyle)
 </script>
 
 <svelte:head>
@@ -33,5 +37,5 @@
 </p>
 
 <Box bg={'colors.primary'} color={'colors.secondary'}>
-  {$theme.colors.primary}
+  {$theme.colors.primary} | {ssrStyle}
 </Box>
