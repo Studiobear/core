@@ -10,7 +10,6 @@ import remark2rehype from 'remark-rehype'
 import stringify from 'rehype-stringify'
 import filter from 'unist-util-filter'
 import visit from 'unist-util-visit'
-import xtend from 'xtend'
 import path from 'path'
 
 export const removeFrontmatter = () => async (tree, file) => {
