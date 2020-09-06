@@ -13,5 +13,6 @@ describe('MD Processor', () => {
     expect(post).toHaveProperty('slug')
     expect(post).toHaveProperty('html')
     expect(post).toHaveProperty('excerpt')
+    expect(String(post.html).length > String(post.excerpt).length).toBe(true)
   })
 })
