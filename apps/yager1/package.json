@@ -29,7 +29,7 @@
     "@openfonts/source-sans-pro_latin": "^1.44.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "localforage": "^1.7.3",
+    "localforage": "^1.9.0",
     "polka": "1.0.0-next.11",
     "sirv": "^1.0.6"
   },
@@ -83,7 +83,7 @@
     "sapper": "^0.28.4",
     "sort-objects-array": "^1.7.1",
     "svelte": "^3.24.1",
-    "svelte-image": "^0.1.9",
+    "svelte-image": "^0.2.7",
     "svelte-jester": "^1.1.5",
     "svelte-loadable": "^1.4.0",
     "to-vfile": "^6.0.0",
