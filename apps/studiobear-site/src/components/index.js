@@ -1,6 +1,4 @@
-import Box from './Box.svelte'
-import Button from './Button.svelte'
-import Heading from './Heading.svelte'
 import Nav from './Nav.svelte'
+import { SSR } from './util'
 
-export { Box, Button, Heading, Nav }
+export { Nav, SSR }

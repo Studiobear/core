@@ -51,6 +51,8 @@
   "dependencies": {
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
+    "@elderjs/browser-reload": "^0.0.8",
+    "@elderjs/elderjs": "^0.1.3",
     "@manypkg/cli": "^0.15.0",
     "commitizen": "^4.2.1",
     "cypress": "^5.1.0",

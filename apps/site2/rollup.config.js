@@ -34,8 +34,8 @@ del.sync([`${ssrComponents}*`, `${clientComponents}*`]);
 
 // Add ElderJs Peer deps to public if they exist.
 const elderJsPeerDeps = [
-  ['./node_modules/intersection-observer/intersection-observer.js', 'intersectionObserverPoly'],
-  ['./node_modules/systemjs/dist/s.min.js', 'systemJs'],
+  ['../../node_modules/intersection-observer/intersection-observer.js', 'intersectionObserverPoly'],
+  ['../../node_modules/systemjs/dist/s.min.js', 'systemJs'],
 ]
   .filter((dep) => fs.existsSync(path.resolve(process.cwd(), dep[0])))
   .map((dep) => {
@@ -102,7 +102,7 @@ if (production) {
         },
         multiInputConfig: multiInput({
           relative: 'src/components/',
-          transformOutputPath: (output, input) => `${path.basename(output)}`,
+          transformOutputPath: (output) => `${path.basename(output)}`,
         }),
       }),
     );
@@ -116,7 +116,7 @@ if (production) {
         },
         multiInputConfig: multiInput({
           relative: 'src/components/',
-          transformOutputPath: (output, input) => `${path.basename(output)}`,
+          transformOutputPath: (output) => `${path.basename(output)}`,
         }),
       }),
     );
