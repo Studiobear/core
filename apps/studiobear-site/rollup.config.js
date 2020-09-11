@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import image from 'svelte-image'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
@@ -46,6 +47,15 @@ export default {
         dev,
         hydratable: true,
         emitCss: true,
+        preprocess: {
+          ...image({
+            trace: {
+              background: '#fff',
+              color: '#C0D0D1',
+              threshold: 180,
+            },
+          }),
+        },
       }),
       resolve({
         browser: true,

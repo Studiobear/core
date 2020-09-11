@@ -6,6 +6,7 @@
   import { theme } from '../theme'
 
   import { storeUserPrefs, lfUserPrefs } from '../stores/userPrefs'
+  import { getStorageKeys, getStorageItem, setStorageItem } from '../libs'
   import { Nav, SSR } from '../components'
 
   if (process.browser) {
@@ -39,12 +40,9 @@
   }
 
   $: mainStyle = {
-    maxWidth: '56rem',
+    maxw: '100%',
     bg: $theme.colors.background,
-    p: ['0rem', '0rem', '1rem', '2rem', '3rem'],
-    mx: 'auto',
     pt: '6.25rem',
-    width: '100vw',
   }
   $: addGlobal($theme)
   onMount(() => {

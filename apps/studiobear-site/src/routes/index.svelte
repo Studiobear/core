@@ -15,6 +15,7 @@
   $: flexStyle = {
     flexdir: 'column',
     py: '4rem',
+    px: ['0rem', '0rem', '1rem', '4rem', '6rem'],
   }
 
   $: headerStyle = {
@@ -70,10 +71,3 @@
     {$theme.colors.primary}
   </Box>
 </Flex>
-
-<Heading as="h1">Great success!</Heading>
-
-<figure>
-  <img alt="Borat" src="great-success.png" />
-  <figcaption>HIGH FIVE!</figcaption>
-</figure>
