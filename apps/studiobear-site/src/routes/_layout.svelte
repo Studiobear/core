@@ -1,36 +1,59 @@
 <script>
-  import { styled } from '@studiobear/designspek'
+  import { onMount } from 'svelte'
+  import { addGlobal, styled, removeSSR } from '@studiobear/designspek'
+  import { Section, Button, Box } from '@studiobear/designspek-components'
+
   import { theme } from '../theme'
 
-  import { Nav, Button, Box } from '../components'
+  import { storeUserPrefs, lfUserPrefs } from '../stores/userPrefs'
+  import { getStorageKeys, getStorageItem, setStorageItem } from '../libs'
+  import { Nav, SSR } from '../components'
 
+  if (process.browser) {
+    lfUserPrefs
+      .ready()
+      .then(async () => {
+        let keys = await getStorageKeys(lfUserPrefs)
+        if (keys.includes('mode')) {
+          let mode = await getStorageItem('mode', lfUserPrefs)
+          mode === 'light' ? theme.light() : theme.dark()
+        } else {
+          setStorageItem('mode', 'light', lfUserPrefs)
+          theme.light()
+        }
+        if (keys.includes('location')) {
+          let loc = await getStorageItem('location', lfUserPrefs)
+          await storeUserPrefs.location(loc)
+        }
+      })
+      .catch(function (e) {
+        console.log(e)
+      })
+  }
+
+  // $: background = $theme.colors.background || '#fff'
   export let segment
-  export let mode = 'basic'
+  let ssr = true
+
+  $: bodyStyle = {
+    bg: $theme.colors.background,
+  }
+
+  $: mainStyle = {
+    maxw: '100%',
+    bg: $theme.colors.background,
+    pt: '6.25rem',
+  }
+  $: addGlobal($theme)
+  onMount(() => {
+    // removeSSR()
+    ssr = false
+  })
 </script>
 
-<style>
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 2em;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-</style>
-
-<Nav {segment} />
-
-<main use:styled={[$$props, $theme]}>
-  <Button
-    bg={'colors.primary'}
-    p="space.xs"
-    color={'colors.secondary'}
-    on:click={() => {
-      mode === 'basic' ? theme.dark() : theme.reset()
-      return (mode = mode === 'basic' ? 'dark' : 'basic')
-    }}>
-    click to invert me!
-  </Button>
-  <slot />
-</main>
+<Box style={bodyStyle} {ssr}>
+  <Nav {segment} {ssr} />
+  <Section as="main" style={mainStyle} {ssr}>
+    <slot />
+  </Section>
+</Box>

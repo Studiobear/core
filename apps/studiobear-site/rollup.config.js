@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import image from 'svelte-image'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
@@ -16,6 +17,7 @@ const dev = mode === 'development'
 const legacy = !!process.env.SAPPER_LEGACY_BUILD
 
 const onwarn = (warning, onwarn) =>
+  (warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
   (warning.code === 'CIRCULAR_DEPENDENCY' &&
     /[/\\]@sapper[/\\]/.test(warning.message)) ||
   onwarn(warning)
@@ -45,6 +47,15 @@ export default {
         dev,
         hydratable: true,
         emitCss: true,
+        preprocess: {
+          ...image({
+            trace: {
+              background: '#fff',
+              color: '#C0D0D1',
+              threshold: 180,
+            },
+          }),
+        },
       }),
       resolve({
         browser: true,
@@ -84,6 +95,7 @@ export default {
         }),
     ],
     // context: "window",
+    preserveEntrySignatures: false,
     onwarn,
   },
 
@@ -95,7 +107,7 @@ export default {
         'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.SITE_URL':
-          process.env.NODE_ENV === 'development'
+          mode === 'development'
             ? `'${process.env.SITE_URL}'`
             : `'${process.env.PROD_URL}'`,
       }),
@@ -126,7 +138,7 @@ export default {
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.SITE_URL':
-          process.env.NODE_ENV === 'development'
+          mode === 'development'
             ? `'${process.env.SITE_URL}'`
             : `'${process.env.PROD_URL}'`,
       }),
