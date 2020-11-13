@@ -7,9 +7,18 @@ type AuthPayload {
   user: User!
 }
 
-input BooleanFilter {
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input BoolFilter {
   equals: Boolean
-  not: Boolean
+  not: NestedBoolFilter
+}
+
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
 }
 
 enum Category {
@@ -23,9 +32,8 @@ enum Category {
 type Collection {
   id: Int!
   name: String!
-  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int, where: UserWhereInput): [User!]!
-  workOrder(after: WorkOrderWhereUniqueInput, before: WorkOrderWhereUniqueInput, first: Int, last: Int, skip: Int): [WorkOrder!]!
-  works(after: WorkWhereUniqueInput, before: WorkWhereUniqueInput, first: Int, last: Int, skip: Int): [Work!]!
+  users(skip: Int, where: UserWhereInput): [User!]!
+  works(skip: Int): [Work!]!
 }
 
 input CollectionCreateInput {
@@ -33,7 +41,7 @@ input CollectionCreateInput {
   name: String!
   updatedAt: DateTime
   users: UserCreateManyWithoutCollectionsInput
-  workOrder: WorkOrderCreateManyWithoutCollectionInput
+  WorkOrder: WorkOrderCreateManyWithoutCollectionInput
   works: WorkCreateManyWithoutCollectionsInput
 }
 
@@ -60,20 +68,20 @@ input CollectionCreateWithoutWorksInput {
   name: String!
   updatedAt: DateTime
   users: UserCreateManyWithoutCollectionsInput
-  workOrder: WorkOrderCreateManyWithoutCollectionInput
+  WorkOrder: WorkOrderCreateManyWithoutCollectionInput
 }
 
-input CollectionFilter {
+input CollectionListRelationFilter {
   every: CollectionWhereInput
   none: CollectionWhereInput
   some: CollectionWhereInput
 }
 
 input CollectionOrderByInput {
-  createdAt: OrderByArg
-  id: OrderByArg
-  name: OrderByArg
-  updatedAt: OrderByArg
+  createdAt: SortOrder
+  id: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
 }
 
 input CollectionScalarWhereInput {
@@ -83,27 +91,22 @@ input CollectionScalarWhereInput {
   name: StringFilter
   NOT: [CollectionScalarWhereInput!]
   OR: [CollectionScalarWhereInput!]
-  updatedAt: NullableDateTimeFilter
-  users: UserFilter
-  workOrder: WorkOrderFilter
-  works: WorkFilter
+  updatedAt: DateTimeNullableFilter
 }
 
 input CollectionUpdateInput {
-  createdAt: DateTime
-  id: Int
-  name: String
-  updatedAt: DateTime
+  createdAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
   users: UserUpdateManyWithoutCollectionsInput
-  workOrder: WorkOrderUpdateManyWithoutCollectionInput
+  WorkOrder: WorkOrderUpdateManyWithoutCollectionInput
   works: WorkUpdateManyWithoutCollectionsInput
 }
 
 input CollectionUpdateManyDataInput {
-  createdAt: DateTime
-  id: Int
-  name: String
-  updatedAt: DateTime
+  createdAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input CollectionUpdateManyWithoutWorksInput {
@@ -131,21 +134,19 @@ input CollectionUpdateOneRequiredWithoutWorkOrderInput {
 }
 
 input CollectionUpdateWithoutWorkOrderDataInput {
-  createdAt: DateTime
-  id: Int
-  name: String
-  updatedAt: DateTime
+  createdAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
   users: UserUpdateManyWithoutCollectionsInput
   works: WorkUpdateManyWithoutCollectionsInput
 }
 
 input CollectionUpdateWithoutWorksDataInput {
-  createdAt: DateTime
-  id: Int
-  name: String
-  updatedAt: DateTime
+  createdAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
   users: UserUpdateManyWithoutCollectionsInput
-  workOrder: WorkOrderUpdateManyWithoutCollectionInput
+  WorkOrder: WorkOrderUpdateManyWithoutCollectionInput
 }
 
 input CollectionUpdateWithWhereUniqueWithoutWorksInput {
@@ -171,10 +172,10 @@ input CollectionWhereInput {
   name: StringFilter
   NOT: [CollectionWhereInput!]
   OR: [CollectionWhereInput!]
-  updatedAt: NullableDateTimeFilter
-  users: UserFilter
-  workOrder: WorkOrderFilter
-  works: WorkFilter
+  updatedAt: DateTimeNullableFilter
+  users: UserListRelationFilter
+  WorkOrder: WorkOrderListRelationFilter
+  works: WorkListRelationFilter
 }
 
 input CollectionWhereUniqueInput {
@@ -184,6 +185,10 @@ input CollectionWhereUniqueInput {
 
 scalar DateTime
 
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
 input DateTimeFilter {
   equals: DateTime
   gt: DateTime
@@ -191,8 +196,30 @@ input DateTimeFilter {
   in: [DateTime!]
   lt: DateTime
   lte: DateTime
-  not: DateTime
+  not: NestedDateTimeFilter
   notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input FloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
 }
 
 type Image {
@@ -218,7 +245,7 @@ input ImageCreateWithoutWorkInput {
   width: Int
 }
 
-input ImageFilter {
+input ImageListRelationFilter {
   every: ImageWhereInput
   none: ImageWhereInput
   some: ImageWhereInput
@@ -227,25 +254,24 @@ input ImageFilter {
 input ImageScalarWhereInput {
   AND: [ImageScalarWhereInput!]
   createdAt: DateTimeFilter
-  height: NullableIntFilter
+  height: IntNullableFilter
   id: IntFilter
   name: StringFilter
   NOT: [ImageScalarWhereInput!]
   OR: [ImageScalarWhereInput!]
-  updatedAt: NullableDateTimeFilter
+  updatedAt: DateTimeNullableFilter
   url: StringFilter
-  width: NullableIntFilter
+  width: IntNullableFilter
   workId: IntFilter
 }
 
 input ImageUpdateManyDataInput {
-  createdAt: DateTime
-  height: Int
-  id: Int
-  name: String
-  updatedAt: DateTime
-  url: String
-  width: Int
+  createdAt: DateTimeFieldUpdateOperationsInput
+  height: NullableIntFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
 }
 
 input ImageUpdateManyWithoutWorkInput {
@@ -266,13 +292,12 @@ input ImageUpdateManyWithWhereNestedInput {
 }
 
 input ImageUpdateWithoutWorkDataInput {
-  createdAt: DateTime
-  height: Int
-  id: Int
-  name: String
-  updatedAt: DateTime
-  url: String
-  width: Int
+  createdAt: DateTimeFieldUpdateOperationsInput
+  height: NullableIntFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
 }
 
 input ImageUpdateWithWhereUniqueWithoutWorkInput {
@@ -289,20 +314,24 @@ input ImageUpsertWithWhereUniqueWithoutWorkInput {
 input ImageWhereInput {
   AND: [ImageWhereInput!]
   createdAt: DateTimeFilter
-  height: NullableIntFilter
+  height: IntNullableFilter
   id: IntFilter
   name: StringFilter
   NOT: [ImageWhereInput!]
   OR: [ImageWhereInput!]
-  updatedAt: NullableDateTimeFilter
+  updatedAt: DateTimeNullableFilter
   url: StringFilter
-  width: NullableIntFilter
+  width: IntNullableFilter
   work: WorkWhereInput
   workId: IntFilter
 }
 
 input ImageWhereUniqueInput {
   id: Int
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
 }
 
 input IntFilter {
@@ -312,7 +341,18 @@ input IntFilter {
   in: [Int!]
   lt: Int
   lte: Int
-  not: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
   notIn: [Int!]
 }
 
@@ -325,45 +365,72 @@ type Mutation {
   upsertOneWork(create: WorkCreateInput!, update: WorkUpdateInput!, where: WorkWhereUniqueInput!): Work!
 }
 
-input NullableBooleanFilter {
+input NestedBoolFilter {
   equals: Boolean
-  not: Boolean
+  not: NestedBoolFilter
 }
 
-input NullableDateTimeFilter {
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input NestedDateTimeFilter {
   equals: DateTime
   gt: DateTime
   gte: DateTime
   in: [DateTime!]
   lt: DateTime
   lte: DateTime
-  not: DateTime
+  not: NestedDateTimeFilter
   notIn: [DateTime!]
 }
 
-input NullableFloatFilter {
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedFloatNullableFilter {
   equals: Float
   gt: Float
   gte: Float
   in: [Float!]
   lt: Float
   lte: Float
-  not: Float
+  not: NestedFloatNullableFilter
   notIn: [Float!]
 }
 
-input NullableIntFilter {
+input NestedIntFilter {
   equals: Int
   gt: Int
   gte: Int
   in: [Int!]
   lt: Int
   lte: Int
-  not: Int
+  not: NestedIntFilter
   notIn: [Int!]
 }
 
-input NullableStringFilter {
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
   contains: String
   endsWith: String
   equals: String
@@ -372,14 +439,43 @@ input NullableStringFilter {
   in: [String!]
   lt: String
   lte: String
-  not: String
+  not: NestedStringFilter
   notIn: [String!]
   startsWith: String
 }
 
-enum OrderByArg {
-  asc
-  desc
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NullableBoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableFloatFieldUpdateOperationsInput {
+  set: Float
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
 }
 
 type Phone {
@@ -400,7 +496,7 @@ input PhoneCreateWithoutProfileInput {
   type: PhoneType
 }
 
-input PhoneFilter {
+input PhoneListRelationFilter {
   every: PhoneWhereInput
   none: PhoneWhereInput
   some: PhoneWhereInput
@@ -424,8 +520,7 @@ enum PhoneType {
 }
 
 input PhoneUpdateManyDataInput {
-  id: Int
-  number: String
+  number: StringFieldUpdateOperationsInput
   type: PhoneType
 }
 
@@ -447,8 +542,7 @@ input PhoneUpdateManyWithWhereNestedInput {
 }
 
 input PhoneUpdateWithoutProfileDataInput {
-  id: Int
-  number: String
+  number: StringFieldUpdateOperationsInput
   type: PhoneType
 }
 
@@ -509,12 +603,11 @@ input ProfileUpdateOneWithoutUserInput {
 }
 
 input ProfileUpdateWithoutUserDataInput {
-  companyName: String
-  companyRole: String
-  id: Int
+  companyName: NullableStringFieldUpdateOperationsInput
+  companyRole: NullableStringFieldUpdateOperationsInput
   phone: PhoneUpdateManyWithoutProfileInput
-  updatedAt: DateTime
-  website: String
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  website: NullableStringFieldUpdateOperationsInput
 }
 
 input ProfileUpsertWithoutUserInput {
@@ -524,16 +617,16 @@ input ProfileUpsertWithoutUserInput {
 
 input ProfileWhereInput {
   AND: [ProfileWhereInput!]
-  companyName: NullableStringFilter
-  companyRole: NullableStringFilter
+  companyName: StringNullableFilter
+  companyRole: StringNullableFilter
   id: IntFilter
   NOT: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
-  phone: PhoneFilter
-  updatedAt: NullableDateTimeFilter
+  phone: PhoneListRelationFilter
+  updatedAt: DateTimeNullableFilter
   user: UserWhereInput
   userId: IntFilter
-  website: NullableStringFilter
+  website: StringNullableFilter
 }
 
 input ProfileWhereUniqueInput {
@@ -541,9 +634,9 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
-  allCollections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, orderBy: CollectionOrderByInput, skip: Int, where: CollectionWhereInput): [Collection!]!
-  allUsers(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
-  allWorks(after: WorkWhereUniqueInput, before: WorkWhereUniqueInput, first: Int, last: Int, orderBy: WorkOrderByInput, skip: Int, where: WorkWhereInput): [Work!]!
+  allCollections(orderBy: [CollectionOrderByInput!], skip: Int, where: CollectionWhereInput): [Collection!]!
+  allUsers(orderBy: [UserOrderByInput!], skip: Int, where: UserWhereInput): [User!]!
+  allWorks(orderBy: [WorkOrderByInput!], skip: Int, where: WorkWhereInput): [Work!]!
   collection(where: CollectionWhereUniqueInput!): Collection
   empty: Boolean
   me: User
@@ -558,6 +651,15 @@ enum Role {
   USER
 }
 
+enum SortOrder {
+  asc
+  desc
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
 input StringFilter {
   contains: String
   endsWith: String
@@ -567,7 +669,21 @@ input StringFilter {
   in: [String!]
   lt: String
   lte: String
-  not: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
 }
@@ -579,7 +695,7 @@ enum Type {
 }
 
 type User {
-  collections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, skip: Int): [Collection!]!
+  collections(skip: Int): [Collection!]!
   display: String
   email: String!
   id: Int!
@@ -604,47 +720,45 @@ input UserCreateWithoutCollectionsInput {
   username: String!
 }
 
-input UserFilter {
+input UserListRelationFilter {
   every: UserWhereInput
   none: UserWhereInput
   some: UserWhereInput
 }
 
 input UserOrderByInput {
-  createdAt: OrderByArg
-  display: OrderByArg
-  email: OrderByArg
-  id: OrderByArg
-  password: OrderByArg
-  role: OrderByArg
-  updatedAt: OrderByArg
-  username: OrderByArg
+  createdAt: SortOrder
+  display: SortOrder
+  email: SortOrder
+  id: SortOrder
+  password: SortOrder
+  role: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
 }
 
 input UserScalarWhereInput {
   AND: [UserScalarWhereInput!]
-  collections: CollectionFilter
   createdAt: DateTimeFilter
-  display: NullableStringFilter
+  display: StringNullableFilter
   email: StringFilter
   id: IntFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   password: StringFilter
   role: Role
-  updatedAt: NullableDateTimeFilter
+  updatedAt: DateTimeNullableFilter
   username: StringFilter
 }
 
 input UserUpdateManyDataInput {
-  createdAt: DateTime
-  display: String
-  email: String
-  id: Int
-  password: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  display: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   role: Role
-  updatedAt: DateTime
-  username: String
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateManyWithoutCollectionsInput {
@@ -665,15 +779,14 @@ input UserUpdateManyWithWhereNestedInput {
 }
 
 input UserUpdateWithoutCollectionsDataInput {
-  createdAt: DateTime
-  display: String
-  email: String
-  id: Int
-  password: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  display: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   profile: ProfileUpdateOneWithoutUserInput
   role: Role
-  updatedAt: DateTime
-  username: String
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateWithWhereUniqueWithoutCollectionsInput {
@@ -689,9 +802,9 @@ input UserUpsertWithWhereUniqueWithoutCollectionsInput {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
-  collections: CollectionFilter
+  collections: CollectionListRelationFilter
   createdAt: DateTimeFilter
-  display: NullableStringFilter
+  display: StringNullableFilter
   email: StringFilter
   id: IntFilter
   NOT: [UserWhereInput!]
@@ -699,7 +812,7 @@ input UserWhereInput {
   password: StringFilter
   profile: ProfileWhereInput
   role: Role
-  updatedAt: NullableDateTimeFilter
+  updatedAt: DateTimeNullableFilter
   username: StringFilter
 }
 
@@ -712,7 +825,7 @@ input UserWhereUniqueInput {
 type Work {
   catalogId: Int!
   category: Category!
-  collections(after: CollectionWhereUniqueInput, before: CollectionWhereUniqueInput, first: Int, last: Int, skip: Int, where: CollectionWhereInput): [Collection!]!
+  collections(skip: Int, where: CollectionWhereInput): [Collection!]!
   date: String
   dimensions: String
   framed: Boolean
@@ -723,7 +836,6 @@ type Work {
   title: String!
   type: Type!
   width: Float
-  workOrder(after: WorkOrderWhereUniqueInput, before: WorkOrderWhereUniqueInput, first: Int, last: Int, orderBy: WorkOrderOrderByInput, skip: Int): [WorkOrder!]!
 }
 
 type WorkConnection {
@@ -749,7 +861,7 @@ input WorkCreateInput {
   type: Type
   updatedAt: DateTime
   width: Float
-  workOrder: WorkOrderCreateManyWithoutWorkInput
+  WorkOrder: WorkOrderCreateManyWithoutWorkInput
 }
 
 input WorkCreateManyWithoutCollectionsInput {
@@ -778,7 +890,7 @@ input WorkCreateWithoutCollectionsInput {
   type: Type
   updatedAt: DateTime
   width: Float
-  workOrder: WorkOrderCreateManyWithoutWorkInput
+  WorkOrder: WorkOrderCreateManyWithoutWorkInput
 }
 
 input WorkCreateWithoutWorkOrderInput {
@@ -800,7 +912,7 @@ input WorkCreateWithoutWorkOrderInput {
   width: Float
 }
 
-input WorkFilter {
+input WorkListRelationFilter {
   every: WorkWhereInput
   none: WorkWhereInput
   some: WorkWhereInput
@@ -813,21 +925,21 @@ type WorkOrder {
 }
 
 input WorkOrderByInput {
-  catalogId: OrderByArg
-  category: OrderByArg
-  createdAt: OrderByArg
-  date: OrderByArg
-  dimensions: OrderByArg
-  framed: OrderByArg
-  height: OrderByArg
-  id: OrderByArg
-  medium: OrderByArg
-  price: OrderByArg
-  published: OrderByArg
-  title: OrderByArg
-  type: OrderByArg
-  updatedAt: OrderByArg
-  width: OrderByArg
+  catalogId: SortOrder
+  category: SortOrder
+  createdAt: SortOrder
+  date: SortOrder
+  dimensions: SortOrder
+  framed: SortOrder
+  height: SortOrder
+  id: SortOrder
+  medium: SortOrder
+  price: SortOrder
+  published: SortOrder
+  title: SortOrder
+  type: SortOrder
+  updatedAt: SortOrder
+  width: SortOrder
 }
 
 input WorkOrderCreateManyWithoutCollectionInput {
@@ -850,19 +962,10 @@ input WorkOrderCreateWithoutWorkInput {
   order: Int!
 }
 
-input WorkOrderFilter {
+input WorkOrderListRelationFilter {
   every: WorkOrderWhereInput
   none: WorkOrderWhereInput
   some: WorkOrderWhereInput
-}
-
-input WorkOrderOrderByInput {
-  collection: OrderByArg
-  collectionId: OrderByArg
-  id: OrderByArg
-  order: OrderByArg
-  work: OrderByArg
-  workId: OrderByArg
 }
 
 input WorkOrderScalarWhereInput {
@@ -876,8 +979,7 @@ input WorkOrderScalarWhereInput {
 }
 
 input WorkOrderUpdateManyDataInput {
-  id: Int
-  order: Int
+  order: IntFieldUpdateOperationsInput
 }
 
 input WorkOrderUpdateManyWithoutCollectionInput {
@@ -910,15 +1012,13 @@ input WorkOrderUpdateManyWithWhereNestedInput {
 }
 
 input WorkOrderUpdateWithoutCollectionDataInput {
-  id: Int
-  order: Int
+  order: IntFieldUpdateOperationsInput
   work: WorkUpdateOneRequiredWithoutWorkOrderInput
 }
 
 input WorkOrderUpdateWithoutWorkDataInput {
   collection: CollectionUpdateOneRequiredWithoutWorkOrderInput
-  id: Int
-  order: Int
+  order: IntFieldUpdateOperationsInput
 }
 
 input WorkOrderUpdateWithWhereUniqueWithoutCollectionInput {
@@ -963,63 +1063,58 @@ input WorkScalarWhereInput {
   AND: [WorkScalarWhereInput!]
   catalogId: IntFilter
   category: Category
-  collections: CollectionFilter
   createdAt: DateTimeFilter
-  date: NullableStringFilter
-  dimensions: NullableStringFilter
-  framed: NullableBooleanFilter
-  height: NullableFloatFilter
+  date: StringNullableFilter
+  dimensions: StringNullableFilter
+  framed: BoolNullableFilter
+  height: FloatNullableFilter
   id: IntFilter
-  image: ImageFilter
-  medium: NullableStringFilter
+  medium: StringNullableFilter
   NOT: [WorkScalarWhereInput!]
   OR: [WorkScalarWhereInput!]
-  price: NullableFloatFilter
-  published: BooleanFilter
+  price: FloatNullableFilter
+  published: BoolFilter
   title: StringFilter
   type: Type
-  updatedAt: NullableDateTimeFilter
-  width: NullableFloatFilter
-  workOrder: WorkOrderFilter
+  updatedAt: DateTimeNullableFilter
+  width: FloatNullableFilter
 }
 
 input WorkUpdateInput {
-  catalogId: Int
+  catalogId: IntFieldUpdateOperationsInput
   category: Category
   collections: CollectionUpdateManyWithoutWorksInput
-  createdAt: DateTime
-  date: String
-  dimensions: String
-  framed: Boolean
-  height: Float
-  id: Int
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableStringFieldUpdateOperationsInput
+  dimensions: NullableStringFieldUpdateOperationsInput
+  framed: NullableBoolFieldUpdateOperationsInput
+  height: NullableFloatFieldUpdateOperationsInput
   image: ImageUpdateManyWithoutWorkInput
-  medium: String
-  price: Float
-  published: Boolean
-  title: String
+  medium: NullableStringFieldUpdateOperationsInput
+  price: NullableFloatFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   type: Type
-  updatedAt: DateTime
-  width: Float
-  workOrder: WorkOrderUpdateManyWithoutWorkInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  width: NullableFloatFieldUpdateOperationsInput
+  WorkOrder: WorkOrderUpdateManyWithoutWorkInput
 }
 
 input WorkUpdateManyDataInput {
-  catalogId: Int
+  catalogId: IntFieldUpdateOperationsInput
   category: Category
-  createdAt: DateTime
-  date: String
-  dimensions: String
-  framed: Boolean
-  height: Float
-  id: Int
-  medium: String
-  price: Float
-  published: Boolean
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableStringFieldUpdateOperationsInput
+  dimensions: NullableStringFieldUpdateOperationsInput
+  framed: NullableBoolFieldUpdateOperationsInput
+  height: NullableFloatFieldUpdateOperationsInput
+  medium: NullableStringFieldUpdateOperationsInput
+  price: NullableFloatFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   type: Type
-  updatedAt: DateTime
-  width: Float
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  width: NullableFloatFieldUpdateOperationsInput
 }
 
 input WorkUpdateManyWithoutCollectionsInput {
@@ -1047,43 +1142,41 @@ input WorkUpdateOneRequiredWithoutWorkOrderInput {
 }
 
 input WorkUpdateWithoutCollectionsDataInput {
-  catalogId: Int
+  catalogId: IntFieldUpdateOperationsInput
   category: Category
-  createdAt: DateTime
-  date: String
-  dimensions: String
-  framed: Boolean
-  height: Float
-  id: Int
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableStringFieldUpdateOperationsInput
+  dimensions: NullableStringFieldUpdateOperationsInput
+  framed: NullableBoolFieldUpdateOperationsInput
+  height: NullableFloatFieldUpdateOperationsInput
   image: ImageUpdateManyWithoutWorkInput
-  medium: String
-  price: Float
-  published: Boolean
-  title: String
+  medium: NullableStringFieldUpdateOperationsInput
+  price: NullableFloatFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   type: Type
-  updatedAt: DateTime
-  width: Float
-  workOrder: WorkOrderUpdateManyWithoutWorkInput
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  width: NullableFloatFieldUpdateOperationsInput
+  WorkOrder: WorkOrderUpdateManyWithoutWorkInput
 }
 
 input WorkUpdateWithoutWorkOrderDataInput {
-  catalogId: Int
+  catalogId: IntFieldUpdateOperationsInput
   category: Category
   collections: CollectionUpdateManyWithoutWorksInput
-  createdAt: DateTime
-  date: String
-  dimensions: String
-  framed: Boolean
-  height: Float
-  id: Int
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableStringFieldUpdateOperationsInput
+  dimensions: NullableStringFieldUpdateOperationsInput
+  framed: NullableBoolFieldUpdateOperationsInput
+  height: NullableFloatFieldUpdateOperationsInput
   image: ImageUpdateManyWithoutWorkInput
-  medium: String
-  price: Float
-  published: Boolean
-  title: String
+  medium: NullableStringFieldUpdateOperationsInput
+  price: NullableFloatFieldUpdateOperationsInput
+  published: BoolFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   type: Type
-  updatedAt: DateTime
-  width: Float
+  updatedAt: NullableDateTimeFieldUpdateOperationsInput
+  width: NullableFloatFieldUpdateOperationsInput
 }
 
 input WorkUpdateWithWhereUniqueWithoutCollectionsInput {
@@ -1106,24 +1199,24 @@ input WorkWhereInput {
   AND: [WorkWhereInput!]
   catalogId: IntFilter
   category: Category
-  collections: CollectionFilter
+  collections: CollectionListRelationFilter
   createdAt: DateTimeFilter
-  date: NullableStringFilter
-  dimensions: NullableStringFilter
-  framed: NullableBooleanFilter
-  height: NullableFloatFilter
+  date: StringNullableFilter
+  dimensions: StringNullableFilter
+  framed: BoolNullableFilter
+  height: FloatNullableFilter
   id: IntFilter
-  image: ImageFilter
-  medium: NullableStringFilter
+  image: ImageListRelationFilter
+  medium: StringNullableFilter
   NOT: [WorkWhereInput!]
   OR: [WorkWhereInput!]
-  price: NullableFloatFilter
-  published: BooleanFilter
+  price: FloatNullableFilter
+  published: BoolFilter
   title: StringFilter
   type: Type
-  updatedAt: NullableDateTimeFilter
-  width: NullableFloatFilter
-  workOrder: WorkOrderFilter
+  updatedAt: DateTimeNullableFilter
+  width: FloatNullableFilter
+  WorkOrder: WorkOrderListRelationFilter
 }
 
 input WorkWhereUniqueInput {

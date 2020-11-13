@@ -17,7 +17,7 @@
     "jest:watch": "yarn jest --watch src",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "echo SUCCESS",
+    "test:bkp": "echo SUCCESS",
     "kill": "kill $(lsof -ti:5000)"
   },
   "devDependencies": {
@@ -29,8 +29,8 @@
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "@studiobear/designspek": "^0.4.3",
-    "@studiobear/designspek-components": "^0.4.2",
+    "@studiobear/designspek": "^0.4.4",
+    "@studiobear/designspek-components": "^0.4.4",
     "@studiobear/typography-theme-source-sans-pro": "*",
     "@svelteschool/svelte-forms": "^0.4.0",
     "@testing-library/jest-dom": "^5.11.4",

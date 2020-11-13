@@ -13,14 +13,16 @@
 
   const navItems = {
     flexdir: 'row',
-    justc: 'space-between',
     align: 'center',
+    justc: 'space-between',
   }
   const logoCont = {
     p: '1rem',
     d: 'flex',
     flexidr: 'row',
     justc: 'start',
+    align: 'center',
+    ml: '.5rem',
   }
   const logo = {
     w: '3rem',
@@ -38,10 +40,11 @@
     fontWeight: '300',
     fontSize: '1.4rem',
     lineHeight: '1.4rem',
-    ml: '1.5rem',
-    pl: '1.5rem',
+    ml: '1rem',
+    pl: '1rem',
     bl: `1px solid ${$theme.colors.primary}`,
     mb: 0,
+    py: '.5rem',
   }
 
   const ul = styled(
@@ -122,7 +125,7 @@
       <Logo viewBox="0 0 220 220" fill="#000" style={logo} />
       <Heading as="h1" style={logotype}>Studiobear</Heading>
       <Heading as="h2" style={tagline}>
-        a full-service persona for all things design
+        roaming the landscape of form + function
       </Heading>
     </Box>
     <ul class={ul}>
