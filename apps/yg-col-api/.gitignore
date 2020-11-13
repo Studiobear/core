@@ -1,7 +1,0 @@
-node_modules
-dist
-public
-.env
-prisma/migrations/
-prisma/seed.ts
-build
