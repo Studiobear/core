@@ -1,42 +1,38 @@
-import * as prisma from '@prisma/client';
-import { core } from '@nexus/schema';
-import { GraphQLResolveInfo } from 'graphql';
+import * as prisma from '@prisma/client'
+import { core } from '@nexus/schema'
+import { GraphQLResolveInfo } from 'graphql'
 
 // Types helpers
-  type IsModelNameExistsInGraphQLTypes<
+type IsModelNameExistsInGraphQLTypes<
   ReturnType extends any
-> = ReturnType extends core.GetGen<'objectNames'> ? true : false;
+> = ReturnType extends core.GetGen<'objectNames'> ? true : false
 
 type NexusPrismaScalarOpts = {
-  alias?: string;
-};
+  alias?: string
+}
 
 type Pagination = {
-  first?: boolean;
-  last?: boolean;
-  before?: boolean;
-  after?: boolean;
-  skip?: boolean;
-};
+  first?: boolean
+  last?: boolean
+  before?: boolean
+  after?: boolean
+  skip?: boolean
+}
 
 type RootObjectTypes = Pick<
   core.GetGen<'rootTypes'>,
   core.GetGen<'objectNames'>
->;
+>
 
 /**
  * Determine if `B` is a subset (or equivalent to) of `A`.
-*/
-type IsSubset<A, B> = keyof A extends never
-  ? false
-  : B extends A
-  ? true
-  : false;
+ */
+type IsSubset<A, B> = keyof A extends never ? false : B extends A ? true : false
 
 type OmitByValue<T, ValueType> = Pick<
   T,
   { [Key in keyof T]: T[Key] extends ValueType ? never : Key }[keyof T]
->;
+>
 
 type GetSubsetTypes<ModelName extends any> = keyof OmitByValue<
   {
@@ -44,22 +40,22 @@ type GetSubsetTypes<ModelName extends any> = keyof OmitByValue<
       ? IsSubset<RootObjectTypes[P], ModelTypes[ModelName]> extends true
         ? RootObjectTypes[P]
         : never
-      : never;
+      : never
   },
   never
->;
+>
 
 type SubsetTypes<ModelName extends any> = GetSubsetTypes<
   ModelName
 > extends never
   ? `ERROR: No subset types are available. Please make sure that one of your GraphQL type is a subset of your t.model('<ModelName>')`
-  : GetSubsetTypes<ModelName>;
+  : GetSubsetTypes<ModelName>
 
-type DynamicRequiredType<ReturnType extends any> = IsModelNameExistsInGraphQLTypes<
-  ReturnType
-> extends true
+type DynamicRequiredType<
+  ReturnType extends any
+> = IsModelNameExistsInGraphQLTypes<ReturnType> extends true
   ? { type?: SubsetTypes<ReturnType> }
-  : { type: SubsetTypes<ReturnType> };
+  : { type: SubsetTypes<ReturnType> }
 
 type GetNexusPrismaInput<
   ModelName extends any,
@@ -69,7 +65,7 @@ type GetNexusPrismaInput<
   ? MethodName extends keyof NexusPrismaInputs[ModelName]
     ? NexusPrismaInputs[ModelName][MethodName][InputName]
     : never
-  : never;
+  : never
 
 /**
  *  Represents arguments required by Prisma Client JS that will
@@ -119,12 +115,12 @@ type NexusPrismaRelationOpts<
   'filtering'
 > extends never
   ? {
-      alias?: string;
-      computedInputs?: LocalComputedInputs<MethodName>;
+      alias?: string
+      computedInputs?: LocalComputedInputs<MethodName>
     } & DynamicRequiredType<ReturnType>
   : {
-      alias?: string;
-      computedInputs?: LocalComputedInputs<MethodName>;
+      alias?: string
+      computedInputs?: LocalComputedInputs<MethodName>
       filtering?:
         | boolean
         | Partial<
@@ -132,7 +128,7 @@ type NexusPrismaRelationOpts<
               GetNexusPrismaInput<ModelName, MethodName, 'filtering'>,
               boolean
             >
-          >;
+          >
       ordering?:
         | boolean
         | Partial<
@@ -140,13 +136,15 @@ type NexusPrismaRelationOpts<
               GetNexusPrismaInput<ModelName, MethodName, 'ordering'>,
               boolean
             >
-          >;
-      pagination?: boolean | Pagination;
-    } & DynamicRequiredType<ReturnType>;
+          >
+      pagination?: boolean | Pagination
+    } & DynamicRequiredType<ReturnType>
 
-type IsScalar<TypeName extends any> = TypeName extends core.GetGen<'scalarNames'>
+type IsScalar<TypeName extends any> = TypeName extends core.GetGen<
+  'scalarNames'
+>
   ? true
-  : false;
+  : false
 
 type IsObject<Name extends any> = Name extends core.GetGen<'objectNames'>
   ? true
@@ -190,43 +188,42 @@ type GetKind<Name extends any> = IsEnum<Name> extends true
   ? 'Object'
   : IsInputObject<Name> extends true
   ? 'InputObject'
-  // FIXME should be `never`, but GQL objects named differently
-  // than backing type fall into this branch
-  : 'Object'
+  : // FIXME should be `never`, but GQL objects named differently
+    // than backing type fall into this branch
+    'Object'
 
 type NexusPrismaFields<ModelName extends keyof NexusPrismaTypes> = {
   [MethodName in keyof NexusPrismaTypes[ModelName]]: NexusPrismaMethod<
     ModelName,
     MethodName,
     GetKind<NexusPrismaTypes[ModelName][MethodName]> // Is the return type a scalar?
-  >;
-};
+  >
+}
 
 type NexusPrismaMethod<
   ModelName extends keyof NexusPrismaTypes,
   MethodName extends keyof NexusPrismaTypes[ModelName],
   ThisKind extends Kind,
   ReturnType extends any = NexusPrismaTypes[ModelName][MethodName]
-> =
-  ThisKind extends AKind<'Enum'>
+> = ThisKind extends AKind<'Enum'>
   ? () => NexusPrismaFields<ModelName>
   : ThisKind extends AKind<'Scalar'>
   ? (opts?: NexusPrismaScalarOpts) => NexusPrismaFields<ModelName> // Return optional scalar opts
   : IsModelNameExistsInGraphQLTypes<ReturnType> extends true // If model name has a mapped graphql types
   ? (
-      opts?: NexusPrismaRelationOpts<ModelName, MethodName, ReturnType>
+      opts?: NexusPrismaRelationOpts<ModelName, MethodName, ReturnType>,
     ) => NexusPrismaFields<ModelName> // Then make opts optional
   : (
-      opts: NexusPrismaRelationOpts<ModelName, MethodName, ReturnType>
-    ) => NexusPrismaFields<ModelName>; // Else force use input the related graphql type -> { type: '...' }
+      opts: NexusPrismaRelationOpts<ModelName, MethodName, ReturnType>,
+    ) => NexusPrismaFields<ModelName> // Else force use input the related graphql type -> { type: '...' }
 
 type GetNexusPrismaMethod<
   TypeName extends string
 > = TypeName extends keyof NexusPrismaMethods
   ? NexusPrismaMethods[TypeName]
   : <CustomTypeName extends keyof ModelTypes>(
-      typeName: CustomTypeName
-    ) => NexusPrismaMethods[CustomTypeName];
+      typeName: CustomTypeName,
+    ) => NexusPrismaMethods[CustomTypeName]
 
 type GetNexusPrisma<
   TypeName extends string,
@@ -243,8 +240,7 @@ type GetNexusPrisma<
     : TypeName extends 'Query'
     ? GetNexusPrismaMethod<TypeName>
     : never
-  : never;
-  
+  : never
 
 // Generated
 interface ModelTypes {
@@ -257,96 +253,338 @@ interface ModelTypes {
   Collection: prisma.Collection
   SpatialRefSy: prisma.SpatialRefSy
 }
-  
+
 interface NexusPrismaInputs {
   Query: {
     users: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'display' | 'email' | 'profile' | 'password' | 'collections' | 'role' | 'createdAt' | 'updatedAt'
-  ordering: 'id' | 'username' | 'display' | 'email' | 'password' | 'role' | 'createdAt' | 'updatedAt'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'username'
+        | 'display'
+        | 'email'
+        | 'profile'
+        | 'password'
+        | 'collections'
+        | 'role'
+        | 'createdAt'
+        | 'updatedAt'
+      ordering:
+        | 'id'
+        | 'username'
+        | 'display'
+        | 'email'
+        | 'password'
+        | 'role'
+        | 'createdAt'
+        | 'updatedAt'
+    }
     profiles: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'phone' | 'companyName' | 'companyRole' | 'website' | 'userId' | 'user' | 'updatedAt'
-  ordering: 'id' | 'companyName' | 'companyRole' | 'website' | 'userId' | 'updatedAt'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'phone'
+        | 'companyName'
+        | 'companyRole'
+        | 'website'
+        | 'userId'
+        | 'user'
+        | 'updatedAt'
+      ordering:
+        | 'id'
+        | 'companyName'
+        | 'companyRole'
+        | 'website'
+        | 'userId'
+        | 'updatedAt'
+    }
     phones: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'number' | 'profileId' | 'profile'
-  ordering: 'id' | 'type' | 'number' | 'profileId'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'type'
+        | 'number'
+        | 'profileId'
+        | 'profile'
+      ordering: 'id' | 'type' | 'number' | 'profileId'
+    }
     works: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'WorkOrder'
-  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'catalogId'
+        | 'title'
+        | 'medium'
+        | 'dimensions'
+        | 'width'
+        | 'height'
+        | 'framed'
+        | 'date'
+        | 'type'
+        | 'price'
+        | 'image'
+        | 'category'
+        | 'published'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'collections'
+        | 'WorkOrder'
+      ordering:
+        | 'id'
+        | 'catalogId'
+        | 'title'
+        | 'medium'
+        | 'dimensions'
+        | 'width'
+        | 'height'
+        | 'framed'
+        | 'date'
+        | 'type'
+        | 'price'
+        | 'category'
+        | 'published'
+        | 'createdAt'
+        | 'updatedAt'
+    }
     workOrders: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'order' | 'collectionId' | 'collection' | 'workId' | 'work'
-  ordering: 'id' | 'order' | 'collectionId' | 'workId'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'order'
+        | 'collectionId'
+        | 'collection'
+        | 'workId'
+        | 'work'
+      ordering: 'id' | 'order' | 'collectionId' | 'workId'
+    }
     images: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'url' | 'width' | 'height' | 'createdAt' | 'updatedAt' | 'workId' | 'work'
-  ordering: 'id' | 'name' | 'url' | 'width' | 'height' | 'createdAt' | 'updatedAt' | 'workId'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'name'
+        | 'url'
+        | 'width'
+        | 'height'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'workId'
+        | 'work'
+      ordering:
+        | 'id'
+        | 'name'
+        | 'url'
+        | 'width'
+        | 'height'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'workId'
+    }
     collections: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'works' | 'createdAt' | 'updatedAt' | 'users' | 'WorkOrder'
-  ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
-}
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'name'
+        | 'works'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'users'
+        | 'WorkOrder'
+      ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
+    }
     spatialRefSies: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'srid' | 'authName' | 'authSrid' | 'proj4text' | 'srtext'
-  ordering: 'srid' | 'authName' | 'authSrid' | 'proj4text' | 'srtext'
-}
-
-  },
-    User: {
-    collections: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'works' | 'createdAt' | 'updatedAt' | 'users' | 'WorkOrder'
-  ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
-}
-
-  },  Profile: {
-    phone: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'type' | 'number' | 'profileId' | 'profile'
-  ordering: 'id' | 'type' | 'number' | 'profileId'
-}
-
-  },  Phone: {
-
-
-  },  Work: {
-    image: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'url' | 'width' | 'height' | 'createdAt' | 'updatedAt' | 'workId' | 'work'
-  ordering: 'id' | 'name' | 'url' | 'width' | 'height' | 'createdAt' | 'updatedAt' | 'workId'
-}
-    collections: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'works' | 'createdAt' | 'updatedAt' | 'users' | 'WorkOrder'
-  ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
-}
-    WorkOrder: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'order' | 'collectionId' | 'collection' | 'workId' | 'work'
-  ordering: 'id' | 'order' | 'collectionId' | 'workId'
-}
-
-  },  WorkOrder: {
-
-
-  },  Image: {
-
-
-  },  Collection: {
-    works: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'image' | 'category' | 'published' | 'createdAt' | 'updatedAt' | 'collections' | 'WorkOrder'
-  ordering: 'id' | 'catalogId' | 'title' | 'medium' | 'dimensions' | 'width' | 'height' | 'framed' | 'date' | 'type' | 'price' | 'category' | 'published' | 'createdAt' | 'updatedAt'
-}
-    users: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'display' | 'email' | 'profile' | 'password' | 'collections' | 'role' | 'createdAt' | 'updatedAt'
-  ordering: 'id' | 'username' | 'display' | 'email' | 'password' | 'role' | 'createdAt' | 'updatedAt'
-}
-    WorkOrder: {
-  filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'order' | 'collectionId' | 'collection' | 'workId' | 'work'
-  ordering: 'id' | 'order' | 'collectionId' | 'workId'
-}
-
-  },  SpatialRefSy: {
-
-
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'srid'
+        | 'authName'
+        | 'authSrid'
+        | 'proj4text'
+        | 'srtext'
+      ordering: 'srid' | 'authName' | 'authSrid' | 'proj4text' | 'srtext'
+    }
   }
+  User: {
+    collections: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'name'
+        | 'works'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'users'
+        | 'WorkOrder'
+      ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
+    }
+  }
+  Profile: {
+    phone: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'type'
+        | 'number'
+        | 'profileId'
+        | 'profile'
+      ordering: 'id' | 'type' | 'number' | 'profileId'
+    }
+  }
+  Phone: {}
+  Work: {
+    image: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'name'
+        | 'url'
+        | 'width'
+        | 'height'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'workId'
+        | 'work'
+      ordering:
+        | 'id'
+        | 'name'
+        | 'url'
+        | 'width'
+        | 'height'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'workId'
+    }
+    collections: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'name'
+        | 'works'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'users'
+        | 'WorkOrder'
+      ordering: 'id' | 'name' | 'createdAt' | 'updatedAt'
+    }
+    WorkOrder: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'order'
+        | 'collectionId'
+        | 'collection'
+        | 'workId'
+        | 'work'
+      ordering: 'id' | 'order' | 'collectionId' | 'workId'
+    }
+  }
+  WorkOrder: {}
+  Image: {}
+  Collection: {
+    works: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'catalogId'
+        | 'title'
+        | 'medium'
+        | 'dimensions'
+        | 'width'
+        | 'height'
+        | 'framed'
+        | 'date'
+        | 'type'
+        | 'price'
+        | 'image'
+        | 'category'
+        | 'published'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'collections'
+        | 'WorkOrder'
+      ordering:
+        | 'id'
+        | 'catalogId'
+        | 'title'
+        | 'medium'
+        | 'dimensions'
+        | 'width'
+        | 'height'
+        | 'framed'
+        | 'date'
+        | 'type'
+        | 'price'
+        | 'category'
+        | 'published'
+        | 'createdAt'
+        | 'updatedAt'
+    }
+    users: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'username'
+        | 'display'
+        | 'email'
+        | 'profile'
+        | 'password'
+        | 'collections'
+        | 'role'
+        | 'createdAt'
+        | 'updatedAt'
+      ordering:
+        | 'id'
+        | 'username'
+        | 'display'
+        | 'email'
+        | 'password'
+        | 'role'
+        | 'createdAt'
+        | 'updatedAt'
+    }
+    WorkOrder: {
+      filtering:
+        | 'AND'
+        | 'OR'
+        | 'NOT'
+        | 'id'
+        | 'order'
+        | 'collectionId'
+        | 'collection'
+        | 'workId'
+        | 'work'
+      ordering: 'id' | 'order' | 'collectionId' | 'workId'
+    }
+  }
+  SpatialRefSy: {}
 }
 
 interface NexusPrismaTypes {
@@ -367,8 +605,7 @@ interface NexusPrismaTypes {
     collections: 'Collection'
     spatialRefSy: 'SpatialRefSy'
     spatialRefSies: 'SpatialRefSy'
-
-  },
+  }
   Mutation: {
     createOneUser: 'User'
     updateOneUser: 'User'
@@ -418,8 +655,7 @@ interface NexusPrismaTypes {
     deleteOneSpatialRefSy: 'SpatialRefSy'
     deleteManySpatialRefSy: 'BatchPayload'
     upsertOneSpatialRefSy: 'SpatialRefSy'
-
-  },
+  }
   User: {
     id: 'Int'
     username: 'String'
@@ -431,8 +667,8 @@ interface NexusPrismaTypes {
     role: 'Role'
     createdAt: 'DateTime'
     updatedAt: 'DateTime'
-
-},  Profile: {
+  }
+  Profile: {
     id: 'Int'
     phone: 'Phone'
     companyName: 'String'
@@ -441,15 +677,15 @@ interface NexusPrismaTypes {
     userId: 'Int'
     user: 'User'
     updatedAt: 'DateTime'
-
-},  Phone: {
+  }
+  Phone: {
     id: 'Int'
     type: 'PhoneType'
     number: 'String'
     profileId: 'Int'
     profile: 'Profile'
-
-},  Work: {
+  }
+  Work: {
     id: 'Int'
     catalogId: 'Int'
     title: 'String'
@@ -468,16 +704,16 @@ interface NexusPrismaTypes {
     updatedAt: 'DateTime'
     collections: 'Collection'
     WorkOrder: 'WorkOrder'
-
-},  WorkOrder: {
+  }
+  WorkOrder: {
     id: 'Int'
     order: 'Int'
     collectionId: 'Int'
     collection: 'Collection'
     workId: 'Int'
     work: 'Work'
-
-},  Image: {
+  }
+  Image: {
     id: 'Int'
     name: 'String'
     url: 'String'
@@ -487,8 +723,8 @@ interface NexusPrismaTypes {
     updatedAt: 'DateTime'
     workId: 'Int'
     work: 'Work'
-
-},  Collection: {
+  }
+  Collection: {
     id: 'Int'
     name: 'String'
     works: 'Work'
@@ -496,15 +732,14 @@ interface NexusPrismaTypes {
     updatedAt: 'DateTime'
     users: 'User'
     WorkOrder: 'WorkOrder'
-
-},  SpatialRefSy: {
+  }
+  SpatialRefSy: {
     srid: 'Int'
     authName: 'String'
     authSrid: 'Int'
     proj4text: 'String'
     srtext: 'String'
-
-}
+  }
 }
 
 interface NexusPrismaMethods {
@@ -519,12 +754,10 @@ interface NexusPrismaMethods {
   Query: NexusPrismaFields<'Query'>
   Mutation: NexusPrismaFields<'Mutation'>
 }
-  
 
 declare global {
   type NexusPrisma<
     TypeName extends string,
     ModelOrCrud extends 'model' | 'crud'
-  > = GetNexusPrisma<TypeName, ModelOrCrud>;
+  > = GetNexusPrisma<TypeName, ModelOrCrud>
 }
-  
